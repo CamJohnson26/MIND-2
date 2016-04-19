@@ -1,3 +1,4 @@
+from dataType import DataType
 import json
 
 
@@ -26,9 +27,12 @@ class GraphCursor:
 
     def feed(self, dataPoint):
         new_currentNodes = []
+        dataType = dataPoint.dataNode.dataType
         for c in self.currentNodes:
             if c is not None and c.matches(dataPoint):
                 new_currentNodes.extend(c.nexts)
+                dataType = c.dataNode.dataType
+        dataPoint.dataNode.dataType = dataType
         self.parsedData.append(dataPoint)
         self.currentNodes = new_currentNodes
         return len(new_currentNodes) > 0

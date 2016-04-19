@@ -5,6 +5,7 @@ from graphStructure import GraphStructure
 from dataGraph import DataGraph
 from flowGraphCursor import FlowGraphCursor
 from dataGraphLayer import DataGraphLayer
+from dataType import DataType
 import json
 
 
@@ -43,8 +44,8 @@ class DataGraphMachine:
         self.cursors = new_cursors
 
     def create_graph_node(self, cursor):
-        dataType = cursor.graphCursor.graph.graph.name
-        parsedGraph = GraphStructure(cursor.graphCursor.parsedData, dataType)
+        dataTypeName = cursor.graphCursor.graph.graph.name
+        parsedGraph = GraphStructure(cursor.graphCursor.parsedData, dataTypeName)
         parsedData = DataGraph(parsedGraph)
 
         def matchFunction(test):
@@ -55,7 +56,8 @@ class DataGraphMachine:
                     return False
             return True
 
-        dataNode = DataNode(dataType, matchFunction, parsedData)
+        dataType = DataType(dataTypeName, matchFunction)
+        dataNode = DataNode(dataType, parsedData)
         graphNode = GraphNode(dataNode)
         return graphNode
 

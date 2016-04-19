@@ -15,5 +15,3 @@ class DataGraph:
         rv = {"class": "DataGraph"}
         rv["graph"] = self.graph.get_json()
         return rv
-
-    # Add a matches function here or on Graph, haven't decided

@@ -3,13 +3,11 @@ import json
 
 class DataNode:
 
-    matchFunction = None
-    dataType = ""
+    dataType = None
     parsedData = ""
 
-    def __init__(self, dataType, matchFunction, parsedData=""):
+    def __init__(self, dataType, parsedData=""):
         self.dataType = dataType
-        self.matchFunction = matchFunction
         self.parsedData = parsedData
 
     def __str__(self):
@@ -17,12 +15,9 @@ class DataNode:
 
     def get_json(self):
         rv = {"class": "DataNode"}
-        rv["dataType"] = self.dataType
+        rv["dataType"] = self.dataType.get_json()
         if type(self.parsedData) is str:
             rv["parsedData"] = self.parsedData
         else:
             rv["parsedData"] = self.parsedData.get_json()
         return rv
-
-    def matches(self, inputVal):
-        return self.matchFunction(inputVal)

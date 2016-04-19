@@ -7,6 +7,7 @@ from graphCursor import GraphCursor
 from dataGraphLayer import DataGraphLayer
 from dataGraphMachine import DataGraphMachine
 from flowGraphCursor import FlowGraphCursor
+from dataType import DataType
 
 def letterMatch(test):
     returnVal = False
@@ -36,12 +37,12 @@ def punctuationMatch(test):
     return returnVal
 
 testData = " this is to test word tokenizer 2 and see if I recieve 1999 reliable informations "
-testData = " forescore and 7 years ago our forefathers brought forth on this continent-a new nation"
 
 testDataGraphNodes = []
 previousNode = None
 for c in testData:
-    cDataNode = DataNode("char", lambda i: i == c, parsedData=c)
+    cDataType = DataType("char", lambda i: i == c)
+    cDataNode = DataNode(cDataType, parsedData=c)
     cGraphNode = GraphNode(cDataNode)
     testDataGraphNodes.append(cGraphNode)
     if previousNode:
@@ -52,11 +53,15 @@ testDataGraphNodes[-1].nexts.append(None)
 testDataGraph = GraphStructure(testDataGraphNodes, "character_stream")
 dataGraph = DataGraph(testDataGraph)
 
+letterDataType = DataType("letter", letterMatch)
+numberDataType = DataType("number", numberMatch)
+whiteSpaceDataType = DataType("whiteSpace", whiteSpaceMatch)
+punctuationDataType = DataType("punctuation", punctuationMatch)
 
-letterNode = DataNode("letter", letterMatch)
-numberNode = DataNode("number", numberMatch)
-whiteSpaceNode = DataNode("whiteSpace", whiteSpaceMatch)
-punctuationNode = DataNode("punctuation", punctuationMatch)
+letterNode = DataNode(letterDataType)
+numberNode = DataNode(numberDataType)
+whiteSpaceNode = DataNode(whiteSpaceDataType)
+punctuationNode = DataNode(punctuationDataType)
 
 spaceGraphNode1 = GraphNode(whiteSpaceNode)
 letterGraphNode = GraphNode(letterNode)
