@@ -5,9 +5,11 @@ from graphCursor import GraphCursor
 class FlowGraph:
 
     graph = None
+    startNodes = []
 
-    def __init__(self, graph):
+    def __init__(self, graph, startNodes):
         self.graph = graph
+        self.startNodes = startNodes
 
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)

@@ -8,9 +8,9 @@ class GraphCursor:
     currentNodes = []
     parsedData = []
 
-    def __init__(self, graph, startNode):
+    def __init__(self, graph, startNodes):
         self.graph = graph
-        self.currentNodes = [startNode]
+        self.currentNodes = startNodes
         self.parsedData = []
 
     def __str__(self):
@@ -26,16 +26,18 @@ class GraphCursor:
         return rv
 
     def feed(self, dataPoint):
+        success = False
         new_currentNodes = []
         dataType = dataPoint.dataNode.dataType
         for c in self.currentNodes:
             if c is not None and c.matches(dataPoint):
                 new_currentNodes.extend(c.nexts)
                 dataType = c.dataNode.dataType
+                success = True
         dataPoint.dataNode.dataType = dataType
         self.parsedData.append(dataPoint)
         self.currentNodes = new_currentNodes
-        return len(new_currentNodes) > 0
+        return success
 
     def cursor_complete(self):
         return None in self.currentNodes

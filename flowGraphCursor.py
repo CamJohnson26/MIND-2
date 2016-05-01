@@ -8,7 +8,7 @@ class FlowGraphCursor:
     graphCursor = None
 
     def __init__(self, flowGraph, anchorPoint):
-        self.graphCursor = GraphCursor(flowGraph, flowGraph.graph.nodes[0])
+        self.graphCursor = GraphCursor(flowGraph, flowGraph.startNodes)
         self.anchorPoint = anchorPoint
 
     def __str__(self):

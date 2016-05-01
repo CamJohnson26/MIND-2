@@ -25,8 +25,19 @@ class GraphNode:
         return rv
 
     def matches(self, inputData):
-        if (self.dataNode.dataType.matches(inputData.dataNode.parsedData) or
-           (self.dataNode.dataType.dataTypeName == inputData.dataNode.dataType.dataTypeName)):
+        inputDataTypeName = inputData.dataNode.dataType.dataTypeName
+        inputDataClass = inputData.dataNode.dataClass
+        inputDataClassIndex = None
+        if inputDataClass:
+            inputDataClassIndex = inputDataClass.dataClassIndex
+        inputDataParsedData = inputData.dataNode.parsedData
+        if (((self.dataNode.dataType.dataTypeName == inputDataTypeName) and
+            (self.dataNode.dataClass is None or
+             self.dataNode.dataClass.dataClassIndex == inputDataClassIndex) and
+            ((self.dataNode.parsedData == inputDataParsedData) or
+            (self.dataNode.parsedData is None))) or
+            ((self.dataNode.parsedData is None) and
+             self.dataNode.dataType.matches(inputData.dataNode.parsedData))):
             return True
         else:
             return False

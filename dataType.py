@@ -5,10 +5,12 @@ class DataType:
 
     matchFunction = None
     dataTypeName = ""
+    dataClasses = []
 
     def __init__(self, dataTypeName, matchFunction):
         self.dataTypeName = dataTypeName
         self.matchFunction = matchFunction
+        self.dataClasses = []
 
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
@@ -20,3 +22,8 @@ class DataType:
 
     def matches(self, inputVal):
         return self.matchFunction(inputVal)
+
+    def classify(self, dataNode):
+        for c in self.dataClasses:
+            if c.matches(dataNode):
+                return c
