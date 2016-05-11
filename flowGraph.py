@@ -17,6 +17,7 @@ class FlowGraph:
     def get_json(self):
         rv = {"class": "FlowGraph"}
         rv["graph"] = self.graph.get_json()
+        rv["startNodes"] = [str(a.guid) for a in self.startNodes]
         return rv
 
     # Move this to graph stepper class

@@ -18,6 +18,8 @@ class DataType:
     def get_json(self):
         rv = {"class": "DataType"}
         rv["dataTypeName"] = self.dataTypeName
+        rv["dataClasses"] = [a.get_json() for a in self.dataClasses]
+        rv["matchFunction"] = self.matchFunction.__name__
         return rv
 
     def matches(self, inputVal):
