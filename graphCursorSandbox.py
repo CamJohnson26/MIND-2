@@ -65,7 +65,7 @@ dataGraphMachine = DataGraphMachine([wordDataGraph, numberDataGraph], originalDa
 for d in dataGraph.graph.nodes:
     dataGraphMachine.feed(d)
 
-#print(dataGraphMachine.dataGraphLayer)
+print(dataGraphMachine.dataGraphLayer)
 
 charDataNodeA = DataNode(letterDataType, parsedData='a')
 charGraphNodeA = GraphNode(charDataNodeA)
@@ -105,6 +105,7 @@ print(letterGraphNode)
 print(letterGraphNode.matches(GraphNode(testA)))
 print(charGraphNodeA2.matches(GraphNode(testA)))
 
+from Utilities.dataClassConstructor import dataClassFromJSON
 from Utilities.dataTypeConstructor import dataTypeFromJSON
 from Utilities.dataNodeConstructor import dataNodeFromJSON
 from Utilities.graphNodeConstructor import graphNodeFromJSON
@@ -119,16 +120,70 @@ newWhiteSpace = dataTypeFromJSON('''{
                     }''')
 
 genDataNode = dataNodeFromJSON('''{
-                        "dataType": {
-                            "class": "DataType",
-                            "dataTypeName": "whiteSpace",
-                            "matchFunction": "whiteSpaceMatch",
-                            "dataClasses":[]
-                        },
-                        "parsedData": null,
-                        "class": "DataNode",
-                        "dataClass": null
-                    }''')
+    "dataType": {
+        "matchFunction": "letterMatch", 
+        "dataClasses": [], 
+        "class": "DataType", 
+        "dataTypeName": "letter"
+    }, 
+    "parsedData": "A", 
+    "class": "DataNode", 
+    "dataClass": {
+        "dataClassIndex": 0, 
+        "dataClassString": "a", 
+        "class": "DataClass", 
+        "flowGraph": {
+            "graph": {
+                "nodes": [
+                    {
+                        "guid": "cbe811f2-332f-48f2-9485-c8d8086dc087", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "dataClasses": [], 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": "a", 
+                            "class": "DataNode", 
+                            "dataClass": null
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            null
+                        ]
+                    }, 
+                    {
+                        "guid": "2ca33464-cea7-4317-b78d-5dce5abce965", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "dataClasses": [], 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": "A", 
+                            "class": "DataNode", 
+                            "dataClass": null
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            null
+                        ]
+                    }
+                ], 
+                "guid": "59282a89-f60a-4e81-83ef-101e428ae7ee", 
+                "class": "GraphStructure", 
+                "name": "class:a"
+            }, 
+            "class": "FlowGraph", 
+            "startNodes": [
+                "cbe811f2-332f-48f2-9485-c8d8086dc087", 
+                "2ca33464-cea7-4317-b78d-5dce5abce965"
+            ]
+        }
+    }
+}''')
 
 genGraphNode = graphNodeFromJSON('''{
                         "guid": "21169d37-90de-453c-86d7-c1d433f8301b", 
@@ -216,7 +271,7 @@ genFlowGraph = flowGraphFromJSON('''{
     "graph": {
         "nodes": [
             {
-                "guid": "8baf962f-96bf-48e9-a0b5-340eff9f0cd5", 
+                "guid": "fe086570-f285-4fd9-a2bd-d31f70263a2f", 
                 "dataNode": {
                     "dataType": {
                         "matchFunction": "whiteSpaceMatch", 
@@ -230,11 +285,11 @@ genFlowGraph = flowGraphFromJSON('''{
                 }, 
                 "class": "GraphNode", 
                 "nexts": [
-                    "ddfb9799-4ba7-4267-ab41-f22e35f60e17"
+                    "d0bdefad-aaab-4f5e-8548-65b79087bf79"
                 ]
             }, 
             {
-                "guid": "ddfb9799-4ba7-4267-ab41-f22e35f60e17", 
+                "guid": "d0bdefad-aaab-4f5e-8548-65b79087bf79", 
                 "dataNode": {
                     "dataType": {
                         "matchFunction": "letterMatch", 
@@ -248,12 +303,12 @@ genFlowGraph = flowGraphFromJSON('''{
                 }, 
                 "class": "GraphNode", 
                 "nexts": [
-                    "c5435b3e-40b9-4cde-9cab-7852290fe0b0", 
-                    "ddfb9799-4ba7-4267-ab41-f22e35f60e17"
+                    "df9afbd0-23bb-4175-8a0d-792369bcb285", 
+                    "d0bdefad-aaab-4f5e-8548-65b79087bf79"
                 ]
             }, 
             {
-                "guid": "c5435b3e-40b9-4cde-9cab-7852290fe0b0", 
+                "guid": "df9afbd0-23bb-4175-8a0d-792369bcb285", 
                 "dataNode": {
                     "dataType": {
                         "matchFunction": "whiteSpaceMatch", 
@@ -271,17 +326,18 @@ genFlowGraph = flowGraphFromJSON('''{
                 ]
             }
         ], 
-        "guid": "54d3e0e1-8eed-4d4c-b5ae-0d3e4c87170f", 
+        "guid": "7eaae97f-4af3-44a2-bcf2-091dbdd3eeb0", 
         "class": "GraphStructure", 
         "name": "word"
     }, 
     "class": "FlowGraph", 
     "startNodes": [
-        "8baf962f-96bf-48e9-a0b5-340eff9f0cd5"
+        "fe086570-f285-4fd9-a2bd-d31f70263a2f"
     ]
 }''')
 
+print(genDataNode)
 #print(newWhiteSpace)
 #print(genGraphStructure)
 #print(str(charDataNodeB))
-print(genFlowGraph)
+#print(genFlowGraph)
