@@ -1,0 +1,6 @@
+{
+    "class": "DataType",
+    "dataTypeName": "number",
+    "matchFunction": "numberMatch",
+    "dataClasses": []
+}

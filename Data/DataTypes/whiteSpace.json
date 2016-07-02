@@ -1,0 +1,6 @@
+{
+    "class": "DataType",
+    "dataTypeName": "whiteSpace",
+    "matchFunction": "whiteSpaceMatch",
+    "dataClasses": []
+}

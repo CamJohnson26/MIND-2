@@ -6,7 +6,10 @@ import json
 
 def dataNodeFromJSON(inputJSON):
     inputObject = json.loads(inputJSON)
-    dataType = dataTypeConstructor.dataTypeFromJSON(json.dumps(inputObject["dataType"]))
+    if type(inputObject["dataType"]) is unicode:
+        dataType = dataTypeConstructor.loadDataType(inputObject["dataType"])
+    else:
+        dataType = dataTypeConstructor.dataTypeFromJSON(json.dumps(inputObject["dataType"]))
     if inputObject["dataClass"] is None:
     	dataClass = None
     else:
@@ -15,3 +18,8 @@ def dataNodeFromJSON(inputJSON):
     dataNode.parsedData = inputObject["parsedData"]
     dataNode.dataClass = dataClass
     return dataNode
+
+def loadDataNode(inputFileName):
+    f = open("Data/DataNodes/" + inputFileName)
+    json = f.read()
+    return dataNodeFromJSON(json)

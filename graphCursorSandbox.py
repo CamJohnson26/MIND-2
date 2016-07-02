@@ -7,11 +7,15 @@ from dataGraphLayer import DataGraphLayer
 from dataGraphMachine import DataGraphMachine
 from dataType import DataType
 from dataClass import DataClass
+from Utilities.dataTypeConstructor import *
+from Utilities.dataNodeConstructor import *
 import Data.matchFunctions as mf
 
+# Setup Input Strings
 testData = " this is to test word tokenizer 2 and see if I recieve 1999 reliable informations "
 testData = " cameron is the man "
 
+# Convert string to chain of GraphNodes
 testDataGraphNodes = []
 previousNode = None
 for c in testData:
@@ -27,16 +31,13 @@ testDataGraphNodes[-1].nexts.append(None)
 testDataGraph = GraphStructure(testDataGraphNodes, "character_stream")
 dataGraph = DataGraph(testDataGraph)
 
-letterDataType = DataType("letter", mf.letterMatch)
-numberDataType = DataType("number", mf.numberMatch)
-whiteSpaceDataType = DataType("whiteSpace", mf.whiteSpaceMatch)
-punctuationDataType = DataType("punctuation", mf.punctuationMatch)
+# Setup DataNodes
+letterNode = loadDataNode("letter.json")
+numberNode = loadDataNode("number.json")
+whiteSpaceNode = loadDataNode("whiteSpace.json")
+punctuationNode = loadDataNode("punctuation.json")
 
-letterNode = DataNode(letterDataType)
-numberNode = DataNode(numberDataType)
-whiteSpaceNode = DataNode(whiteSpaceDataType)
-punctuationNode = DataNode(punctuationDataType)
-
+# Create Word Data Graph
 spaceGraphNode1 = GraphNode(whiteSpaceNode)
 letterGraphNode = GraphNode(letterNode)
 spaceGraphNode2 = GraphNode(whiteSpaceNode)
@@ -54,12 +55,15 @@ wordDataGraph = FlowGraph(wordGraphStructure, [spaceGraphNode1])
 
 print(wordDataGraph)
 
+# Create Number Data Graph
 numberGraphStructure = GraphStructure([numberGraphNode],"number")
 numberDataGraph = FlowGraph(numberGraphStructure, [numberGraphNode])
 
+# Set up DataGraph Layer
 originalDataGraphLayer = DataGraphLayer(None)
 originalDataGraphLayer.dataGraph = dataGraph
 
+# Create DataGraphMachine
 dataGraphMachine = DataGraphMachine([wordDataGraph, numberDataGraph], originalDataGraphLayer)
 
 for d in dataGraph.graph.nodes:
@@ -67,6 +71,7 @@ for d in dataGraph.graph.nodes:
 
 print(dataGraphMachine.dataGraphLayer)
 
+# Set up types of char
 charDataNodeA = DataNode(letterDataType, parsedData='a')
 charGraphNodeA = GraphNode(charDataNodeA)
 charDataNodeA2 = DataNode(letterDataType, parsedData='A')

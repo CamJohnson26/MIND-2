@@ -14,3 +14,9 @@ def dataTypeFromJSON(inputJSON):
         dataClasses.append(dataClassConstructor.dataClassFromJSON(json.dumps(dataClass)))
     dataType.dataClasses = dataClasses
     return dataType
+
+
+def loadDataType(inputFileName):
+    f = open("Data/DataTypes/" + inputFileName)
+    json = f.read()
+    return dataTypeFromJSON(json)
