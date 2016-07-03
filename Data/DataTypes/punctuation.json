@@ -1,6 +1,5 @@
 {
     "class": "DataType",
     "dataTypeName": "punctuation",
-    "matchFunction": "punctuationMatch",
-    "dataClasses": []
+    "matchFunction": "punctuationMatch"
 }

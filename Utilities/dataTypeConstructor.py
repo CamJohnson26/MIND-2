@@ -9,10 +9,6 @@ def dataTypeFromJSON(inputJSON):
     dataTypeName = inputObject["dataTypeName"]
     matchFunction = getattr(matchFunctions, inputObject["matchFunction"])
     dataType = DataType(dataTypeName, matchFunction)
-    dataClasses = []
-    for dataClass in inputObject["dataClasses"]:
-        dataClasses.append(dataClassConstructor.dataClassFromJSON(json.dumps(dataClass)))
-    dataType.dataClasses = dataClasses
     return dataType
 
 

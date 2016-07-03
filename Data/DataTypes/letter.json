@@ -1,6 +1,5 @@
 {
     "class": "DataType",
     "dataTypeName": "letter",
-    "matchFunction": "letterMatch",
-    "dataClasses": []
+    "matchFunction": "letterMatch"
 }

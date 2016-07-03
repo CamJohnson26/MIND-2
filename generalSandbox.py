@@ -11,4 +11,4 @@ from Utilities.dataNodeConstructor import *
 from Utilities.graphStructureConstructor import *
 import Data.matchFunctions as mf
 
-print(loadGraphStructure("word.json").get_json())
+print(loadDataNode("letter.json").get_json())

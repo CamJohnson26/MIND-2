@@ -30,5 +30,5 @@ class DataNode:
             rv["dataClass"] = None
         return rv
 
-    def classify(self):
-        self.dataClass = self.dataType.classify(self)
+    def classify(self, dataClasses):
+        self.dataClass = self.dataType.classify(self, dataClasses)
