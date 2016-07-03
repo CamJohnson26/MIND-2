@@ -21,8 +21,3 @@ class DataType:
 
     def matches(self, inputVal):
         return self.matchFunction(inputVal)
-
-    def classify(self, dataNode, dataClasses):
-        for c in dataClasses:
-            if c.matches(dataNode):
-                return c

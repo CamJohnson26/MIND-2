@@ -20,7 +20,7 @@ class FlowGraph:
         rv["startNodes"] = [str(a.guid) for a in self.startNodes]
         return rv
 
-    # Move this to graph stepper class
+    # Move this to graph stepper class?
     def matches_datagraph(self, dataGraph):
         cursors = [GraphCursor(self, self.graph.nodes[0])]
         for dataPoint in dataGraph:

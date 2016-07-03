@@ -31,4 +31,8 @@ class DataNode:
         return rv
 
     def classify(self, dataClasses):
-        self.dataClass = self.dataType.classify(self, dataClasses)
+        dataClass = None
+        for c in dataClasses:
+            if c.matches(self):
+                dataClass = c
+        self.dataClass = dataClass
