@@ -8,6 +8,7 @@ from dataGraphMachine import DataGraphMachine
 from dataType import DataType
 from dataClass import DataClass
 from Utilities.dataNodeConstructor import *
+from Utilities.graphStructureConstructor import *
 import Data.matchFunctions as mf
 
-loadDataNode("letter.json").get_json()
+print(loadGraphStructure("word.json").get_json())

@@ -1,0 +1,38 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "guid": "efd6b6e9-398d-4ae7-92f4-2bc712239b1a",
+                "dataNode": "whiteSpace.json",
+                "class": "GraphNode",
+                "nexts": [
+                    "0f0a8e67-cc17-4f74-9c8f-eea4c0b32292"
+                ]
+            },
+            {
+                "guid": "0f0a8e67-cc17-4f74-9c8f-eea4c0b32292",
+                "dataNode": "letter.json",
+                "class": "GraphNode",
+                "nexts": [
+                    "def009bf-8223-4b32-9691-6abee8019255",
+                    "0f0a8e67-cc17-4f74-9c8f-eea4c0b32292"
+                ]
+            },
+            {
+                "guid": "def009bf-8223-4b32-9691-6abee8019255",
+                "dataNode": "whiteSpace.json",
+                "class": "GraphNode",
+                "nexts": [
+                    null
+                ]
+            }
+        ],
+        "guid": "40cb48dc-67e5-4ce0-a6f5-dd5dc14c511d",
+        "class": "GraphStructure",
+        "name": "word"
+    },
+    "class": "FlowGraph",
+    "startNodes": [
+        "efd6b6e9-398d-4ae7-92f4-2bc712239b1a"
+    ]
+}

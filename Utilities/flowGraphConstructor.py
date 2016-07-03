@@ -14,3 +14,9 @@ def flowGraphFromJSON(inputJSON):
                 startNodes.append(node)
     dataClass = FlowGraph(graph, startNodes)
     return dataClass
+
+
+def loadFlowGraph(inputFileName):
+    f = open("Data/FlowGraphs/" + inputFileName)
+    json = f.read()
+    return flowGraphFromJSON(json)

@@ -9,6 +9,7 @@ from dataType import DataType
 from dataClass import DataClass
 from Utilities.dataTypeConstructor import *
 from Utilities.dataNodeConstructor import *
+from Utilities.flowGraphConstructor import *
 import Data.matchFunctions as mf
 
 # Setup Input Strings
@@ -31,33 +32,9 @@ testDataGraphNodes[-1].nexts.append(None)
 testDataGraph = GraphStructure(testDataGraphNodes, "character_stream")
 dataGraph = DataGraph(testDataGraph)
 
-# Setup DataNodes
-letterNode = loadDataNode("letter.json")
-numberNode = loadDataNode("number.json")
-whiteSpaceNode = loadDataNode("whiteSpace.json")
-punctuationNode = loadDataNode("punctuation.json")
-
-# Create Word Data Graph
-spaceGraphNode1 = GraphNode(whiteSpaceNode)
-letterGraphNode = GraphNode(letterNode)
-spaceGraphNode2 = GraphNode(whiteSpaceNode)
-numberGraphNode = GraphNode(numberNode)
-
-spaceGraphNode1.nexts.append(letterGraphNode)
-letterGraphNode.nexts.append(spaceGraphNode2)
-letterGraphNode.nexts.append(letterGraphNode)
-spaceGraphNode2.nexts.append(None)
-numberGraphNode.nexts.append(numberGraphNode)
-numberGraphNode.nexts.append(None)
-
-wordGraphStructure = GraphStructure([spaceGraphNode1, letterGraphNode, spaceGraphNode2], "word")
-wordDataGraph = FlowGraph(wordGraphStructure, [spaceGraphNode1])
-
-print(wordDataGraph)
-
-# Create Number Data Graph
-numberGraphStructure = GraphStructure([numberGraphNode],"number")
-numberDataGraph = FlowGraph(numberGraphStructure, [numberGraphNode])
+# Create Data Graphs
+wordDataGraph = loadFlowGraph("word.json")
+numberDataGraph = loadFlowGraph("number.json")
 
 # Set up DataGraph Layer
 originalDataGraphLayer = DataGraphLayer(None)
