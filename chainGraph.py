@@ -1,7 +1,7 @@
 import json
 
 
-class DataGraph:
+class ChainGraph:
 
     graph = None
 
@@ -12,6 +12,6 @@ class DataGraph:
         return json.dumps(self.get_json(), indent=4)
 
     def get_json(self):
-        rv = {"class": "DataGraph"}
+        rv = {"class": "ChainGraph"}
         rv["graph"] = self.graph.get_json()
         return rv

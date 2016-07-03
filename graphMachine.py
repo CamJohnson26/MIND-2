@@ -2,22 +2,22 @@ from dataNode import DataNode
 from graphNode import GraphNode
 from bridgeNode import BridgeNode
 from graphStructure import GraphStructure
-from dataGraph import DataGraph
+from chainGraph import ChainGraph
 from flowGraphCursor import FlowGraphCursor
-from dataGraphLayer import DataGraphLayer
+from chainGraphLayer import ChainGraphLayer
 from dataType import DataType
 import json
 
 
-class DataGraphMachine:
+class GraphMachine:
     cursors = []
     flowGraphs = []
-    dataGraphLayer = None
+    chainGraphLayer = None
 
-    def __init__(self, flowGraphs, parentDataGraphLayer):
+    def __init__(self, flowGraphs, parentChainGraphLayer):
         self.cursors = []
         self.flowGraphs = flowGraphs
-        self.dataGraphLayer = DataGraphLayer(parentDataGraphLayer)
+        self.chainGraphLayer = ChainGraphLayer(parentChainGraphLayer)
 
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
@@ -37,8 +37,8 @@ class DataGraphMachine:
                 if cursor.graphCursor.cursor_complete():
                     newNode = self.create_graph_node(cursor)
                     bridge = self.create_bridge(cursor, graphNode, newNode)
-                    self.dataGraphLayer.dataGraph.graph.nodes.append(newNode)
-                    self.dataGraphLayer.bridgeNodes.append(bridge)
+                    self.chainGraphLayer.chainGraph.graph.nodes.append(newNode)
+                    self.chainGraphLayer.bridgeNodes.append(bridge)
                 else:
                     new_cursors.append(cursor)
         self.cursors = new_cursors
@@ -46,7 +46,7 @@ class DataGraphMachine:
     def create_graph_node(self, cursor):
         dataTypeName = cursor.graphCursor.graph.graph.name
         parsedGraph = GraphStructure(cursor.graphCursor.parsedData, dataTypeName)
-        parsedData = DataGraph(parsedGraph)
+        parsedData = ChainGraph(parsedGraph)
 
         def matchFunction(test):
             if not len(test) == len(self.parsedData):

@@ -1,49 +1,31 @@
 from dataNode import DataNode
 from graphNode import GraphNode
-from graphStructure import GraphStructure
-from dataGraph import DataGraph
-from dataGraphLayer import DataGraphLayer
-from dataGraphMachine import DataGraphMachine
-from dataType import DataType
+from chainGraphLayer import ChainGraphLayer
+from graphMachine import GraphMachine
 from Utilities.dataTypeConstructor import *
 from Utilities.dataNodeConstructor import *
 from Utilities.flowGraphConstructor import *
 from Utilities.dataClassConstructor import *
+from Utilities.chainGraphConstructor import *
 
-# Setup Input Strings
 testData = " cameron is the man "
-
-# Convert string to chain of GraphNodes
-testDataGraphNodes = []
-previousNode = None
-for c in testData:
-    cDataType = DataType("char", lambda i: i == c)
-    cDataNode = DataNode(cDataType, parsedData=c)
-    cGraphNode = GraphNode(cDataNode)
-    testDataGraphNodes.append(cGraphNode)
-    if previousNode:
-        previousNode.nexts.append(cGraphNode)
-    previousNode = cGraphNode
-testDataGraphNodes[-1].nexts.append(None)
-
-testDataGraph = GraphStructure(testDataGraphNodes, "character_stream")
-dataGraph = DataGraph(testDataGraph)
+chainGraph = chainGraphFromString(testData)
 
 # Create Data Graphs
-wordDataGraph = loadFlowGraph("word.json")
-numberDataGraph = loadFlowGraph("number.json")
+wordFlowGraph = loadFlowGraph("word.json")
+numberFlowGraph = loadFlowGraph("number.json")
 
 # Set up DataGraph Layer
-originalDataGraphLayer = DataGraphLayer(None)
-originalDataGraphLayer.dataGraph = dataGraph
+originalChainGraphLayer = ChainGraphLayer(None)
+originalChainGraphLayer.chainGraph = chainGraph
 
 # Create DataGraphMachine
-dataGraphMachine = DataGraphMachine([wordDataGraph, numberDataGraph], originalDataGraphLayer)
+graphMachine = GraphMachine([wordFlowGraph, numberFlowGraph], originalChainGraphLayer)
 
-for d in dataGraph.graph.nodes:
-    dataGraphMachine.feed(d)
+for d in chainGraph.graph.nodes:
+    graphMachine.feed(d)
 
-print(dataGraphMachine.dataGraphLayer)
+print(graphMachine.chainGraphLayer)
 
 # Build and test a simple classifier
 dataClasses = []

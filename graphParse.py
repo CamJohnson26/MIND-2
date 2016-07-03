@@ -1,6 +1,6 @@
 from graphNode import GraphNode
 from graphStructure import GraphStructure
-from dataGraph import DataGraph
+from chainGraph import ChainGraph
 import json
 
 
@@ -20,19 +20,19 @@ class GraphParse:
 
     def get_json(self):
         rv = {"class": "GraphParse"}
-        rv["dataGraph"] = self.dataGraph.get_json()
+        rv["chainGraph"] = self.chainGraph.get_json()
         rv["name"] = str(self.name)
         rv["current"] = self.current.get_json()
         return rv
 
     def addObject(self, dataPoint):
         graphNode = GraphNode(dataPoint)
-        if not self.dataGraph:
+        if not self.chainGraph:
             graph = GraphStructure([graphNode], self.name)
-            self.dataGraph = DataGraph(graph)
+            self.chainGraph = ChainGraph(graph)
             self.current = graphNode
         else:
-            self.dataGraph.graph.nodes.append(graphNode)
+            self.chainGraph.graph.nodes.append(graphNode)
             self.current.nexts.append(graphNode)
             self.current = graphNode
     # Convert this class to graph stepper
