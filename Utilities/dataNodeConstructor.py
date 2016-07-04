@@ -11,13 +11,14 @@ def dataNodeFromJSON(inputJSON):
     else:
         dataType = dataTypeConstructor.dataTypeFromJSON(json.dumps(inputObject["dataType"]))
     if inputObject["dataClass"] is None:
-    	dataClass = None
+        dataClass = None
     else:
         dataClass = dataClassConstructor.dataClassFromJSON(json.dumps(inputObject["dataClass"]))
     dataNode = DataNode(dataType)
     dataNode.parsedData = inputObject["parsedData"]
     dataNode.dataClass = dataClass
     return dataNode
+
 
 def loadDataNode(inputFileName):
     f = open("Data/DataNodes/" + inputFileName)

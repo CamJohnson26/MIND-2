@@ -10,7 +10,6 @@ originalChainGraphLayer = ChainGraphLayer(None)
 originalChainGraphLayer.chainGraph = chainGraphFromString(testData)
 
 # Create DataGraphMachine and feed data
-flowGraphs = [loadFlowGraph("word.json"), loadFlowGraph("number.json"),loadFlowGraph("punctuation.json")]
 graphMachine = GraphMachine(flowGraphs, originalChainGraphLayer)
 graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
 

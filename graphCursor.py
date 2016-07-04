@@ -6,11 +6,13 @@ class GraphCursor:
     graph = None
     currentNodes = []
     parsedData = []
+    previousNodes = []
 
     def __init__(self, graph, startNodes):
         self.graph = graph
         self.currentNodes = startNodes
         self.parsedData = []
+        self.previousNodes = []
 
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)

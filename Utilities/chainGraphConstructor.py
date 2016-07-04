@@ -1,8 +1,7 @@
 from chainGraph import ChainGraph
-from dataType import DataType
-from dataNode import DataNode
 from graphNode import GraphNode
 from graphStructure import GraphStructure
+from Utilities.dataNodeConstructor import *
 import graphStructureConstructor
 import json
 
@@ -18,14 +17,13 @@ def chainGraphFromString(inputString):
     testDataGraphNodes = []
     previousNode = None
     for c in inputString:
-        cDataType = DataType("char", lambda i: i == c)
-        cDataNode = DataNode(cDataType, parsedData=c)
+        cDataNode = loadDataNode("letter.json")
+        cDataNode.parsedData = c
         cGraphNode = GraphNode(cDataNode)
         testDataGraphNodes.append(cGraphNode)
         if previousNode:
             previousNode.nexts.append(cGraphNode)
         previousNode = cGraphNode
     testDataGraphNodes[-1].nexts.append(None)
-
     testDataGraph = GraphStructure(testDataGraphNodes, "character_stream")
     return ChainGraph(testDataGraph)
