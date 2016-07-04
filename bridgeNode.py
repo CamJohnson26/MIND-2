@@ -9,10 +9,10 @@ class BridgeNode:
     targetGraphNode = None
     guid = ""
 
-    def __init__(self):
-        self.startGraphNode = None
-        self.endGraphNode = None
-        self.targetGraphNode = None
+    def __init__(self, startGraphNode=None, endGraphNode=None, targetGraphNode=None):
+        self.startGraphNode = startGraphNode
+        self.endGraphNode = endGraphNode
+        self.targetGraphNode = targetGraphNode
         self.guid = uuid.uuid4()
 
     def __str__(self):

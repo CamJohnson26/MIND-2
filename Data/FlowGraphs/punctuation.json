@@ -1,0 +1,22 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "guid": "8eb44c87-4731-4f5b-95f6-8bab40848980",
+                "dataNode": "punctuation.json",
+                "class": "GraphNode",
+                "nexts": [
+                    "8eb44c87-4731-4f5b-95f6-8bab40848980",
+                    null
+                ]
+            }
+        ],
+        "guid": "8cb18c53-dfc2-4b31-b23f-af1e9711d7ad",
+        "class": "GraphStructure",
+        "name": "punctuation"
+    },
+    "class": "FlowGraph",
+    "startNodes": [
+        "8eb44c87-4731-4f5b-95f6-8bab40848980"
+    ]
+}
