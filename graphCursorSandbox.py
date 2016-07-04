@@ -1,29 +1,18 @@
-from dataNode import DataNode
-from graphNode import GraphNode
 from chainGraphLayer import ChainGraphLayer
 from graphMachine import GraphMachine
-from Utilities.dataTypeConstructor import *
-from Utilities.dataNodeConstructor import *
-from Utilities.flowGraphConstructor import *
-from Utilities.dataClassConstructor import *
-from Utilities.chainGraphConstructor import *
+from Utilities.constructors import *
 
+# Test Data
 testData = " cameron is the man "
-chainGraph = chainGraphFromString(testData)
 
-# Create Data Graphs
-wordFlowGraph = loadFlowGraph("word.json")
-numberFlowGraph = loadFlowGraph("number.json")
-
-# Set up DataGraph Layer
+# Set up ChainGraphLayer
 originalChainGraphLayer = ChainGraphLayer(None)
-originalChainGraphLayer.chainGraph = chainGraph
+originalChainGraphLayer.chainGraph = chainGraphFromString(testData)
 
-# Create DataGraphMachine
-graphMachine = GraphMachine([wordFlowGraph, numberFlowGraph], originalChainGraphLayer)
-
-for d in chainGraph.graph.nodes:
-    graphMachine.feed(d)
+# Create DataGraphMachine and feed data
+flowGraphs = [loadFlowGraph("word.json"), loadFlowGraph("number.json")]
+graphMachine = GraphMachine(flowGraphs, originalChainGraphLayer)
+graphMachine.feedChainGraphLayer(originalChainGraphLayer)
 
 print(graphMachine.chainGraphLayer)
 
@@ -34,8 +23,7 @@ dataClasses.append(loadDataClass("class_b.json"))
 
 letterDataType = loadDataType("letter.json")
 
-testA = DataNode(letterDataType, parsedData='a')
-testAGraphNode = GraphNode(testA)
+testA = loadDataNode("char_a.json")
 
 testA.classify(dataClasses)
 print(testA)

@@ -67,3 +67,7 @@ class GraphMachine:
         bridgeNode.endGraphNode = endGraphNode
         bridgeNode.targetGraphNode = targetGraphNode
         return bridgeNode
+
+    def feedChainGraphLayer(self, chainGraphLayer):
+        for d in chainGraphLayer.chainGraph.graph.nodes:
+            self.feed(d)
