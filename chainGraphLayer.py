@@ -21,6 +21,10 @@ class ChainGraphLayer:
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
 
+    def classify(self, dataClasses):
+        for node in self.chainGraph.graph.nodes:
+            node.dataNode.classify(dataClasses)
+
     def get_json(self):
         rv = {"class": "ChainGraph"}
         rv["chainGraph"] = self.chainGraph.get_json()

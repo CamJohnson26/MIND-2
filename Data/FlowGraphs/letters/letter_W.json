@@ -1,0 +1,30 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "guid": "b035517a-ce19-4b37-9bf1-e38b4d9fff03",
+                "dataNode": "letters/char_w.json",
+                "class": "GraphNode",
+                "nexts": [
+                    null
+                ]
+            },
+            {
+                "guid": "1470a3f0-6451-4b5d-af79-b83f52888303",
+                "dataNode": "letters/char_cap_W.json",
+                "class": "GraphNode",
+                "nexts": [
+                    null
+                ]
+            }
+        ],
+        "guid": "e7a8b7d1-b76e-4e9b-b145-61cf7f12d103",
+        "class": "GraphStructure",
+        "name": "class:w"
+    },
+    "class": "FlowGraph",
+    "startNodes": [
+        "b035517a-ce19-4b37-9bf1-e38b4d9fff03",
+        "1470a3f0-6451-4b5d-af79-b83f52888303"
+    ]
+}

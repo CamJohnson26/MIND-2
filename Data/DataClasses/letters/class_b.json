@@ -2,5 +2,5 @@
     "dataClassIndex": 1,
     "dataClassString": "b",
     "class": "DataClass",
-    "flowGraph": "letter_B.json"
+    "flowGraph": "letters/letter_B.json"
 }

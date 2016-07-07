@@ -4,25 +4,41 @@ from Utilities.constructors import *
 
 # Test Data
 testData = " cameron is , the man "
+dataClasses = ["letters/class_a.json",
+               "letters/class_b.json",
+               "letters/class_c.json",
+               "letters/class_d.json",
+               "letters/class_e.json",
+               "letters/class_f.json",
+               "letters/class_g.json",
+               "letters/class_h.json",
+               "letters/class_i.json",
+               "letters/class_j.json",
+               "letters/class_k.json",
+               "letters/class_l.json",
+               "letters/class_m.json",
+               "letters/class_n.json",
+               "letters/class_o.json",
+               "letters/class_p.json",
+               "letters/class_q.json",
+               "letters/class_r.json",
+               "letters/class_s.json",
+               "letters/class_t.json",
+               "letters/class_u.json",
+               "letters/class_v.json",
+               "letters/class_w.json",
+               "letters/class_x.json",
+               "letters/class_y.json",
+               "letters/class_y.json"]
 
 # Set up ChainGraphLayer
 originalChainGraphLayer = ChainGraphLayer(None)
 originalChainGraphLayer.chainGraph = chainGraphFromString(testData)
+originalChainGraphLayer.classify(loadDataClasses(dataClasses))
 
 # Create DataGraphMachine and feed data
+flowGraphs = [loadFlowGraph("word.json"), loadFlowGraph("number.json"), loadFlowGraph("punctuation.json")]
 graphMachine = GraphMachine(flowGraphs, originalChainGraphLayer)
 graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
 
 print(graphMachine.chainGraphLayer)
-
-# Build and test a simple classifier
-dataClasses = []
-dataClasses.append(loadDataClass("class_a.json"))
-dataClasses.append(loadDataClass("class_b.json"))
-
-letterDataType = loadDataType("letter.json")
-
-testA = loadDataNode("char_a.json")
-
-testA.classify(dataClasses)
-print(testA)

@@ -19,3 +19,12 @@ def loadDataClass(inputFileName):
     f = open("Data/DataClasses/" + inputFileName)
     json = f.read()
     return dataClassFromJSON(json)
+
+
+def loadDataClasses(inputFileNames):
+    rv = []
+    for inputFileName in inputFileNames:
+        f = open("Data/DataClasses/" + inputFileName)
+        json = f.read()
+        rv.append(dataClassFromJSON(json))
+    return rv
