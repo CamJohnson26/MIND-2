@@ -4,6 +4,7 @@ from chainGraph import ChainGraph
 from dataType import DataType
 from dataNode import DataNode
 import dataNodeConstructor
+import dataClassConstructor
 import json
 
 
@@ -14,9 +15,14 @@ def graphNodeFromJSON(inputJSON):
     else:
         node_json = json.dumps(inputObject["dataNode"])
         dataNode = dataNodeConstructor.dataNodeFromJSON(node_json)
+    if inputObject["dataClass"] is None:
+        dataClass = None
+    else:
+        dataClass = dataClassConstructor.dataClassFromJSON(json.dumps(inputObject["dataClass"]))
     graphNode = GraphNode(dataNode)
     graphNode.guid = inputObject["guid"]
     graphNode.nexts = []
+    graphNode.dataClass = dataClass
     return graphNode
 
 

@@ -5,11 +5,13 @@ import json
 class GraphNode:
 
     dataNode = None
+    dataClass = None
     nexts = []
     guid = ""
 
     def __init__(self, dataNode):
         self.dataNode = dataNode
+        self.dataClass = None
         self.guid = uuid.uuid4()
         self.nexts = []
 
@@ -22,18 +24,22 @@ class GraphNode:
         rv["guid"] = str(self.guid)
         rv["nexts"] = [str(a.guid) for a in self.nexts if a is not None]
         rv["nexts"].extend([a for a in self.nexts if a is None])
+        if self.dataClass:
+            rv["dataClass"] = self.dataClass.get_json()
+        else:
+            rv["dataClass"] = None
         return rv
 
     def matches(self, inputData):
         inputDataTypeName = inputData.dataNode.dataType.dataTypeName
-        inputDataClass = inputData.dataNode.dataClass
+        inputDataClass = inputData.dataClass
         inputDataClassIndex = None
         if inputDataClass:
             inputDataClassIndex = inputDataClass.dataClassIndex
         inputDataParsedData = inputData.dataNode.parsedData
         if (((self.dataNode.dataType.dataTypeName == inputDataTypeName) and
-            (self.dataNode.dataClass is None or
-             self.dataNode.dataClass.dataClassIndex == inputDataClassIndex) and
+            (self.dataClass is None or
+             self.dataClass.dataClassIndex == inputDataClassIndex) and
             ((self.dataNode.parsedData == inputDataParsedData) or
             (self.dataNode.parsedData is None))) or
             ((self.dataNode.parsedData is None) and
@@ -41,3 +47,10 @@ class GraphNode:
             return True
         else:
             return False
+
+    def classify(self, dataClasses):
+        dataClass = None
+        for c in dataClasses:
+            if c.matches(self.dataNode):
+                dataClass = c
+        self.dataClass = dataClass

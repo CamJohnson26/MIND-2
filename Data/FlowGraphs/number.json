@@ -5,6 +5,7 @@
                 "guid": "8eb44c88-4731-4f5b-95f6-8bab40848980",
                 "dataNode": "number.json",
                 "class": "GraphNode",
+                "dataClass": null,
                 "nexts": [
                     "8eb44c88-4731-4f5b-95f6-8bab40848980",
                     null

@@ -5,6 +5,7 @@
                 "guid": "b035517a-ce19-4b37-9bf1-e38b4d9fff23",
                 "dataNode": "letters/char_c.json",
                 "class": "GraphNode",
+                "dataClass": null,
                 "nexts": [
                     null
                 ]
@@ -13,6 +14,7 @@
                 "guid": "1470a3f0-6451-4b5d-af79-b83f52888323",
                 "dataNode": "letters/char_cap_C.json",
                 "class": "GraphNode",
+                "dataClass": null,
                 "nexts": [
                     null
                 ]

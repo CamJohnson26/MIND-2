@@ -1,6 +1,5 @@
 {
     "dataType": "letter.json",
     "parsedData": "U",
-    "class": "DataNode",
-    "dataClass": null
+    "class": "DataNode"
 }
