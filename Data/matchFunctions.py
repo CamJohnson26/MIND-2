@@ -24,3 +24,12 @@ def punctuationMatch(test):
     if type(test) is str and test in ['!','@','#','$','%','^','&','*','(',')',',','.','?','\'','\"']:
         returnVal = True
     return returnVal
+
+
+def matchFunction(test):
+    if not len(test) == len(self.parsedData):
+        return False
+    for i in range(0, len(test)):
+        if not test[i].matches(self.parsedData[i]):
+            return False
+    return True
