@@ -22,18 +22,3 @@ class FlowGraph:
         rv["startNodes"] = [str(a.guid) for a in self.startNodes]
         rv["contextNodes"] = [str(a.guid) for a in self.contextNodes]
         return rv
-
-    # Move this to graph stepper class?
-    def matches_datagraph(self, dataGraph):
-        cursors = [GraphCursor(self, self.graph.nodes[0])]
-        for dataPoint in dataGraph:
-            new_cursors = []
-            for cursor in cursors:
-                if cursor.matches(dataPoint):
-                    for node in cursor.currendNode.nexts:
-                        new_cursors.append(GraphCursor(self, node))
-            cursors = new_cursors
-            for cursor in new_cursors:
-                if None in cursor.currentNode.nexts:
-                    return True
-        return False

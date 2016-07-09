@@ -1,0 +1,49 @@
+{
+    "graph": {
+        "nodes": [
+                    {
+                        "dataClass": "letters/class_i.json", 
+                        "guid": "1a5bc04b-9120-410e-7777-08fd16cbcb78", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": "i", 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            "75bdac2a-8bf4-4d73-7777-7b8adfdfd1df"
+                        ]
+                    }, 
+                    {
+                        "dataClass": "letters/class_s.json", 
+                        "guid": "75bdac2a-8bf4-4d73-7777-7b8adfdfd1df", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": "s", 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            null
+                        ]
+                    }
+                ],
+        "guid": "581ebf6b-6bae-4d68-7777-18e91c24290d",
+        "class": "GraphStructure",
+        "name": "class:is"
+    },
+    "class": "FlowGraph",
+    "startNodes": [
+        "1a5bc04b-9120-410e-7777-08fd16cbcb78"
+    ],
+    "contextNodes":[]
+
+}

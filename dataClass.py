@@ -25,9 +25,16 @@ class DataClass:
         return rv
 
     def matches(self, dataNode):
-        graphNode = GraphNode(dataNode)
-        cursor = FlowGraphCursor(self.flowGraph, graphNode)
-        if cursor.graphCursor.feed(graphNode):
-            if cursor.graphCursor.cursor_complete():
-                return True
+        if type(dataNode.parsedData) in [str, unicode]:
+            nodes = [GraphNode(dataNode)]
+        else:
+            nodes = dataNode.parsedData.graph.nodes
+        cursor = FlowGraphCursor(self.flowGraph, nodes[0])
+        for graphNode in nodes:
+            if cursor.graphCursor.feed(graphNode):
+                if cursor.graphCursor.cursor_complete():
+                    return True
+            else:
+                return False
+        # Create DataGraphMachine and feed data
         return False

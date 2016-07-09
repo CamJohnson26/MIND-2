@@ -3,8 +3,8 @@ from graphMachine import GraphMachine
 from Utilities.constructors import *
 
 # Test Data
-testData = " cameron is , the man "
-testData = " cameron "
+testData = " CAMERON is , the MAN "
+
 dataClasses = ["letters/class_a.json",
                "letters/class_b.json",
                "letters/class_c.json",
@@ -36,10 +36,9 @@ dataClasses = ["letters/class_a.json",
 originalChainGraphLayer = ChainGraphLayer(None)
 originalChainGraphLayer.chainGraph = chainGraphFromString(testData)
 originalChainGraphLayer.classify(loadDataClasses(dataClasses))
-
 # Create DataGraphMachine and feed data
 flowGraphs = [loadFlowGraph("word.json"), loadFlowGraph("number.json"), loadFlowGraph("punctuation.json"), loadFlowGraph("whiteSpace.json")]
 graphMachine = GraphMachine(flowGraphs, originalChainGraphLayer)
 graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
-
+graphMachine.chainGraphLayer.classify([loadDataClass("words/cameron.json"), loadDataClass("words/is.json"), loadDataClass("words/the.json")])
 print(graphMachine.chainGraphLayer)

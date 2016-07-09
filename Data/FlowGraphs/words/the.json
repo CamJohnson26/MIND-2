@@ -1,0 +1,66 @@
+{
+    "graph": {
+        "nodes": [
+                    {
+                        "dataClass": "letters/class_t.json", 
+                        "guid": "1a5bc04b-9120-410e-8888-08fd16cbcb78", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": null, 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            "75bdac2a-8bf4-4d73-8888-7b8adfdfd1df"
+                        ]
+                    }, 
+                    {
+                        "dataClass": "letters/class_h.json", 
+                        "guid": "75bdac2a-8bf4-4d73-8888-7b8adfdfd1df", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": null, 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            "75bdac2a-8888-4d73-8888-7b8adfdfd1df"
+                        ]
+                    }, 
+                    {
+                        "dataClass": "letters/class_e.json", 
+                        "guid": "75bdac2a-8888-4d73-8888-7b8adfdfd1df", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": null, 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            null
+                        ]
+                    }
+                ],
+        "guid": "581ebf6b-6bae-4d68-8888-18e91c24290d",
+        "class": "GraphStructure",
+        "name": "class:the"
+    },
+    "class": "FlowGraph",
+    "startNodes": [
+        "1a5bc04b-9120-410e-8888-08fd16cbcb78"
+    ],
+    "contextNodes":[]
+
+}

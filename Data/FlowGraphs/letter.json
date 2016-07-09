@@ -2,8 +2,8 @@
     "graph": {
         "nodes": [
             {
-                "guid": "8eb44c88-4731-4f5b-95f6-8bab40848939",
-                "dataNode": "whiteSpace.json",
+                "guid": "8eb44c88-0000-4f5b-95f6-8bab40848980",
+                "dataNode": "letter.json",
                 "class": "GraphNode",
                 "dataClass": null,
                 "nexts": [
@@ -11,13 +11,13 @@
                 ]
             }
         ],
-        "guid": "8cb18c55-dfc2-4b31-b23f-af1e9711d739",
+        "guid": "8cb18c55-0000-4b31-b23f-af1e9711d7ad",
         "class": "GraphStructure",
-        "name": "whiteSpace"
+        "name": "letter"
     },
     "class": "FlowGraph",
     "startNodes": [
-        "8eb44c88-4731-4f5b-95f6-8bab40848939"
+        "8eb44c88-0000-4f5b-95f6-8bab40848980"
     ],
     "contextNodes":[]
 }

@@ -1,0 +1,134 @@
+{
+    "graph": {
+        "nodes": [
+                    {
+                        "dataClass": "letters/class_c.json", 
+                        "guid": "1a5bc04b-9120-410e-9147-08fd16cbcb78", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": null, 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            "75bdac2a-8bf4-4d73-9d46-7b8adfdfd1df"
+                        ]
+                    }, 
+                    {
+                        "dataClass": "letters/class_a.json", 
+                        "guid": "75bdac2a-8bf4-4d73-9d46-7b8adfdfd1df", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": null, 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            "64fa209a-4635-4aa0-931d-33840cfdc4b1"
+                        ]
+                    }, 
+                    {
+                        "dataClass": "letters/class_m.json", 
+                        "guid": "64fa209a-4635-4aa0-931d-33840cfdc4b1", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": null, 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            "f464d1dc-b286-4a92-b204-8a9ab9052ea8"
+                        ]
+                    }, 
+                    {
+                        "dataClass": "letters/class_e.json", 
+                        "guid": "f464d1dc-b286-4a92-b204-8a9ab9052ea8", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": null, 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            "f96ead60-d8d4-43a3-9821-eb0105ae2bce"
+                        ]
+                    }, 
+                    {
+                        "dataClass": "letters/class_r.json", 
+                        "guid": "f96ead60-d8d4-43a3-9821-eb0105ae2bce", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": null, 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            "6e29ad50-42cf-4ac2-bd50-13ef3d6a29e8"
+                        ]
+                    }, 
+                    {
+                        "dataClass": "letters/class_o.json", 
+                        "guid": "6e29ad50-42cf-4ac2-bd50-13ef3d6a29e8", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": null, 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            "28cb2edc-bbe1-4abd-9b65-658b124c18e0"
+                        ]
+                    }, 
+                    {
+                        "dataClass": "letters/class_n.json", 
+                        "guid": "28cb2edc-bbe1-4abd-9b65-658b124c18e0", 
+                        "dataNode": {
+                            "dataType": {
+                                "matchFunction": "letterMatch", 
+                                "class": "DataType", 
+                                "dataTypeName": "letter"
+                            }, 
+                            "parsedData": null, 
+                            "class": "DataNode"
+                        }, 
+                        "class": "GraphNode", 
+                        "nexts": [
+                            null
+                        ]
+                    }
+                ],
+        "guid": "581ebf6b-6bae-4d68-bfd8-18e91c24290d",
+        "class": "GraphStructure",
+        "name": "class:cameron"
+    },
+    "class": "FlowGraph",
+    "startNodes": [
+        "1a5bc04b-9120-410e-9147-08fd16cbcb78"
+    ],
+    "contextNodes":[]
+
+}

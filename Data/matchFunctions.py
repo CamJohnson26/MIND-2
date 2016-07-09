@@ -1,6 +1,6 @@
 def letterMatch(test):
     returnVal = False
-    if type(test) is str and test in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']:
+    if type(test) is str and test.lower() in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']:
         returnVal = True
     return returnVal
 

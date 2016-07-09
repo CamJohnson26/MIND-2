@@ -39,11 +39,13 @@ class GraphNode:
         inputDataParsedData = inputData.dataNode.parsedData
         if (((self.dataNode.dataType.dataTypeName == inputDataTypeName) and
             (self.dataClass is None or
-             self.dataClass.dataClassIndex == inputDataClassIndex) and
+             (self.dataClass.dataClassIndex == inputDataClassIndex)) and
             ((self.dataNode.parsedData == inputDataParsedData) or
             (self.dataNode.parsedData is None))) or
             ((self.dataNode.parsedData is None) and
-             self.dataNode.dataType.matches(inputData.dataNode.parsedData))):
+             self.dataNode.dataType.matches(inputDataParsedData)) and
+            (self.dataClass is None or
+             (self.dataClass.dataClassIndex == inputDataClassIndex))):
             return True
         else:
             return False

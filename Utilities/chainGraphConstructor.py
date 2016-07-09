@@ -2,6 +2,7 @@ from chainGraph import ChainGraph
 from graphNode import GraphNode
 from graphStructure import GraphStructure
 from Utilities.dataNodeConstructor import *
+from Utilities.dataTypeConstructor import *
 import graphStructureConstructor
 import json
 
@@ -16,8 +17,13 @@ def chainGraphFromJSON(inputJSON):
 def chainGraphFromString(inputString):
     testDataGraphNodes = []
     previousNode = None
+    dataTypes = [loadDataType("letter.json"), loadDataType("number.json"), loadDataType("punctuation.json"), loadDataType("whiteSpace.json")]
     for c in inputString:
-        cDataNode = loadDataNode("char.json")
+        cDataTypeName = "char"
+        for dataType in dataTypes:
+            if dataType.matches(c):
+                cDataTypeName = dataType.dataTypeName
+        cDataNode = loadDataNode(cDataTypeName + ".json")
         cDataNode.parsedData = c
         cGraphNode = GraphNode(cDataNode)
         testDataGraphNodes.append(cGraphNode)
