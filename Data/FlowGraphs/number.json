@@ -2,7 +2,7 @@
     "graph": {
         "nodes": [
             {
-                "guid": "8eb44c88-4731-4f5b-95f6-8bab40848980",
+                "guid": 0,
                 "dataNode": "number.json",
                 "class": "GraphNode",
                 "dataClass": null,
@@ -11,13 +11,13 @@
                 ]
             }
         ],
-        "guid": "8cb18c55-dfc2-4b31-b23f-af1e9711d7ad",
+        "guid": 1,
         "class": "GraphStructure",
         "name": "number"
     },
     "class": "FlowGraph",
     "startNodes": [
-        "8eb44c88-4731-4f5b-95f6-8bab40848980"
+        0
     ],
     "contextNodes":[]
 }

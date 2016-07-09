@@ -1,6 +1,7 @@
 from chainGraph import ChainGraph
 from graphNode import GraphNode
 from graphStructure import GraphStructure
+from chainGraphLayer import ChainGraphLayer
 from Utilities.dataNodeConstructor import *
 from Utilities.dataTypeConstructor import *
 import graphStructureConstructor
@@ -33,3 +34,9 @@ def chainGraphFromString(inputString):
     testDataGraphNodes[-1].nexts.append(None)
     testDataGraph = GraphStructure(testDataGraphNodes, "character_stream")
     return ChainGraph(testDataGraph)
+
+
+def chainGraphLayerFromString(inputString):
+    chainGraphLayer = ChainGraphLayer(None)
+    chainGraphLayer.chainGraph = chainGraphFromString(inputString)
+    return chainGraphLayer

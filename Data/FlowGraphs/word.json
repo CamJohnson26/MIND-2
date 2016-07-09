@@ -2,26 +2,26 @@
     "graph": {
         "nodes": [
             {
-                "guid": "efd6b6e9-398d-4ae7-92f4-2bc712239b1a",
+                "guid": 0,
                 "dataNode": "whiteSpace.json",
                 "class": "GraphNode",
                 "dataClass": null,
                 "nexts": [
-                    "0f0a8e67-cc17-4f74-9c8f-eea4c0b32292"
+                    1
                 ]
             },
             {
-                "guid": "0f0a8e67-cc17-4f74-9c8f-eea4c0b32292",
+                "guid": 1,
                 "dataNode": "letter.json",
                 "class": "GraphNode",
                 "dataClass": null,
                 "nexts": [
-                    "def009bf-8223-4b32-9691-6abee8019255",
-                    "0f0a8e67-cc17-4f74-9c8f-eea4c0b32292"
+                    1,
+                    2
                 ]
             },
             {
-                "guid": "def009bf-8223-4b32-9691-6abee8019255",
+                "guid": 2,
                 "dataNode": "whiteSpace.json",
                 "class": "GraphNode",
                 "dataClass": null,
@@ -30,16 +30,16 @@
                 ]
             }
         ],
-        "guid": "40cb48dc-67e5-4ce0-a6f5-dd5dc14c511d",
+        "guid": 3,
         "class": "GraphStructure",
         "name": "word"
     },
     "class": "FlowGraph",
     "startNodes": [
-        "efd6b6e9-398d-4ae7-92f4-2bc712239b1a"
+        0
     ],
     "contextNodes":[
-        "efd6b6e9-398d-4ae7-92f4-2bc712239b1a",
-        "def009bf-8223-4b32-9691-6abee8019255"
+        0,
+        2
     ]
 }

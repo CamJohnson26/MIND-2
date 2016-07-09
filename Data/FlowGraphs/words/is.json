@@ -3,7 +3,7 @@
         "nodes": [
                     {
                         "dataClass": "letters/class_i.json", 
-                        "guid": "1a5bc04b-9120-410e-7777-08fd16cbcb78", 
+                        "guid": 1, 
                         "dataNode": {
                             "dataType": {
                                 "matchFunction": "letterMatch", 
@@ -15,12 +15,12 @@
                         }, 
                         "class": "GraphNode", 
                         "nexts": [
-                            "75bdac2a-8bf4-4d73-7777-7b8adfdfd1df"
+                            2
                         ]
                     }, 
                     {
                         "dataClass": "letters/class_s.json", 
-                        "guid": "75bdac2a-8bf4-4d73-7777-7b8adfdfd1df", 
+                        "guid": 2, 
                         "dataNode": {
                             "dataType": {
                                 "matchFunction": "letterMatch", 
@@ -36,13 +36,13 @@
                         ]
                     }
                 ],
-        "guid": "581ebf6b-6bae-4d68-7777-18e91c24290d",
+        "guid": 3,
         "class": "GraphStructure",
         "name": "class:is"
     },
     "class": "FlowGraph",
     "startNodes": [
-        "1a5bc04b-9120-410e-7777-08fd16cbcb78"
+        1
     ],
     "contextNodes":[]
 

@@ -1,5 +1,6 @@
 from dataClass import DataClass
 from flowGraphConstructor import *
+from os import listdir
 import json
 
 
@@ -21,10 +22,15 @@ def loadDataClass(inputFileName):
     return dataClassFromJSON(json)
 
 
-def loadDataClasses(inputFileNames):
+def loadDataClasses(inputFolder):
     rv = []
-    for inputFileName in inputFileNames:
-        f = open("Data/DataClasses/" + inputFileName)
+    if type(inputFolder) is list:
+        files = [str(f) + ".json" for f in inputFolder]
+    else:
+        files = listdir("Data/DataClasses/" + inputFolder)
+        files = [inputFolder + "/" + f for f in files]
+    for file in files:
+        f = open("Data/DataClasses/" + file)
         json = f.read()
         rv.append(dataClassFromJSON(json))
     return rv

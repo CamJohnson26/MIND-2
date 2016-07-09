@@ -3,13 +3,14 @@ from graphStructure import GraphStructure
 from chainGraph import ChainGraph
 from dataType import DataType
 from dataNode import DataNode
+from guidMapper import GuidMapper
 import Data.matchFunctions as matchFunctions
 import dataNodeConstructor
 import dataClassConstructor
 import json
 
 
-def graphNodeFromJSON(inputJSON):
+def graphNodeFromJSON(inputJSON, guidMapper=GuidMapper()):
     inputObject = json.loads(inputJSON)
     if type(inputObject["dataNode"]) is unicode:
         dataNode = dataNodeConstructor.loadDataNode(inputObject["dataNode"])
@@ -23,7 +24,7 @@ def graphNodeFromJSON(inputJSON):
     else:
         dataClass = dataClassConstructor.dataClassFromJSON(json.dumps(inputObject["dataClass"]))
     graphNode = GraphNode(dataNode)
-    graphNode.guid = inputObject["guid"]
+    graphNode.guid = guidMapper.get(inputObject["guid"])
     graphNode.nexts = []
     graphNode.dataClass = dataClass
     return graphNode
