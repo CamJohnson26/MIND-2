@@ -12,8 +12,13 @@ def flowGraphFromJSON(inputJSON):
         for node in graph.nodes:
             if node.guid == node_id:
                 startNodes.append(node)
-    dataClass = FlowGraph(graph, startNodes)
-    return dataClass
+    contextNodes = []
+    for node_id in inputObject["contextNodes"]:
+        for node in graph.nodes:
+            if node.guid == node_id:
+                contextNodes.append(node)
+    flowGraph = FlowGraph(graph, startNodes, contextNodes=contextNodes)
+    return flowGraph
 
 
 def loadFlowGraph(inputFileName):

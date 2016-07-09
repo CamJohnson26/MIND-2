@@ -19,5 +19,6 @@
     "class": "FlowGraph",
     "startNodes": [
         "8eb44c87-4731-4f5b-95f6-8bab40848980"
-    ]
+    ],
+    "contextNodes":[]
 }
