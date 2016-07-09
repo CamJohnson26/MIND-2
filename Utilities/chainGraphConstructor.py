@@ -17,7 +17,7 @@ def chainGraphFromString(inputString):
     testDataGraphNodes = []
     previousNode = None
     for c in inputString:
-        cDataNode = loadDataNode("letter.json")
+        cDataNode = loadDataNode("char.json")
         cDataNode.parsedData = c
         cGraphNode = GraphNode(cDataNode)
         testDataGraphNodes.append(cGraphNode)

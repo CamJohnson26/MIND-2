@@ -38,5 +38,8 @@
     "startNodes": [
         "efd6b6e9-398d-4ae7-92f4-2bc712239b1a"
     ],
-    "contextNodes":[]
+    "contextNodes":[
+        "efd6b6e9-398d-4ae7-92f4-2bc712239b1a",
+        "def009bf-8223-4b32-9691-6abee8019255"
+    ]
 }

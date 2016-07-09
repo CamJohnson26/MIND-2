@@ -4,6 +4,7 @@ from Utilities.constructors import *
 
 # Test Data
 testData = " cameron is , the man "
+testData = " cameron "
 dataClasses = ["letters/class_a.json",
                "letters/class_b.json",
                "letters/class_c.json",
@@ -37,7 +38,7 @@ originalChainGraphLayer.chainGraph = chainGraphFromString(testData)
 originalChainGraphLayer.classify(loadDataClasses(dataClasses))
 
 # Create DataGraphMachine and feed data
-flowGraphs = [loadFlowGraph("word.json"), loadFlowGraph("number.json"), loadFlowGraph("punctuation.json")]
+flowGraphs = [loadFlowGraph("word.json"), loadFlowGraph("number.json"), loadFlowGraph("punctuation.json"), loadFlowGraph("whiteSpace.json")]
 graphMachine = GraphMachine(flowGraphs, originalChainGraphLayer)
 graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
 

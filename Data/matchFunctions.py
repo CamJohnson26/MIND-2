@@ -26,6 +26,11 @@ def punctuationMatch(test):
     return returnVal
 
 
+def charMatch(test):
+    if type(test) is str and len(test) == 1:
+        return True
+
+
 def matchFunction(test):
     if not len(test) == len(self.parsedData):
         return False

@@ -30,13 +30,16 @@ class GraphCursor:
         success = False
         new_currentNodes = []
         dataType = dataPoint.dataNode.dataType
+        isContext = False
         for c in self.currentNodes:
             if c is not None and c.matches(dataPoint):
                 new_currentNodes.extend(c.nexts)
                 dataType = c.dataNode.dataType
                 success = True
+                isContext = c in self.graph.contextNodes
         dataPoint.dataNode.dataType = dataType
-        self.parsedData.append(dataPoint)
+        if isContext is False:
+            self.parsedData.append(dataPoint)
         self.currentNodes = new_currentNodes
         return success
 
