@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 72, 
+    "dataClassString": "turret", 
+    "class": "DataClass", 
+    "flowGraph": "words/turret.json"
+}

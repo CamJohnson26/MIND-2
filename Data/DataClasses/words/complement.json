@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 224, 
+    "dataClassString": "complement", 
+    "class": "DataClass", 
+    "flowGraph": "words/complement.json"
+}

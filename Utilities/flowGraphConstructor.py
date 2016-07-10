@@ -60,3 +60,31 @@ def generateFlowGraphFiles(minFileName):
             new_file.write(json.dumps(new_json, indent=4))
             new_file.close()
     return json.dumps(new_json, indent=4)
+
+
+def createMinFileForWord(word):
+    minFile = "'words/" + word + ".json','["
+    for i, c in enumerate(word):
+        if i == len(word) - 1:
+            n = "null"
+        else:
+            n = str(i + 1)
+        node = '[' + str(i) + ',"letter.json","letters/class_' + c + '.json",[' + n + ']],'
+        minFile += node
+    minFile = minFile[:-1]
+    minFile += "]','[0]','[]','class:" + word + "'\n"
+
+
+    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
+        f.write(minFile)
+
+    index = 0
+    with open("Data/DataClasses/dataClasses.dataClass") as f:
+        inputValues = csv.reader(f, delimiter=",", quotechar="\'")
+        for value in inputValues:
+            index = int(value[1])
+
+    minDataClass = '"words/' + word + '.json",' + str(index + 1) + ',"' + word + '","words/' + word + '.json"\n'
+
+    with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
+        f.write(minDataClass)

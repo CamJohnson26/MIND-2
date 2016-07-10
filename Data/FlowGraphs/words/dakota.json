@@ -1,0 +1,68 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "dataClass": "letters/class_d.json", 
+                "guid": 0, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    1
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_a.json", 
+                "guid": 1, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    2
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_k.json", 
+                "guid": 2, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    3
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_o.json", 
+                "guid": 3, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    4
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_t.json", 
+                "guid": 4, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    5
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_a.json", 
+                "guid": 5, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    null
+                ]
+            }
+        ], 
+        "guid": -1, 
+        "class": "GraphStructure", 
+        "name": "class:dakota"
+    }, 
+    "contextNodes": [], 
+    "class": "FlowGraph", 
+    "startNodes": [
+        0
+    ]
+}

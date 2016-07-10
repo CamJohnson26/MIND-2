@@ -1,0 +1,50 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "dataClass": "letters/class_s.json", 
+                "guid": 0, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    1
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_o.json", 
+                "guid": 1, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    2
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_o.json", 
+                "guid": 2, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    3
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_f.json", 
+                "guid": 3, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    null
+                ]
+            }
+        ], 
+        "guid": -1, 
+        "class": "GraphStructure", 
+        "name": "class:soof"
+    }, 
+    "contextNodes": [], 
+    "class": "FlowGraph", 
+    "startNodes": [
+        0
+    ]
+}

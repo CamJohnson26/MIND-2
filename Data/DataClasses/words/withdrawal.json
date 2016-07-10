@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 212, 
+    "dataClassString": "withdrawal", 
+    "class": "DataClass", 
+    "flowGraph": "words/withdrawal.json"
+}

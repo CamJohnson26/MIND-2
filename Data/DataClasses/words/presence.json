@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 313, 
+    "dataClassString": "presence", 
+    "class": "DataClass", 
+    "flowGraph": "words/presence.json"
+}

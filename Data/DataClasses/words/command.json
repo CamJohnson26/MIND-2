@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 300, 
+    "dataClassString": "command", 
+    "class": "DataClass", 
+    "flowGraph": "words/command.json"
+}

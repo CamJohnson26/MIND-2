@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 54, 
+    "dataClassString": "shift", 
+    "class": "DataClass", 
+    "flowGraph": "words/shift.json"
+}

@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 243, 
+    "dataClassString": "pathfinders", 
+    "class": "DataClass", 
+    "flowGraph": "words/pathfinders.json"
+}

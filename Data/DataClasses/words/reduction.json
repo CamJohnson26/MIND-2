@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 239, 
+    "dataClassString": "reduction", 
+    "class": "DataClass", 
+    "flowGraph": "words/reduction.json"
+}

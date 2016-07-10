@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 256, 
+    "dataClassString": "bomber", 
+    "class": "DataClass", 
+    "flowGraph": "words/bomber.json"
+}

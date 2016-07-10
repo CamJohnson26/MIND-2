@@ -1,0 +1,41 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "dataClass": "letters/class_a.json", 
+                "guid": 0, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    1
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_u.json", 
+                "guid": 1, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    2
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_r.json", 
+                "guid": 2, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    null
+                ]
+            }
+        ], 
+        "guid": -1, 
+        "class": "GraphStructure", 
+        "name": "class:aur"
+    }, 
+    "contextNodes": [], 
+    "class": "FlowGraph", 
+    "startNodes": [
+        0
+    ]
+}

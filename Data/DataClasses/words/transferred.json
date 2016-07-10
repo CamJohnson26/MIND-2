@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 180, 
+    "dataClassString": "transferred", 
+    "class": "DataClass", 
+    "flowGraph": "words/transferred.json"
+}

@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 200, 
+    "dataClassString": "range", 
+    "class": "DataClass", 
+    "flowGraph": "words/range.json"
+}

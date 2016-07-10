@@ -1,0 +1,6 @@
+{
+    "dataClassIndex": 80, 
+    "dataClassString": "propellers", 
+    "class": "DataClass", 
+    "flowGraph": "words/propellers.json"
+}

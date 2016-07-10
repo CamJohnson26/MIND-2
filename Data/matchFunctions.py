@@ -21,7 +21,7 @@ def whiteSpaceMatch(test):
 
 def punctuationMatch(test):
     returnVal = False
-    if type(test) is str and test in ['!','@','#','$','%','^','&','*','(',')',',','.','?','\'','\"']:
+    if type(test) is str and test in [';','!','@','#','$','%','^','&','*','(',')',',','.','?','\'','\"','-']:
         returnVal = True
     return returnVal
 
