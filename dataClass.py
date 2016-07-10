@@ -1,6 +1,7 @@
 import json
-from flowGraphCursor import FlowGraphCursor
 from graphNode import GraphNode
+from chainGraph import ChainGraph
+from graphStructure import GraphStructure
 
 
 class DataClass:
@@ -27,14 +28,8 @@ class DataClass:
     def matches(self, dataNode):
         if type(dataNode.parsedData) in [str, unicode]:
             nodes = [GraphNode(dataNode)]
+            graphStructure = GraphStructure(nodes, self.dataClassString)
+            chainGraph = ChainGraph(graphStructure)
         else:
-            nodes = dataNode.parsedData.graph.nodes
-        cursor = FlowGraphCursor(self.flowGraph, nodes[0])
-        for graphNode in nodes:
-            if cursor.graphCursor.feed(graphNode):
-                if cursor.graphCursor.cursor_complete():
-                    return True
-            else:
-                return False
-        # Create DataGraphMachine and feed data
-        return False
+            chainGraph = dataNode.parsedData
+        return self.flowGraph.matches_chainGraph(chainGraph)

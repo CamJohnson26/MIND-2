@@ -1,5 +1,5 @@
 import json
-from graphCursor import GraphCursor
+from flowGraphCursor import FlowGraphCursor
 
 
 class FlowGraph:
@@ -22,3 +22,13 @@ class FlowGraph:
         rv["startNodes"] = [str(a.guid) for a in self.startNodes]
         rv["contextNodes"] = [str(a.guid) for a in self.contextNodes]
         return rv
+
+    def matches_chainGraph(self, chainGraph):
+        cursor = FlowGraphCursor(self, chainGraph.graph.nodes[0])
+        for graphNode in chainGraph.graph.nodes:
+            if cursor.graphCursor.feed(graphNode):
+                if cursor.graphCursor.cursor_complete():
+                    return True
+            else:
+                return False
+        return False

@@ -1,7 +1,5 @@
-from bridgeNode import BridgeNode
 from flowGraphCursor import FlowGraphCursor
 from chainGraphLayer import ChainGraphLayer
-from Utilities.graphNodeConstructor import graph_node_from_cursor
 import json
 
 
@@ -33,7 +31,8 @@ class GraphMachine:
     def refresh_cursors(self, graphNode):
         for flowGraph in self.flowGraphs:
             flowGraphCursor = FlowGraphCursor(flowGraph, graphNode)
-            flowGraphCursor.graphCursor.previousNodes = [n for n in self.memory]
+            previousNodes = [n for n in self.memory]
+            flowGraphCursor.graphCursor.previousNodes = previousNodes
             self.cursors.append(flowGraphCursor)
 
     def update_memory(self, graphNode):
@@ -46,24 +45,10 @@ class GraphMachine:
         for cursor in self.cursors:
             if cursor.graphCursor.feed(graphNode):
                 if cursor.graphCursor.cursor_complete():
-                    self.save_cursor(graphNode, cursor)
+                    self.chainGraphLayer.save_cursor(graphNode, cursor)
                 else:
                     new_cursors.append(cursor)
         self.cursors = new_cursors
-
-    def save_cursor(self, graphNode, cursor):
-        newNode = graph_node_from_cursor(cursor)
-        self.chainGraphLayer.chainGraph.graph.nodes.append(newNode)
-        bridge = BridgeNode(cursor.anchorPoint, graphNode, newNode)
-        self.chainGraphLayer.bridgeNodes.append(bridge)
-        self.set_node_nexts(newNode, cursor)
-
-    def set_node_nexts(self, graphNode, cursor):
-        for node in cursor.graphCursor.previousNodes:
-            for bridgeNode in self.chainGraphLayer.bridgeNodes:
-                if bridgeNode.endGraphNode.guid == node.guid:
-                    if bridgeNode.targetGraphNode.guid != graphNode.guid:
-                        bridgeNode.targetGraphNode.nexts.append(graphNode)
 
     def feed_chain_graph_layer(self, chainGraphLayer):
         for d in chainGraphLayer.chainGraph.graph.nodes:
