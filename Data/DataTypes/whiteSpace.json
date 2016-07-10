@@ -1,5 +1,5 @@
 {
-    "class": "DataType",
-    "dataTypeName": "whiteSpace",
-    "matchFunction": "whiteSpaceMatch"
+    "matchFunction": "whiteSpaceMatch", 
+    "class": "DataType", 
+    "dataTypeName": "whiteSpace"
 }

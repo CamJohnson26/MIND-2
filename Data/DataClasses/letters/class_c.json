@@ -1,6 +1,6 @@
 {
-    "dataClassIndex": 2,
-    "dataClassString": "c",
-    "class": "DataClass",
+    "dataClassIndex": 2, 
+    "dataClassString": "c", 
+    "class": "DataClass", 
     "flowGraph": "letters/letter_C.json"
 }

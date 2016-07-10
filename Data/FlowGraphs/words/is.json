@@ -1,49 +1,32 @@
 {
     "graph": {
         "nodes": [
-                    {
-                        "dataClass": "letters/class_i.json", 
-                        "guid": 1, 
-                        "dataNode": {
-                            "dataType": {
-                                "matchFunction": "letterMatch", 
-                                "class": "DataType", 
-                                "dataTypeName": "letter"
-                            }, 
-                            "parsedData": "i", 
-                            "class": "DataNode"
-                        }, 
-                        "class": "GraphNode", 
-                        "nexts": [
-                            2
-                        ]
-                    }, 
-                    {
-                        "dataClass": "letters/class_s.json", 
-                        "guid": 2, 
-                        "dataNode": {
-                            "dataType": {
-                                "matchFunction": "letterMatch", 
-                                "class": "DataType", 
-                                "dataTypeName": "letter"
-                            }, 
-                            "parsedData": "s", 
-                            "class": "DataNode"
-                        }, 
-                        "class": "GraphNode", 
-                        "nexts": [
-                            null
-                        ]
-                    }
-                ],
-        "guid": 3,
-        "class": "GraphStructure",
+            {
+                "dataClass": "letters/class_i.json", 
+                "guid": 0, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    1
+                ]
+            }, 
+            {
+                "dataClass": "letters/class_s.json", 
+                "guid": 1, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    null
+                ]
+            }
+        ], 
+        "guid": -1, 
+        "class": "GraphStructure", 
         "name": "class:is"
-    },
-    "class": "FlowGraph",
+    }, 
+    "contextNodes": [], 
+    "class": "FlowGraph", 
     "startNodes": [
-        1
-    ],
-    "contextNodes":[]
-
+        0
+    ]
 }

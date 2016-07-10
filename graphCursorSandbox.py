@@ -1,8 +1,10 @@
 from graphMachine import GraphMachine
 from Utilities.constructors import *
+from Utilities.pretty_representation import *
+
 
 # Test Data
-testData = " CAMERON is , the MAN "
+testData = " The wing was established in July 1950 and headquartered at Changi, on the east coast of Singapore. "
 
 # Set up ChainGraphLayer
 originalChainGraphLayer = chainGraphLayerFromString(testData)
@@ -16,4 +18,4 @@ graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
 dataClasses = loadDataClasses("words")
 graphMachine.chainGraphLayer.classify(dataClasses)
 
-print(graphMachine.chainGraphLayer)
+print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))

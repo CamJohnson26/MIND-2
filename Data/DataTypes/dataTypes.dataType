@@ -1,0 +1,5 @@
+"char.json","char","charMatch"
+"letter.json","letter","letterMatch"
+"number.json","number","numberMatch"
+"punctuation.json","punctuation","punctuationMatch"
+"whiteSpace.json","whiteSpace","whiteSpaceMatch"

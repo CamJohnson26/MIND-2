@@ -2,7 +2,7 @@
     "graph": {
         "nodes": [
             {
-                "dataClass": "letters/class_c.json", 
+                "dataClass": "letters/class_w.json", 
                 "guid": 0, 
                 "dataNode": "letter.json", 
                 "class": "GraphNode", 
@@ -11,7 +11,7 @@
                 ]
             }, 
             {
-                "dataClass": "letters/class_a.json", 
+                "dataClass": "letters/class_i.json", 
                 "guid": 1, 
                 "dataNode": "letter.json", 
                 "class": "GraphNode", 
@@ -20,7 +20,7 @@
                 ]
             }, 
             {
-                "dataClass": "letters/class_m.json", 
+                "dataClass": "letters/class_n.json", 
                 "guid": 2, 
                 "dataNode": "letter.json", 
                 "class": "GraphNode", 
@@ -29,35 +29,8 @@
                 ]
             }, 
             {
-                "dataClass": "letters/class_e.json", 
+                "dataClass": "letters/class_g.json", 
                 "guid": 3, 
-                "dataNode": "letter.json", 
-                "class": "GraphNode", 
-                "nexts": [
-                    4
-                ]
-            }, 
-            {
-                "dataClass": "letters/class_r.json", 
-                "guid": 4, 
-                "dataNode": "letter.json", 
-                "class": "GraphNode", 
-                "nexts": [
-                    5
-                ]
-            }, 
-            {
-                "dataClass": "letters/class_o.json", 
-                "guid": 5, 
-                "dataNode": "letter.json", 
-                "class": "GraphNode", 
-                "nexts": [
-                    6
-                ]
-            }, 
-            {
-                "dataClass": "letters/class_n.json", 
-                "guid": 6, 
                 "dataNode": "letter.json", 
                 "class": "GraphNode", 
                 "nexts": [
@@ -67,7 +40,7 @@
         ], 
         "guid": -1, 
         "class": "GraphStructure", 
-        "name": "class:cameron"
+        "name": "class:wing"
     }, 
     "contextNodes": [], 
     "class": "FlowGraph", 

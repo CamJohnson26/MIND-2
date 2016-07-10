@@ -1,6 +1,6 @@
 {
-    "dataClassIndex": 0,
-    "dataClassString": "cameron",
-    "class": "DataClass",
+    "dataClassIndex": 0, 
+    "dataClassString": "cameron", 
+    "class": "DataClass", 
     "flowGraph": "words/cameron.json"
 }

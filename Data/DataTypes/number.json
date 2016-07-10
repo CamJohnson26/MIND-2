@@ -1,5 +1,5 @@
 {
-    "class": "DataType",
-    "dataTypeName": "number",
-    "matchFunction": "numberMatch"
+    "matchFunction": "numberMatch", 
+    "class": "DataType", 
+    "dataTypeName": "number"
 }

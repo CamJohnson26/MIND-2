@@ -1,5 +1,5 @@
 {
-    "class": "DataType",
-    "dataTypeName": "letter",
-    "matchFunction": "letterMatch"
+    "matchFunction": "letterMatch", 
+    "class": "DataType", 
+    "dataTypeName": "letter"
 }

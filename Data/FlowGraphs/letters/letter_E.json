@@ -2,33 +2,32 @@
     "graph": {
         "nodes": [
             {
-                "guid": "b035517a-ce19-4b37-9bf1-e38b4d9fff21",
-                "dataNode": "letters/char_e.json",
-                "class": "GraphNode",
-                "dataClass": null,
+                "dataClass": null, 
+                "guid": 0, 
+                "dataNode": "letters/char_e.json", 
+                "class": "GraphNode", 
                 "nexts": [
                     null
                 ]
-            },
+            }, 
             {
-                "guid": "1470a3f0-6451-4b5d-af79-b83f52888321",
-                "dataNode": "letters/char_cap_E.json",
-                "class": "GraphNode",
-                "dataClass": null,
+                "dataClass": null, 
+                "guid": 1, 
+                "dataNode": "letters/char_cap_E.json", 
+                "class": "GraphNode", 
                 "nexts": [
                     null
                 ]
             }
-        ],
-        "guid": "e7a8b7d1-b76e-4e9b-b145-61cf7f12d121",
-        "class": "GraphStructure",
+        ], 
+        "guid": -1, 
+        "class": "GraphStructure", 
         "name": "class:e"
-    },
-    "class": "FlowGraph",
+    }, 
+    "contextNodes": [], 
+    "class": "FlowGraph", 
     "startNodes": [
-        "b035517a-ce19-4b37-9bf1-e38b4d9fff21",
-        "1470a3f0-6451-4b5d-af79-b83f52888321"
-    ],
-    "contextNodes":[]
-
+        0, 
+        1
+    ]
 }

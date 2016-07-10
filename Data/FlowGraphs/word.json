@@ -7,22 +7,41 @@
                 "class": "GraphNode",
                 "dataClass": null,
                 "nexts": [
-                    1
+                    2
                 ]
             },
             {
                 "guid": 1,
-                "dataNode": "letter.json",
+                "dataNode": "punctuation.json",
                 "class": "GraphNode",
                 "dataClass": null,
                 "nexts": [
-                    1,
                     2
                 ]
             },
             {
                 "guid": 2,
+                "dataNode": "letter.json",
+                "class": "GraphNode",
+                "dataClass": null,
+                "nexts": [
+                    2,
+                    3,
+                    4
+                ]
+            },
+            {
+                "guid": 3,
                 "dataNode": "whiteSpace.json",
+                "class": "GraphNode",
+                "dataClass": null,
+                "nexts": [
+                    null
+                ]
+            },
+            {
+                "guid": 4,
+                "dataNode": "punctuation.json",
                 "class": "GraphNode",
                 "dataClass": null,
                 "nexts": [
@@ -30,16 +49,19 @@
                 ]
             }
         ],
-        "guid": 3,
+        "guid": 7,
         "class": "GraphStructure",
         "name": "word"
     },
     "class": "FlowGraph",
     "startNodes": [
-        0
+        0,
+        1
     ],
     "contextNodes":[
         0,
-        2
+        1,
+        3,
+        4
     ]
 }
