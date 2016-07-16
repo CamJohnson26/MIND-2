@@ -3,3 +3,5 @@
 "number.json","number","numberMatch"
 "punctuation.json","punctuation","punctuationMatch"
 "whiteSpace.json","whiteSpace","whiteSpaceMatch"
+"whiteSpace.json","whiteSpace","whiteSpaceMatch"
+"word.json","word","matchFunction"
