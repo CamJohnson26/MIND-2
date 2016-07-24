@@ -1,5 +1,5 @@
 {
-    "dataType": "word.json", 
+    "dataType": "article.json", 
     "parsedData": null, 
     "class": "DataNode", 
     "dataClass": null

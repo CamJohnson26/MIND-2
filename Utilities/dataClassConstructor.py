@@ -1,6 +1,7 @@
 from dataClass import DataClass
 from flowGraphConstructor import *
 from os import listdir
+from os.path import isfile, join
 import json
 import csv
 
@@ -28,8 +29,9 @@ def loadDataClasses(inputFolder):
     if type(inputFolder) is list:
         files = [str(f) + ".json" for f in inputFolder]
     else:
-        files = listdir("Data/DataClasses/" + inputFolder)
-        files = [inputFolder + "/" + f for f in files]
+        path = "Data/DataClasses/" + inputFolder
+        files = listdir(path)
+        files = [inputFolder + "/" + f for f in files if isfile(join(path, f))]
     for file in files:
         f = open("Data/DataClasses/" + file)
         json = f.read()

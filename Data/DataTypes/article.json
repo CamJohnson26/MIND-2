@@ -1,5 +1,5 @@
 {
     "matchFunction": "alwaysFalse", 
     "class": "DataType", 
-    "dataTypeName": "word"
+    "dataTypeName": "article"
 }

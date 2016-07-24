@@ -4,4 +4,6 @@
 "punctuation.json","punctuation","punctuationMatch"
 "whiteSpace.json","whiteSpace","whiteSpaceMatch"
 "whiteSpace.json","whiteSpace","whiteSpaceMatch"
-"word.json","word","matchFunction"
+"word.json","word","alwaysFalse"
+"article.json","article","alwaysFalse"
+"noun.json","noun","alwaysFalse"

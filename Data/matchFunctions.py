@@ -38,3 +38,6 @@ def matchFunction(test):
         if not test[i].matches(self.parsedData[i]):
             return False
     return True
+
+def alwaysFalse(test):
+    return False

@@ -2,7 +2,7 @@
     "graph": {
         "nodes": [
             {
-                "dataClass": "words/the.json", 
+                "dataClass": "words/established.json", 
                 "guid": 0, 
                 "dataNode": "word.json", 
                 "class": "GraphNode", 
@@ -11,7 +11,7 @@
                 ]
             }, 
             {
-                "dataClass": "words/a.json", 
+                "dataClass": "words/headquartered.json", 
                 "guid": 1, 
                 "dataNode": "word.json", 
                 "class": "GraphNode", 
@@ -20,7 +20,7 @@
                 ]
             }, 
             {
-                "dataClass": "words/an.json", 
+                "dataClass": "words/was.json", 
                 "guid": 2, 
                 "dataNode": "word.json", 
                 "class": "GraphNode", 
@@ -31,7 +31,7 @@
         ], 
         "guid": -1, 
         "class": "GraphStructure", 
-        "name": "article"
+        "name": "verb"
     }, 
     "contextNodes": [], 
     "class": "FlowGraph", 

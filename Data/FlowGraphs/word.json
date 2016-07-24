@@ -47,6 +47,15 @@
                 "nexts": [
                     null
                 ]
+            },
+            {
+                "guid": 5,
+                "dataNode": "word.json",
+                "class": "GraphNode",
+                "dataClass": null,
+                "nexts": [
+                    null
+                ]
             }
         ],
         "guid": 7,
@@ -56,7 +65,8 @@
     "class": "FlowGraph",
     "startNodes": [
         0,
-        1
+        1,
+        5
     ],
     "contextNodes":[
         0,

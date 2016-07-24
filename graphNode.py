@@ -37,14 +37,14 @@ class GraphNode:
         if inputDataClass:
             inputDataClassIndex = inputDataClass.dataClassIndex
         inputDataParsedData = inputData.dataNode.parsedData
-        if (((self.dataNode.dataType.dataTypeName == inputDataTypeName) and
+        if (((self.dataNode.dataType.dataTypeName == inputDataTypeName) and     # Data Types are equal
             (self.dataClass is None or
-             (self.dataClass.dataClassIndex == inputDataClassIndex)) and
-            ((self.dataNode.parsedData == inputDataParsedData) or
-            (self.dataNode.parsedData is None))) or
-            ((self.dataNode.parsedData is None) and
-             self.dataNode.dataType.matches(inputDataParsedData)) and
-            (self.dataClass is None or
+             (self.dataClass.dataClassIndex == inputDataClassIndex)) and        # Data Classes are equal
+            ((self.dataNode.parsedData == inputDataParsedData) or               # Parsed Data is equal or null
+            (self.dataNode.parsedData is None))) or                             # OR
+            ((self.dataNode.parsedData is None) and                             # Parsed data is null and
+             self.dataNode.dataType.matches(inputDataParsedData)) and           # Matches Function works and
+            (self.dataClass is None or                                          # Data Classes are equal
              (self.dataClass.dataClassIndex == inputDataClassIndex))):
             return True
         else:
@@ -52,7 +52,10 @@ class GraphNode:
 
     def classify(self, dataClasses):
         dataClass = None
-        for c in dataClasses:
-            if c.matches(self.dataNode):
-                dataClass = c
+        try:
+            for c in dataClasses[self.dataNode.dataType.dataTypeName]:
+                if c.matches(self.dataNode):
+                    dataClass = c
+        except KeyError:
+            pass
         self.dataClass = dataClass

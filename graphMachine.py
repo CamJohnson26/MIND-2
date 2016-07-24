@@ -1,6 +1,7 @@
 from flowGraphCursor import FlowGraphCursor
 from chainGraphLayer import ChainGraphLayer
 import json
+import copy
 
 
 class GraphMachine:
@@ -51,5 +52,6 @@ class GraphMachine:
         self.cursors = new_cursors
 
     def feed_chain_graph_layer(self, chainGraphLayer):
+        self.chainGraphLayer = ChainGraphLayer(chainGraphLayer)
         for d in chainGraphLayer.chainGraph.graph.nodes:
             self.feed(d)
