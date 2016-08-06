@@ -4,8 +4,8 @@ from Utilities.pretty_representation import *
 
 
 # Test Data
-testData = " The wing was established in July 1950 and headquartered at Changi, on the east coast of Singapore. "
-#testData = " Headquartered in the east coast, Singapore established Changi in July 1950"
+#testData = " The wing was established in July 1950 and headquartered at Changi, on the east coast of Singapore. "
+testData = " Headquartered in the east coast, Singapore established Changi in July 1950"
 
 # Set up ChainGraphLayer
 originalChainGraphLayer = chainGraphLayerFromString(testData)
@@ -15,6 +15,7 @@ originalChainGraphLayer.classify({"letter": loadDataClasses("letters")})
 flowGraphs = loadFlowGraphs(["word", "number", "punctuation", "whiteSpace"])
 graphMachine = GraphMachine(flowGraphs, originalChainGraphLayer)
 graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
+
 
 dataClasses = {}
 dataClasses["word"] = loadDataClasses("words")
@@ -33,5 +34,6 @@ dataClasses["verb"] = loadDataClasses("words/verbs")
 dataClasses["adjective"] = loadDataClasses("words/adjectives")
 dataClasses["conjunction"] = loadDataClasses("words/conjunctions")
 dataClasses["preposition"] = loadDataClasses("words/prepositions")
+
 graphMachine.chainGraphLayer.classify(dataClasses)
 print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))

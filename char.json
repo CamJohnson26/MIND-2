@@ -1,0 +1,5 @@
+{
+    "matchFunction": "charMatch", 
+    "class": "DataType", 
+    "dataTypeName": "char"
+}

@@ -2,76 +2,66 @@
     "graph": {
         "nodes": [
             {
-                "guid": 0,
-                "dataNode": "whiteSpace.json",
-                "class": "GraphNode",
-                "dataClass": null,
+                "dataClass": null, 
+                "guid": 0, 
+                "dataNode": "whiteSpace.json", 
+                "class": "GraphNode", 
                 "nexts": [
                     2
                 ]
-            },
+            }, 
             {
-                "guid": 1,
-                "dataNode": "punctuation.json",
-                "class": "GraphNode",
-                "dataClass": null,
+                "dataClass": null, 
+                "guid": 1, 
+                "dataNode": "punctuation.json", 
+                "class": "GraphNode", 
                 "nexts": [
                     2
                 ]
-            },
+            }, 
             {
-                "guid": 2,
-                "dataNode": "letter.json",
-                "class": "GraphNode",
-                "dataClass": null,
+                "dataClass": null, 
+                "guid": 2, 
+                "dataNode": "letter.json", 
+                "class": "GraphNode", 
                 "nexts": [
-                    2,
-                    3,
+                    2, 
+                    3, 
                     4
                 ]
-            },
+            }, 
             {
-                "guid": 3,
-                "dataNode": "whiteSpace.json",
-                "class": "GraphNode",
-                "dataClass": null,
+                "dataClass": null, 
+                "guid": 3, 
+                "dataNode": "whiteSpace.json", 
+                "class": "GraphNode", 
                 "nexts": [
                     null
                 ]
-            },
+            }, 
             {
-                "guid": 4,
-                "dataNode": "punctuation.json",
-                "class": "GraphNode",
-                "dataClass": null,
-                "nexts": [
-                    null
-                ]
-            },
-            {
-                "guid": 5,
-                "dataNode": "word.json",
-                "class": "GraphNode",
-                "dataClass": null,
+                "dataClass": null, 
+                "guid": 4, 
+                "dataNode": "punctuation.json", 
+                "class": "GraphNode", 
                 "nexts": [
                     null
                 ]
             }
-        ],
-        "guid": 7,
-        "class": "GraphStructure",
+        ], 
+        "guid": -1, 
+        "class": "GraphStructure", 
         "name": "word"
-    },
-    "class": "FlowGraph",
-    "startNodes": [
-        0,
-        1,
-        5
-    ],
-    "contextNodes":[
-        0,
-        1,
-        3,
+    }, 
+    "contextNodes": [
+        0, 
+        1, 
+        3, 
         4
+    ], 
+    "class": "FlowGraph", 
+    "startNodes": [
+        0, 
+        1
     ]
 }

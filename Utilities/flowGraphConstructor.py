@@ -3,6 +3,8 @@ from guidMapper import GuidMapper
 import graphStructureConstructor
 import json
 import csv
+from os import listdir, walk, path
+from os.path import join
 
 
 def flowGraphFromJSON(inputJSON, guidMapper=GuidMapper()):
@@ -56,10 +58,74 @@ def generateFlowGraphFiles(minFileName):
             for key in new_json:
                 if new_json[key] == "":
                     new_json[key] = None
-            new_file = open("Data/FlowGraphs/" + fileName, 'w')
+            new_file = open(fileName, 'w')
             new_file.write(json.dumps(new_json, indent=4))
             new_file.close()
     return json.dumps(new_json, indent=4)
+
+
+def generateFlowGraphMinFile(inputJSON, fileLocation):
+    rv = []
+    j = json.loads(inputJSON)
+    rv.append(fileLocation)
+
+    newNodes = "["
+    for i, n in enumerate(j["graph"]["nodes"]):
+        newNodes += "["
+        newNodes += str(i)
+        newNodes += ","
+        newNodes += "\"" + n["dataNode"] + "\"" if n["dataNode"] else "null"
+        newNodes += ","
+        newNodes += "\"" + n["dataClass"] + "\"" if n["dataClass"] else "null"
+        newNodes += ","
+        t = "["
+        for k in n["nexts"]:
+            if k:
+                t += str(k)
+            else:
+                t += "null"
+            t += ","
+        if len(t) > 1:
+            t = t[:-1]
+        t += "]"
+        newNodes += t
+        newNodes += "]"
+        newNodes += ","
+    if len(newNodes) > 1:
+        newNodes = newNodes[:-1]
+    newNodes += "]"
+    rv.append(newNodes)
+    newNodes = "["
+    for i, n in enumerate(j["startNodes"]):
+        newNodes += str(i)
+        newNodes += ","
+    if len(newNodes) > 1:
+        newNodes = newNodes[:-1]
+    newNodes += "]"
+    rv.append(newNodes)
+    newNodes = "["
+    for i, n in enumerate(j["contextNodes"]):
+        newNodes += str(i)
+        newNodes += ","
+    if len(newNodes) > 1:
+        newNodes = newNodes[:-1]
+    newNodes += "]"
+    rv.append(newNodes)
+    rv.append(j["graph"]["name"])
+
+    rString = ""
+    for i in rv:
+        if type(i) is unicode or type(i) is str:
+            rString += "\'" + i + "\'"
+        elif not i:
+            pass
+        else:
+            rString += str(i)
+        rString += ","
+
+    if len(rString) > 0:
+        rString = rString[:-1]
+    return rString
 
 
 def createMinFileForWord(word):
@@ -88,3 +154,42 @@ def createMinFileForWord(word):
 
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
+
+
+def saveFlowGraphFolderToMinFile(folderName):
+    minFile = ""
+    for subdir, dirs, files in walk(folderName):
+        for file in files:
+            file = path.join(subdir, file)
+            if (file.endswith("json")):
+                with open(file, 'r') as f:
+                    minFile += generateFlowGraphMinFile(f.read(), file)
+                    minFile += "\n"
+    return minFile
+
+
+def refreshFlowGraphs():
+    tempMin = saveFlowGraphFolderToMinFile("Data\FlowGraphs")
+    generateFlowGraphFiles("flowGraphs.flowGraph")
+    tempMinList = tempMin.split("\n")
+    try:
+        tempMinList.remove("\n")
+    except ValueError:
+        pass
+    lines = set(tempMinList)
+    with open('Data/FlowGraphs/flowGraphs.flowGraph') as oldMin:
+        t = oldMin.read().split("\n")
+        try:
+            t.remove("\n")
+        except ValueError:
+            pass
+        lines |= set(t)
+    result = list(lines)
+    result.sort()
+    try:
+        result.remove("")
+    except ValueError:
+        pass
+    with open('Data/FlowGraphs/flowGraphs.flowGraph', 'r+') as oldMin:
+        oldMin.writelines("\n".join(result) + "\n")
+        oldMin.truncate()

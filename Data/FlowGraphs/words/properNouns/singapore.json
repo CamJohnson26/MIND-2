@@ -1,0 +1,23 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "dataClass": "words/singapore.json", 
+                "guid": 0, 
+                "dataNode": "word.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    null
+                ]
+            }
+        ], 
+        "guid": -1, 
+        "class": "GraphStructure", 
+        "name": "properNouns:singapore"
+    }, 
+    "contextNodes": [], 
+    "class": "FlowGraph", 
+    "startNodes": [
+        0
+    ]
+}

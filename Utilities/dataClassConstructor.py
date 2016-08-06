@@ -1,6 +1,6 @@
 from dataClass import DataClass
 from flowGraphConstructor import *
-from os import listdir
+from os import listdir, walk, path
 from os.path import isfile, join
 import json
 import csv
@@ -51,7 +51,69 @@ def generateDataClassFiles(minFileName):
             for key in new_json:
                 if new_json[key] == "":
                     new_json[key] = None
-            new_file = open("Data/DataClasses/" + fileName, 'w')
+            new_file = open(fileName, 'w')
             new_file.write(json.dumps(new_json, indent=4))
             new_file.close()
     return json.dumps(new_json, indent=4)
+
+
+def generateDataClassMinFile(inputJSON, fileLocation):
+    rv = []
+    j = json.loads(inputJSON)
+    rv.append(fileLocation)
+    rv.append(j["dataClassIndex"])
+    rv.append(j["dataClassString"])
+    rv.append(j["flowGraph"])
+
+    rString = ""
+    for i in rv:
+        if type(i) is unicode or type(i) is str:
+            rString += "\"" + i + "\""
+        elif i is None:
+            pass
+        else:
+            rString += str(i)
+        rString += ","
+
+    if len(rString) > 0:
+        rString = rString[:-1]
+    return rString
+
+
+def saveDataClassFolderToMinFile(folderName):
+    minFile = ""
+    for subdir, dirs, files in walk(folderName):
+        for file in files:
+            file = path.join(subdir, file)
+            if (file.endswith("json")):
+                with open(file, 'r') as f:
+                    minFile += generateDataClassMinFile(f.read(), file)
+                    minFile += "\n"
+    return minFile
+
+
+def refreshDataClasses():
+    tempMin = saveDataClassFolderToMinFile("Data\DataClasses")
+    generateDataClassFiles("dataClasses.dataClass")
+    tempMinList = tempMin.split("\n")
+    try:
+        tempMinList.remove("\n")
+    except ValueError:
+        pass
+    lines = set(tempMinList)
+    with open('Data/DataClasses/dataClasses.dataClass') as oldMin:
+        t = oldMin.read().split("\n")
+        try:
+            t.remove("\n")
+        except ValueError:
+            pass
+        lines |= set(t)
+    result = list(lines)
+    result.sort()
+    try:
+        result.remove("")
+    except ValueError:
+        pass
+    with open('Data/DataClasses/dataClasses.dataClass', 'r+') as oldMin:
+        oldMin.writelines("\n".join(result) + "\n")
+        oldMin.truncate()

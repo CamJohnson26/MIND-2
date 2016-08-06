@@ -1,0 +1,23 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "dataClass": "words/was.json", 
+                "guid": 0, 
+                "dataNode": "word.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    null
+                ]
+            }
+        ], 
+        "guid": -1, 
+        "class": "GraphStructure", 
+        "name": "verbs:was"
+    }, 
+    "contextNodes": [], 
+    "class": "FlowGraph", 
+    "startNodes": [
+        0
+    ]
+}

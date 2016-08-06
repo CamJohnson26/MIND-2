@@ -1,6 +1,6 @@
 {
     "dataType": "number.json", 
-    "parsedData": null, 
+    "dataClass": null, 
     "class": "DataNode", 
-    "dataClass": null
+    "parsedData": null
 }

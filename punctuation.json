@@ -1,0 +1,5 @@
+{
+    "matchFunction": "punctuationMatch", 
+    "class": "DataType", 
+    "dataTypeName": "punctuation"
+}
