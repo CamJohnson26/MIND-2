@@ -6,6 +6,7 @@ from Utilities.pretty_representation import *
 # Test Data
 #testData = " The wing was established in July 1950 and headquartered at Changi, on the east coast of Singapore. "
 testData = " Headquartered in the east coast, Singapore established Changi in July 1950"
+testData = " El burro de coolest Ross barfed happily nor sadly "
 
 # Set up ChainGraphLayer
 originalChainGraphLayer = chainGraphLayerFromString(testData)
@@ -23,10 +24,11 @@ graphMachine.chainGraphLayer.classify(dataClasses)
 pretty_chainGraphLayer(graphMachine.chainGraphLayer)
 
 # Tokenize by part of speech
-flowGraphs = loadFlowGraphs(["words/articles/article", "words/prepositions/preposition", "words/properNouns/properNoun","words/verbs/verb","words/nouns/noun","words/adjectives/adjective","words/conjunctions/conjunction","punctuation","whiteSpace","number"])
+flowGraphs = loadFlowGraphs(["words/adverbs/adverb","words/articles/article", "words/prepositions/preposition", "words/properNouns/properNoun","words/verbs/verb","words/nouns/noun","words/adjectives/adjective","words/conjunctions/conjunction","punctuation","whiteSpace","number"])
 graphMachine.flowGraphs = flowGraphs
 graphMachine.feed_chain_graph_layer(graphMachine.chainGraphLayer)
 
+dataClasses["adverb"] = loadDataClasses("words/adverbs")
 dataClasses["article"] = loadDataClasses("words/articles")
 dataClasses["noun"] = loadDataClasses("words/nouns")
 dataClasses["properNoun"] = loadDataClasses("words/properNouns")
