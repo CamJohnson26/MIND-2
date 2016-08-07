@@ -18,6 +18,15 @@
                 "nexts": [
                     null
                 ]
+            }, 
+            {
+                "dataClass": "words/nor.json", 
+                "guid": 2, 
+                "dataNode": "word.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    null
+                ]
             }
         ], 
         "guid": -1, 
@@ -28,6 +37,7 @@
     "class": "FlowGraph", 
     "startNodes": [
         0, 
-        1
+        1, 
+        2
     ]
 }

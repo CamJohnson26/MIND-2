@@ -68,6 +68,7 @@ def saveDataNodeFolderToMinFile(folderName):
     for subdir, dirs, files in walk(folderName):
         for file in files:
             file = path.join(subdir, file)
+            file = file.replace("\\","/")
             if (file.endswith("json")):
                 with open(file, 'r') as f:
                     minFile += generateDataNodeMinFile(f.read(), file)
@@ -91,7 +92,16 @@ def refreshDataNodes():
         except ValueError:
             pass
         lines |= set(t)
-    result = list(lines)
+    new_lines = {}
+    for line in lines:
+        lineKey = line.split(",")[0]
+        try:
+            cur_line = new_lines[lineKey]
+        except KeyError:
+            cur_line = ""
+        if len(line) > len(cur_line):
+            new_lines[lineKey] = line
+    result = new_lines.values()
     result.sort()
     try:
         result.remove("")

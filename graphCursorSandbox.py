@@ -21,7 +21,7 @@ graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
 dataClasses = {}
 dataClasses["word"] = loadDataClasses("words")
 graphMachine.chainGraphLayer.classify(dataClasses)
-pretty_chainGraphLayer(graphMachine.chainGraphLayer)
+#print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 # Tokenize by part of speech
 flowGraphs = loadFlowGraphs(["words/adverbs/adverb","words/articles/article", "words/prepositions/preposition", "words/properNouns/properNoun","words/verbs/verb","words/nouns/noun","words/adjectives/adjective","words/conjunctions/conjunction","punctuation","whiteSpace","number"])

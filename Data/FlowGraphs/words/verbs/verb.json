@@ -2,7 +2,7 @@
     "graph": {
         "nodes": [
             {
-                "dataClass": "words/established.json", 
+                "dataClass": "words/barfed.json", 
                 "guid": 0, 
                 "dataNode": "word.json", 
                 "class": "GraphNode", 
@@ -11,7 +11,7 @@
                 ]
             }, 
             {
-                "dataClass": "words/headquartered.json", 
+                "dataClass": "words/established.json", 
                 "guid": 1, 
                 "dataNode": "word.json", 
                 "class": "GraphNode", 
@@ -20,8 +20,17 @@
                 ]
             }, 
             {
-                "dataClass": "words/was.json", 
+                "dataClass": "words/headquartered.json", 
                 "guid": 2, 
+                "dataNode": "word.json", 
+                "class": "GraphNode", 
+                "nexts": [
+                    null
+                ]
+            }, 
+            {
+                "dataClass": "words/was.json", 
+                "guid": 3, 
                 "dataNode": "word.json", 
                 "class": "GraphNode", 
                 "nexts": [
@@ -38,6 +47,7 @@
     "startNodes": [
         0, 
         1, 
-        2
+        2, 
+        3
     ]
 }

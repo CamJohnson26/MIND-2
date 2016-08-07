@@ -26,9 +26,9 @@ def updateAdjectives():
         file_json["graph"]["nodes"].append(node)
         file_json["startNodes"].append(index)
 
-    with open("Data/FlowGraphs/words/adjectives/adjective.json", "a") as f:
-        f.truncate()
-        f.write(json.dumps(file_json, indent=4))
+    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
+        minFile = generateFlowGraphMinFile(json.dumps(file_json, indent=4), "Data/FlowGraphs/words/adjectives/adjective.json")
+        f.write(minFile + "\n")
 
 
 def updateAdverbs():
@@ -42,10 +42,9 @@ def updateAdverbs():
         file_json["graph"]["nodes"].append(node)
         file_json["startNodes"].append(index)
 
-    with open("Data/FlowGraphs/words/adverbs/adverb.json", "a") as f:
-        f.truncate()
-        f.write(json.dumps(file_json, indent=4))
-
+    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
+        minFile = generateFlowGraphMinFile(json.dumps(file_json, indent=4), "Data/FlowGraphs/words/adverbs/adverb.json")
+        f.write(minFile + "\n")
 
 def updateArticles():
     path = "Data/FlowGraphs/words/articles/"
@@ -58,9 +57,9 @@ def updateArticles():
         file_json["graph"]["nodes"].append(node)
         file_json["startNodes"].append(index)
 
-    with open("Data/FlowGraphs/words/articles/article.json", "a") as f:
-        f.truncate()
-        f.write(json.dumps(file_json, indent=4))
+    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
+        minFile = generateFlowGraphMinFile(json.dumps(file_json, indent=4), "Data/FlowGraphs/words/articles/article.json")
+        f.write(minFile + "\n")
 
 
 def updateConjunctions():
@@ -74,9 +73,9 @@ def updateConjunctions():
         file_json["graph"]["nodes"].append(node)
         file_json["startNodes"].append(index)
 
-    with open("Data/FlowGraphs/words/conjunctions/conjunction.json", "a") as f:
-        f.truncate()
-        f.write(json.dumps(file_json, indent=4))
+    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
+        minFile = generateFlowGraphMinFile(json.dumps(file_json, indent=4), "Data/FlowGraphs/words/conjunctions/conjunction.json")
+        f.write(minFile + "\n")
 
 
 def updateNouns():
@@ -90,9 +89,9 @@ def updateNouns():
         file_json["graph"]["nodes"].append(node)
         file_json["startNodes"].append(index)
 
-    with open("Data/FlowGraphs/words/nouns/noun.json", "a") as f:
-        f.truncate()
-        f.write(json.dumps(file_json, indent=4))
+    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
+        minFile = generateFlowGraphMinFile(json.dumps(file_json, indent=4), "Data/FlowGraphs/words/nouns/noun.json")
+        f.write(minFile + "\n")
 
 
 def updatePrepositions():
@@ -106,9 +105,9 @@ def updatePrepositions():
         file_json["graph"]["nodes"].append(node)
         file_json["startNodes"].append(index)
 
-    with open("Data/FlowGraphs/words/prepositions/preposition.json", "a") as f:
-        f.truncate()
-        f.write(json.dumps(file_json, indent=4))
+    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
+        minFile = generateFlowGraphMinFile(json.dumps(file_json, indent=4), "Data/FlowGraphs/words/prepositions/preposition.json")
+        f.write(minFile + "\n")
 
 
 def updateProperNouns():
@@ -122,9 +121,9 @@ def updateProperNouns():
         file_json["graph"]["nodes"].append(node)
         file_json["startNodes"].append(index)
 
-    with open("Data/FlowGraphs/words/properNouns/properNoun.json", "a") as f:
-        f.truncate()
-        f.write(json.dumps(file_json, indent=4))
+    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
+        minFile = generateFlowGraphMinFile(json.dumps(file_json, indent=4), "Data/FlowGraphs/words/properNouns/properNoun.json")
+        f.write(minFile + "\n")
 
 
 def updateVerbs():
@@ -138,9 +137,9 @@ def updateVerbs():
         file_json["graph"]["nodes"].append(node)
         file_json["startNodes"].append(index)
 
-    with open("Data/FlowGraphs/words/verbs/verb.json", "a") as f:
-        f.truncate()
-        f.write(json.dumps(file_json, indent=4))
+    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
+        minFile = generateFlowGraphMinFile(json.dumps(file_json, indent=4), "Data/FlowGraphs/words/verbs/verb.json")
+        f.write(minFile + "\n")
 
 
 def refreshData():
@@ -163,7 +162,7 @@ def refreshData():
 
 
 def create_word(word):
-    minFile = "'Data\\FlowGraphs\\words\\" + word + ".json','["
+    minFile = "'Data/FlowGraphs/words/" + word + ".json','["
     for i, c in enumerate(word):
         if i == len(word) - 1:
             n = "null"
@@ -187,14 +186,16 @@ def create_word(word):
 
     index += 1
 
-    minDataClass = '"Data\\DataClasses\\words\\' + word + '.json",' + str(index + 1) + ',"' + word + '","words/' + word + '.json"\n'
+    minDataClass = '"Data/DataClasses/words/' + word + '.json",' + str(index + 1) + ',"' + word + '","words/' + word + '.json"\n'
 
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
 
 def create_adjective(word):
-    minFile = "'Data\\FlowGraphs\\words\\adjectives\\" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','adjective:" + word + "'\n"
+    create_word(word)
+
+    minFile = "'Data/FlowGraphs/words/adjectives/" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','adjective:" + word + "'\n"
 
     with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
         f.write(minFile)
@@ -208,13 +209,15 @@ def create_adjective(word):
 
     index += 1
 
-    minDataClass = '"Data\\DataClasses\\words\\adjectives\\' + word + '.json",' + str(index) + ',"' + word + '","words/adjectives/' + word + '.json"\n'
+    minDataClass = '"Data/DataClasses/words/adjectives/' + word + '.json",' + str(index) + ',"' + word + '","words/adjectives/' + word + '.json"\n'
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
 
 def create_adverb(word):
-    minFile = "'Data\\FlowGraphs\\words\\adverbs\\" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','adverb:" + word + "'\n"
+    create_word(word)
+
+    minFile = "'Data/FlowGraphs/words/adverbs/" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','adverb:" + word + "'\n"
 
     with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
         f.write(minFile)
@@ -228,13 +231,15 @@ def create_adverb(word):
 
     index += 1
 
-    minDataClass = '"Data\\DataClasses\\words\\adverbs\\' + word + '.json",' + str(index) + ',"' + word + '","words/adverbs/' + word + '.json"\n'
+    minDataClass = '"Data/DataClasses/words/adverbs/' + word + '.json",' + str(index) + ',"' + word + '","words/adverbs/' + word + '.json"\n'
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
 
 def create_article(word):
-    minFile = "'Data\\FlowGraphs\\words\\articles\\" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','article:" + word + "'\n"
+    create_word(word)
+
+    minFile = "'Data/FlowGraphs/words/articles/" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','article:" + word + "'\n"
 
     with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
         f.write(minFile)
@@ -248,13 +253,15 @@ def create_article(word):
 
     index += 1
 
-    minDataClass = '"Data\\DataClasses\\words\\articles\\' + word + '.json",' + str(index) + ',"' + word + '","words/articles/' + word + '.json"\n'
+    minDataClass = '"Data/DataClasses/words/articles/' + word + '.json",' + str(index) + ',"' + word + '","words/articles/' + word + '.json"\n'
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
 
 def create_conjunction(word):
-    minFile = "'Data\\FlowGraphs\\words\\conjunctions\\" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','conjunction:" + word + "'\n"
+    create_word(word)
+
+    minFile = "'Data/FlowGraphs/words/conjunctions/" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','conjunction:" + word + "'\n"
 
     with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
         f.write(minFile)
@@ -268,13 +275,15 @@ def create_conjunction(word):
 
     index += 1
 
-    minDataClass = '"Data\\DataClasses\\words\\conjunctions\\' + word + '.json",' + str(index) + ',"' + word + '","words/conjunctions/' + word + '.json"\n'
+    minDataClass = '"Data/DataClasses/words/conjunctions/' + word + '.json",' + str(index) + ',"' + word + '","words/conjunctions/' + word + '.json"\n'
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
 
 def create_noun(word):
-    minFile = "'Data\\FlowGraphs\\words\\nouns\\" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','noun:" + word + "'\n"
+    create_word(word)
+
+    minFile = "'Data/FlowGraphs/words/nouns/" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','noun:" + word + "'\n"
 
     with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
         f.write(minFile)
@@ -288,13 +297,15 @@ def create_noun(word):
 
     index += 1
 
-    minDataClass = '"Data\\DataClasses\\words\\nouns\\' + word + '.json",' + str(index) + ',"' + word + '","words/nouns/' + word + '.json"\n'
+    minDataClass = '"Data/DataClasses/words/nouns/' + word + '.json",' + str(index) + ',"' + word + '","words/nouns/' + word + '.json"\n'
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
 
 def create_preposition(word):
-    minFile = "'Data\\FlowGraphs\\words\\prepositions\\" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','preposition:" + word + "'\n"
+    create_word(word)
+
+    minFile = "'Data/FlowGraphs/words/prepositions/" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','preposition:" + word + "'\n"
 
     with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
         f.write(minFile)
@@ -308,13 +319,15 @@ def create_preposition(word):
 
     index += 1
 
-    minDataClass = '"Data\\DataClasses\\words\\prepositions\\' + word + '.json",' + str(index) + ',"' + word + '","words/prepositions/' + word + '.json"\n'
+    minDataClass = '"Data/DataClasses/words/prepositions/' + word + '.json",' + str(index) + ',"' + word + '","words/prepositions/' + word + '.json"\n'
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
 
 def create_properNoun(word):
-    minFile = "'Data\\FlowGraphs\\words\\properNouns\\" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','properNoun:" + word + "'\n"
+    create_word(word)
+
+    minFile = "'Data/FlowGraphs/words/properNouns/" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','properNoun:" + word + "'\n"
 
     with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
         f.write(minFile)
@@ -328,13 +341,15 @@ def create_properNoun(word):
 
     index += 1
 
-    minDataClass = '"Data\\DataClasses\\words\\properNouns\\' + word + '.json",' + str(index) + ',"' + word + '","words/properNouns/' + word + '.json"\n'
+    minDataClass = '"Data/DataClasses/words/properNouns/' + word + '.json",' + str(index) + ',"' + word + '","words/properNouns/' + word + '.json"\n'
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
 
 def create_verb(word):
-    minFile = "'Data\\FlowGraphs\\words\\verbs\\" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','verb:" + word + "'\n"
+    create_word(word)
+
+    minFile = "'Data/FlowGraphs/words/verbs/" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','verb:" + word + "'\n"
 
     with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
         f.write(minFile)
@@ -348,9 +363,12 @@ def create_verb(word):
 
     index += 1
 
-    minDataClass = '"Data\\DataClasses\\words\\verbs\\' + word + '.json",' + str(index) + ',"' + word + '","words/verbs/' + word + '.json"\n'
+    minDataClass = '"Data/DataClasses/words/verbs/' + word + '.json",' + str(index) + ',"' + word + '","words/verbs/' + word + '.json"\n'
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
+# pns = ["lacey","lauren","hamilton"]
+# for pn in pns:
+#     create_properNoun(pn)
 
 refreshData()
