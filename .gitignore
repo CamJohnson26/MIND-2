@@ -53,3 +53,5 @@ flowGraphCursor.pyc
 *.pyc
 flowGraphCursor.pyc
 *.pyc
+*.json
+*.json

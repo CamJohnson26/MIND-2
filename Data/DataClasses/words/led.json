@@ -1,6 +1,0 @@
-{
-    "dataClassIndex": 46, 
-    "dataClassString": "led", 
-    "class": "DataClass", 
-    "flowGraph": "words/led.json"
-}
