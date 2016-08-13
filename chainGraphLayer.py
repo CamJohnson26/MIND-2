@@ -4,6 +4,7 @@ from chainGraph import ChainGraph
 from chainGraphFlattener import ChainGraphFlattener
 from bridgeNode import BridgeNode
 from Utilities.graphNodeConstructor import graph_node_from_cursor
+from Utilities.dataClassConstructor import loadDataClasses
 
 
 class ChainGraphLayer:
@@ -23,7 +24,12 @@ class ChainGraphLayer:
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
 
-    def classify(self, dataClasses):
+    def classify(self, dataTypes):
+        dataClasses = {}
+        for dataType in dataTypes:
+            dataClassName = dataType.dataClassName
+            dataTypeName = dataType.dataTypeName
+            dataClasses[dataTypeName] = loadDataClasses(dataClassName)
         for node in self.chainGraph.graph.nodes:
             node.classify(dataClasses)
 

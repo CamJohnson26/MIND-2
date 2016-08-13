@@ -8,8 +8,9 @@ from os import walk, path
 def dataTypeFromJSON(inputJSON):
     inputObject = json.loads(inputJSON)
     dataTypeName = inputObject["dataTypeName"]
+    dataClassName = inputObject["dataClassName"]
     matchFunction = getattr(matchFunctions, inputObject["matchFunction"])
-    dataType = DataType(dataTypeName, matchFunction)
+    dataType = DataType(dataTypeName, dataClassName, matchFunction)
     return dataType
 
 
@@ -19,6 +20,21 @@ def loadDataType(inputFileName):
     return dataTypeFromJSON(json)
 
 
+def loadDataTypes(inputFolder):
+    rv = []
+    if type(inputFolder) is list:
+        files = [str(f) + ".json" for f in inputFolder]
+    else:
+        path = "Data/DataTypes/" + inputFolder
+        files = listdir(path)
+        files = [inputFolder + "/" + f for f in files if isfile(join(path, f))]
+    for file in files:
+        f = open("Data/DataTypes/" + file)
+        json = f.read()
+        rv.append(dataTypeFromJSON(json))
+    return rv
+
+
 def generateDataTypeFiles(minFileName):
     new_json = {"class": "DataType"}
     with open("Data/DataTypes/" + minFileName) as minFile:
@@ -26,7 +42,8 @@ def generateDataTypeFiles(minFileName):
         for value in inputValues:
             fileName = value[0]
             new_json["dataTypeName"] = value[1]
-            new_json["matchFunction"] = value[2]
+            new_json["dataClassName"] = value[2]
+            new_json["matchFunction"] = value[3]
             for key in new_json:
                 if new_json[key] == "":
                     new_json[key] = None
@@ -41,6 +58,7 @@ def generateDataTypeMinFile(inputJSON, fileLocation):
     j = json.loads(inputJSON)
     rv.append(fileLocation)
     rv.append(j["dataTypeName"])
+    rv.append(j["dataClassName"])
     rv.append(j["matchFunction"])
 
     rString = ""
@@ -49,6 +67,8 @@ def generateDataTypeMinFile(inputJSON, fileLocation):
             rString += "\"" + i + "\""
         elif not i:
             pass
+        elif type(i) is list:
+            rString += ("[" + ",".join([dc for dc in i]) + "]")
         else:
             rString += str(i)
         rString += ","
