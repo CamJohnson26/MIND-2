@@ -27,7 +27,7 @@ class ChainGraphLayer:
     def classify(self, dataTypes):
         dataClasses = {}
         for dataType in dataTypes:
-            dataClassName = dataType.dataClassName
+            dataClassName = dataType.dataClasses["dataIndex"]
             dataTypeName = dataType.dataTypeName
             dataClasses[dataTypeName] = loadDataClasses(dataClassName)
         for node in self.chainGraph.graph.nodes:

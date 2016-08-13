@@ -25,11 +25,11 @@ def loadDataNode(inputFileName):
 def generateDataNodeFiles(minFileName):
     new_json = {"class": "DataNode"}
     with open("Data/DataNodes/" + minFileName) as minFile:
-        inputValues = csv.reader(minFile, delimiter=",", quotechar="\"")
+        inputValues = csv.reader(minFile, delimiter=",", quotechar="\'")
         for value in inputValues:
             fileName = value[0]
             new_json["dataType"] = value[1]
-            new_json["dataClass"] = value[2]
+            new_json["dataClasses"] = json.loads(value[2])
             new_json["parsedData"] = value[3]
             for key in new_json:
                 if new_json[key] == "":
@@ -45,7 +45,7 @@ def generateDataNodeMinFile(inputJSON, fileLocation):
     j = json.loads(inputJSON)
     rv.append(fileLocation)
     rv.append(j["dataType"])
-    rv.append(j["dataClass"])
+    rv.append(j["dataClasses"])
     rv.append(j["parsedData"])
 
     rString = ""
@@ -54,6 +54,15 @@ def generateDataNodeMinFile(inputJSON, fileLocation):
             rString += "\"" + i + "\""
         elif not i:
             pass
+        elif type(i) is list:
+            rString += ("[" + ",".join([dc for dc in i]) + "]")
+        elif type(i) is dict:
+            rString += "{"
+            for key in i.keys():
+                rString += "\"" + key + "\":\"" + i[key] + "\","
+            if len(i.keys() > 0):
+                rString = rString[:-1]
+            rString += "}"
         else:
             rString += str(i)
         rString += ","

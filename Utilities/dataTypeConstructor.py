@@ -8,9 +8,9 @@ from os import walk, path
 def dataTypeFromJSON(inputJSON):
     inputObject = json.loads(inputJSON)
     dataTypeName = inputObject["dataTypeName"]
-    dataClassName = inputObject["dataClassName"]
+    dataClasses = inputObject["dataClasses"]
     matchFunction = getattr(matchFunctions, inputObject["matchFunction"])
-    dataType = DataType(dataTypeName, dataClassName, matchFunction)
+    dataType = DataType(dataTypeName, dataClasses, matchFunction)
     return dataType
 
 
@@ -38,11 +38,11 @@ def loadDataTypes(inputFolder):
 def generateDataTypeFiles(minFileName):
     new_json = {"class": "DataType"}
     with open("Data/DataTypes/" + minFileName) as minFile:
-        inputValues = csv.reader(minFile, delimiter=",", quotechar="\"")
+        inputValues = csv.reader(minFile, delimiter=",", quotechar="\'")
         for value in inputValues:
             fileName = value[0]
             new_json["dataTypeName"] = value[1]
-            new_json["dataClassName"] = value[2]
+            new_json["dataClasses"] = json.loads(value[2])
             new_json["matchFunction"] = value[3]
             for key in new_json:
                 if new_json[key] == "":
@@ -58,7 +58,7 @@ def generateDataTypeMinFile(inputJSON, fileLocation):
     j = json.loads(inputJSON)
     rv.append(fileLocation)
     rv.append(j["dataTypeName"])
-    rv.append(j["dataClassName"])
+    rv.append(j["dataClasses"])
     rv.append(j["matchFunction"])
 
     rString = ""
@@ -69,6 +69,13 @@ def generateDataTypeMinFile(inputJSON, fileLocation):
             pass
         elif type(i) is list:
             rString += ("[" + ",".join([dc for dc in i]) + "]")
+        elif type(i) is dict:
+            rString += "{"
+            for key in i.keys():
+                rString += "\"" + key + "\":\"" + i[key] + "\","
+            if len(i.keys() > 0):
+                rString = rString[:-1]
+            rString += "}"
         else:
             rString += str(i)
         rString += ","

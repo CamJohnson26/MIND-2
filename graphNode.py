@@ -5,13 +5,13 @@ import json
 class GraphNode:
 
     dataNode = None
-    dataClass = None
+    dataClasses = {}
     nexts = []
     guid = ""
 
     def __init__(self, dataNode):
         self.dataNode = dataNode
-        self.dataClass = None
+        self.dataClasses = {}
         self.guid = uuid.uuid4()
         self.nexts = []
 
@@ -24,28 +24,29 @@ class GraphNode:
         rv["guid"] = str(self.guid)
         rv["nexts"] = [str(a.guid) for a in self.nexts if a is not None]
         rv["nexts"].extend([a for a in self.nexts if a is None])
-        if self.dataClass:
-            rv["dataClass"] = self.dataClass.get_json()
-        else:
-            rv["dataClass"] = None
+        rv["dataClasses"] = json.dumps(self.dataClasses)
         return rv
 
     def matches(self, inputData):
         inputDataTypeName = inputData.dataNode.dataType.dataTypeName
-        inputDataClass = inputData.dataClass
-        inputDataClassIndex = None
-        if inputDataClass:
-            inputDataClassIndex = inputDataClass.dataClassIndex
         inputDataParsedData = inputData.dataNode.parsedData
+        dataClassMatches = True
+        for dataClassKey in self.dataClasses.keys():
+            inputDataClass = inputData.dataClasses.get(dataClassKey)
+            inputDataClassIndex = None
+            if inputDataClass:
+                inputDataClassIndex = inputDataClass.dataClassIndex
+            dataClass = self.dataClasses[dataClassKey]
+            if not (dataClass is None or                                          # Data Classes are equal
+             (dataClass.dataClassIndex == inputDataClassIndex)):
+                dataClassMatches = False
         if (((self.dataNode.dataType.dataTypeName == inputDataTypeName) and     # Data Types are equal
-            (self.dataClass is None or
-             (self.dataClass.dataClassIndex == inputDataClassIndex)) and        # Data Classes are equal
+            dataClassMatches and        # Data Classes are equal
             ((self.dataNode.parsedData == inputDataParsedData) or               # Parsed Data is equal or null
             (self.dataNode.parsedData is None))) or                             # OR
             ((self.dataNode.parsedData is None) and                             # Parsed data is null and
              self.dataNode.dataType.matches(inputDataParsedData)) and           # Matches Function works and
-            (self.dataClass is None or                                          # Data Classes are equal
-             (self.dataClass.dataClassIndex == inputDataClassIndex))):
+            dataClassMatches):
             return True
         else:
             return False
@@ -58,4 +59,4 @@ class GraphNode:
                     dataClass = c
         except KeyError:
             pass
-        self.dataClass = dataClass
+        self.dataClasses["dataIndex"] = dataClass

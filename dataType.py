@@ -5,11 +5,11 @@ class DataType:
 
     matchFunction = None
     dataTypeName = ""
-    dataClassName = ""
+    dataClasses = {}
 
-    def __init__(self, dataTypeName, dataClassName, matchFunction):
+    def __init__(self, dataTypeName, dataClasses, matchFunction):
         self.dataTypeName = dataTypeName
-        self.dataClassName = dataClassName
+        self.dataClasses = dataClasses
         self.matchFunction = matchFunction
 
     def __str__(self):
@@ -18,7 +18,7 @@ class DataType:
     def get_json(self):
         rv = {"class": "DataType"}
         rv["dataTypeName"] = self.dataTypeName
-        rv["dataClassName"] = self.dataClassName
+        rv["dataClasses"] = json.dumps(self.dataClasses)
         rv["matchFunction"] = self.matchFunction.__name__
         return rv
 
