@@ -68,4 +68,8 @@ class GraphNode:
                     dataClass = c
         except KeyError:
             pass
+        if dataClass:
+            dataClass.rollup_classes()
+            for key in dataClass.dataClasses.keys():
+                self.dataClasses[key] = dataClass.dataClasses[key]
         self.dataClasses["dataIndex"] = dataClass

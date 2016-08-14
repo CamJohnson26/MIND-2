@@ -8,7 +8,9 @@ import csv
 
 def dataClassFromJSON(inputJSON):
     inputObject = json.loads(inputJSON)
-    if type(inputObject["flowGraph"] is unicode):
+    if not inputObject["flowGraph"]:
+        flowGraph = None
+    elif type(inputObject["flowGraph"] is unicode):
         flowGraph = loadFlowGraph(inputObject["flowGraph"])
     else:
         flowGraph = flowGraphFromJSON(json.dumps(inputObject["flowGraph"]))
@@ -16,6 +18,8 @@ def dataClassFromJSON(inputJSON):
     dataClassString = inputObject["dataClassString"]
     dataClasses = inputObject["dataClasses"]
     dataClass = DataClass(flowGraph, dataClassIndex, dataClassString)
+    for key in dataClasses.keys():
+        dataClasses[key] = loadDataClass(dataClasses[key])
     dataClass.dataClasses = dataClasses
     return dataClass
 
@@ -72,16 +76,16 @@ def generateDataClassMinFile(inputJSON, fileLocation):
     rString = ""
     for i in rv:
         if type(i) is unicode or type(i) is str:
-            rString += "\"" + i + "\""
+            rString += "\'" + i + "\'"
         elif i is None:
             pass
         elif type(i) is dict:
-            rString += "{"
+            rString += "'{"
             for key in i.keys():
                 rString += "\"" + key + "\":\"" + i[key] + "\","
             if len(i.keys()) > 0:
                 rString = rString[:-1]
-            rString += "}"
+            rString += "}'"
         else:
             rString += str(i)
         rString += ","

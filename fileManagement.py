@@ -115,6 +115,5 @@ def create_word_attribute(word, attribute):
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
-
 clean_json()
 refreshData()
