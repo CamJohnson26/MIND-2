@@ -22,15 +22,6 @@ def refreshData():
     refreshDataClasses()
     refreshFlowGraphs()
 
-    updateWordAttribute("adjective")
-    updateWordAttribute("adverb")
-    updateWordAttribute("article")
-    updateWordAttribute("conjunction")
-    updateWordAttribute("noun")
-    updateWordAttribute("preposition")
-    updateWordAttribute("properNoun")
-    updateWordAttribute("verb")
-
     refreshDataClasses()
     refreshFlowGraphs()
 
@@ -46,22 +37,6 @@ def clean_json():
         os.remove(f)
         print("Deleted file: " + f)
     print("Deleted " + str(len(to_delete)) + " files")
-
-
-def updateWordAttribute(attribute):
-    path = "Data/FlowGraphs/words/" + attribute + "s/"
-    files = listdir(path)
-    files = [f for f in files if isfile(join(path, f)) and f != (attribute + '.json')]
-
-    file_json = {"graph": {"nodes": [], "guid": -1, "class": "GraphStructure", "name": attribute}, "contextNodes": [], "class": "FlowGraph", "startNodes": [] }
-    for index, file in enumerate(files):
-        node = {"dataClasses": {"dataIndex": "words/" + file}, "guid": index, "dataNode": "word.json", "class": "GraphNode", "nexts": [None] }
-        file_json["graph"]["nodes"].append(node)
-        file_json["startNodes"].append(index)
-
-    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
-        minFile = generateFlowGraphMinFile(json.dumps(file_json, indent=4), "Data/FlowGraphs/words/" + attribute + "s/" + attribute + ".json")
-        f.write(minFile + "\n")
 
 
 def create_word(word):
