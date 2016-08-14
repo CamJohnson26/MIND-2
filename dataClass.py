@@ -22,7 +22,10 @@ class DataClass:
 
     def get_json(self):
         rv = {"class": "DataClass"}
-        rv["flowGraph"] = self.flowGraph.get_json()
+        if self.flowGraph:
+            rv["flowGraph"] = self.flowGraph.get_json()
+        else:
+            rv["flowGraph"] = None
         rv["dataClassIndex"] = self.dataClassIndex
         rv["dataClassString"] = self.dataClassString
         dataClassesJson = {}
@@ -42,3 +45,17 @@ class DataClass:
         else:
             chainGraph = dataNode.parsedData
         return self.flowGraph.matches_chainGraph(chainGraph)
+
+    # Since dataClasses can have dataClasses, make sure all children
+    # are accessible to the parent
+    def rollup_classes(self):
+        for key in self.dataClasses.keys():
+            if self.dataClasses[key]:
+                self.dataClasses[key].rollup_classes()
+        temp_dataClasses = {}
+        for key in self.dataClasses.keys():
+            if self.dataClasses[key]:
+                for k in self.dataClasses[key].dataClasses.keys():
+                    temp_dataClasses[k] = self.dataClasses[key].dataClasses[k]
+        for key in temp_dataClasses.keys():
+            self.dataClasses[key] = temp_dataClasses[key]
