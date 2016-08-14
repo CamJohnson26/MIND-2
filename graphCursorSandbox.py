@@ -22,14 +22,4 @@ graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
 #print(graphMachine.chainGraphLayer)
 graphMachine.chainGraphLayer.classify([loadDataType("word.json")])
 #print(graphMachine.chainGraphLayer)
-#print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
-
-# Tokenize by part of speech
-flowGraphs = loadFlowGraphs(["words/adverbs/adverb","words/articles/article", "words/prepositions/preposition", "words/properNouns/properNoun","words/verbs/verb","words/nouns/noun","words/adjectives/adjective","words/conjunctions/conjunction","punctuation","whiteSpace","number"])
-graphMachine.flowGraphs = flowGraphs
-graphMachine.feed_chain_graph_layer(graphMachine.chainGraphLayer)
-
-dataTypes = ["adverb", "article", "noun", "properNoun", "verb", "adjective", "conjunction", "preposition"]
-
-graphMachine.chainGraphLayer.classify(loadDataTypes(dataTypes))
 print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
