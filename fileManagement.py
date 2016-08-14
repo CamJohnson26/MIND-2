@@ -55,7 +55,7 @@ def updateWordAttribute(attribute):
 
     file_json = {"graph": {"nodes": [], "guid": -1, "class": "GraphStructure", "name": attribute}, "contextNodes": [], "class": "FlowGraph", "startNodes": [] }
     for index, file in enumerate(files):
-        node = {"dataClasses": {"dataIndex": "words/" + file}, "guid": index, "dataNode": "word.json", "class": "GraphNode", "nexts": [None] }
+        node = {"dataClass": "words/" + file, "guid": index, "dataNode": "word.json", "class": "GraphNode", "nexts": [None] }
         file_json["graph"]["nodes"].append(node)
         file_json["startNodes"].append(index)
 
@@ -71,7 +71,7 @@ def create_word(word):
             n = "null"
         else:
             n = str(i + 1)
-        node = '[' + str(i) + ',"letter.json",{"dataIndex":"letters/class_' + c + '.json}",[' + n + ']],'
+        node = '[' + str(i) + ',"letter.json","letters/class_' + c + '.json",[' + n + ']],'
         minFile += node
     minFile = minFile[:-1]
     minFile += "]','[0]','[]','class:" + word + "'\n"
@@ -97,7 +97,7 @@ def create_word(word):
 def create_word_attribute(word, attribute):
     create_word(word)
 
-    minFile = "'Data/FlowGraphs/words/" + attribute + "s/" + word + ".json','[[0,\"word.json\",{\"dataIndex\":\"words/" + word + ".json\"},[null]]]','[0]','[]','" + attribute + ":" + word + "'\n"
+    minFile = "'Data/FlowGraphs/words/" + attribute + "s/" + word + ".json','[[0,\"word.json\",\"words/" + word + ".json\",[null]]]','[0]','[]','" + attribute + ":" + word + "'\n"
 
     with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
         f.write(minFile)
@@ -116,5 +116,6 @@ def create_word_attribute(word, attribute):
         f.write(minDataClass)
 
 
-clean_json()
 refreshData()
+
+#clean_json()

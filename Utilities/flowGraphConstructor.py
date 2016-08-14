@@ -49,7 +49,7 @@ def generateFlowGraphFiles(minFileName):
                 new_node = {"class": "GraphNode", "dataClass": None}
                 new_node["guid"] = int(n[0])
                 new_node["dataNode"] = n[1]
-                new_node["dataClasses"] = n[2]
+                new_node["dataClass"] = n[2]
                 new_node["nexts"] = n[3]
                 new_json["graph"]["nodes"].append(new_node)
             new_json["startNodes"] = json.loads(value[2])
@@ -76,15 +76,7 @@ def generateFlowGraphMinFile(inputJSON, fileLocation):
         newNodes += ","
         newNodes += "\"" + n["dataNode"] + "\"" if n["dataNode"] else "null"
         newNodes += ","
-        newNodes += "{"
-        for key in n["dataClasses"].keys():
-            if n["dataClasses"][key]:
-                newNodes += "\"" + key + "\":\"" + n["dataClasses"][key] + "\","
-            else:
-                newNodes += "\"" + key + "\":null,"
-        if len(n["dataClasses"].keys()) > 0:
-            newNodes = newNodes[:-1]
-        newNodes += "}"
+        newNodes += "\"" + n["dataClass"] + "\"" if n["dataClass"] else "null"
         newNodes += ","
         t = "["
         for k in n["nexts"]:
@@ -127,13 +119,6 @@ def generateFlowGraphMinFile(inputJSON, fileLocation):
             rString += "\'" + i + "\'"
         elif not i:
             pass
-        elif type(i) is dict:
-            rString += "{"
-            for key in i.keys():
-                rString += "\"" + key + "\":\"" + i[key] + "\","
-            if len(i.keys() > 0):
-                rString = rString[:-1]
-            rString += "}"
         else:
             rString += str(i)
         rString += ","
@@ -150,7 +135,7 @@ def createMinFileForWord(word):
             n = "null"
         else:
             n = str(i + 1)
-        node = '[' + str(i) + ',"letter.json",{"dataIndex":"letters/class_' + c + '.json"},[' + n + ']],'
+        node = '[' + str(i) + ',"letter.json","letters/class_' + c + '.json",[' + n + ']],'
         minFile += node
     minFile = minFile[:-1]
     minFile += "]','[0]','[]','class:" + word + "'\n"

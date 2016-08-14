@@ -17,28 +17,26 @@ def graphNodeFromJSON(inputJSON, guidMapper=GuidMapper()):
     else:
         node_json = json.dumps(inputObject["dataNode"])
         dataNode = dataNodeConstructor.dataNodeFromJSON(node_json)
-    dataClasses = {}
-    for key in inputObject["dataClasses"].keys():
-        if not inputObject["dataClasses"][key]:
-            dataClasses[key] = None
-        elif type(inputObject["dataClasses"][key]) in [unicode, str]:
-            dataClasses[key] = dataClassConstructor.loadDataClass(inputObject["dataClasses"][key])
-        else:
-            dataClasses[key] = dataClassConstructor.dataClassFromJSON(json.dumps(inputObject["dataClasses"][key]))
+    if inputObject["dataClass"] is None:
+        dataClass = None
+    elif type(inputObject["dataClass"]) is unicode:
+        dataClass = dataClassConstructor.loadDataClass(inputObject["dataClass"])
+    else:
+        dataClass = dataClassConstructor.dataClassFromJSON(json.dumps(inputObject["dataClass"]))
     graphNode = GraphNode(dataNode)
     graphNode.guid = guidMapper.get(inputObject["guid"])
     graphNode.nexts = []
-    graphNode.dataClasses = dataClasses
+    graphNode.dataClass = dataClass
     return graphNode
 
 
 def graph_node_from_cursor(cursor):
     dataTypeName = cursor.graphCursor.graph.graph.name
-    dataClasses = {"dataIndex": None}
+    dataClassName = cursor.graphCursor.graph.graph.name + "s"
     parsedGraph = GraphStructure(cursor.graphCursor.parsedData, dataTypeName)
     parsedData = ChainGraph(parsedGraph)
     matchFunction = getattr(matchFunctions, "matchFunction")
-    dataType = DataType(dataTypeName, dataClasses, matchFunction)
+    dataType = DataType(dataTypeName, dataClassName, matchFunction)
     dataNode = DataNode(dataType, parsedData)
     graphNode = GraphNode(dataNode)
     return graphNode
