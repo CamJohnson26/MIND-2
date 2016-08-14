@@ -11,7 +11,7 @@ class GraphNode:
 
     def __init__(self, dataNode):
         self.dataNode = dataNode
-        self.dataClasses = {}
+        self.dataClasses = {"dataIndex": None}
         self.guid = uuid.uuid4()
         self.nexts = []
 
@@ -24,7 +24,13 @@ class GraphNode:
         rv["guid"] = str(self.guid)
         rv["nexts"] = [str(a.guid) for a in self.nexts if a is not None]
         rv["nexts"].extend([a for a in self.nexts if a is None])
-        rv["dataClasses"] = json.dumps(self.dataClasses)
+        dataClassesJson = {}
+        for key in self.dataClasses.keys():
+            if self.dataClasses[key]:
+                dataClassesJson[key] = self.dataClasses[key].get_json()
+            else:
+                dataClassesJson[key] = None
+        rv["dataClasses"] = dataClassesJson
         return rv
 
     def matches(self, inputData):
@@ -52,6 +58,9 @@ class GraphNode:
             return False
 
     def classify(self, dataClasses):
+        if self.dataNode.dataType.dataTypeName == "word":
+            #print(self)
+            pass
         dataClass = None
         try:
             for c in dataClasses[self.dataNode.dataType.dataTypeName]:
