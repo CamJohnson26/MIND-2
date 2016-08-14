@@ -12,15 +12,17 @@ testData = " Headquartered in the east coast, Singapore established Changi in Ju
 # Set up ChainGraphLayer
 originalChainGraphLayer = chainGraphLayerFromString(testData)
 originalChainGraphLayer.classify([loadDataType("letter.json")])
-print(pretty_chainGraphLayer(originalChainGraphLayer))
+#print(originalChainGraphLayer)
+#print(pretty_chainGraphLayer(originalChainGraphLayer))
 
 # Create DataGraphMachine and feed data
 flowGraphs = loadFlowGraphs(["word", "number", "punctuation", "whiteSpace"])
 graphMachine = GraphMachine(flowGraphs, originalChainGraphLayer)
 graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
-
+#print(graphMachine.chainGraphLayer)
 graphMachine.chainGraphLayer.classify([loadDataType("word.json")])
-print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
+#print(graphMachine.chainGraphLayer)
+#print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 # Tokenize by part of speech
 flowGraphs = loadFlowGraphs(["words/adverbs/adverb","words/articles/article", "words/prepositions/preposition", "words/properNouns/properNoun","words/verbs/verb","words/nouns/noun","words/adjectives/adjective","words/conjunctions/conjunction","punctuation","whiteSpace","number"])
