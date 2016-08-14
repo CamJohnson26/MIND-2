@@ -14,7 +14,9 @@ def dataClassFromJSON(inputJSON):
         flowGraph = flowGraphFromJSON(json.dumps(inputObject["flowGraph"]))
     dataClassIndex = inputObject["dataClassIndex"]
     dataClassString = inputObject["dataClassString"]
+    dataClasses = inputObject["dataClasses"]
     dataClass = DataClass(flowGraph, dataClassIndex, dataClassString)
+    dataClass.dataClasses = dataClasses
     return dataClass
 
 
@@ -42,12 +44,13 @@ def loadDataClasses(inputFolder):
 def generateDataClassFiles(minFileName):
     new_json = {"class": "DataClass"}
     with open("Data/DataClasses/" + minFileName) as minFile:
-        inputValues = csv.reader(minFile, delimiter=",", quotechar="\"")
+        inputValues = csv.reader(minFile, delimiter=",", quotechar="\'")
         for value in inputValues:
             fileName = value[0]
             new_json["dataClassIndex"] = int(value[1])
             new_json["dataClassString"] = value[2]
             new_json["flowGraph"] = value[3]
+            new_json["dataClasses"] = json.loads(value[4])
             for key in new_json:
                 if new_json[key] == "":
                     new_json[key] = None
@@ -64,6 +67,7 @@ def generateDataClassMinFile(inputJSON, fileLocation):
     rv.append(j["dataClassIndex"])
     rv.append(j["dataClassString"])
     rv.append(j["flowGraph"])
+    rv.append(j["dataClasses"])
 
     rString = ""
     for i in rv:
@@ -71,6 +75,13 @@ def generateDataClassMinFile(inputJSON, fileLocation):
             rString += "\"" + i + "\""
         elif i is None:
             pass
+        elif type(i) is dict:
+            rString += "{"
+            for key in i.keys():
+                rString += "\"" + key + "\":\"" + i[key] + "\","
+            if len(i.keys()) > 0:
+                rString = rString[:-1]
+            rString += "}"
         else:
             rString += str(i)
         rString += ","
