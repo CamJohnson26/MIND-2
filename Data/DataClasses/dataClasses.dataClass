@@ -461,6 +461,7 @@
 'Data/DataClasses/words/dataIndex/driver.json',5700,'driver','words/driver.json','{"partOfSpeech":"words/partOfSpeech/noun.json"}'
 'Data/DataClasses/words/dataIndex/drop.json',1815,'drop','words/drop.json','{"partOfSpeech":"words/partOfSpeech/noun.json"}'
 'Data/DataClasses/words/dataIndex/drunk.json',1818,'drunk','words/drunk.json','{"partOfSpeech":"words/partOfSpeech/noun.json"}'
+'Data/DataClasses/words/dataIndex/dude.json',9032,'dude','words/dude.json','{"partOfSpeech":"words/partOfSpeech/noun.json"}'
 'Data/DataClasses/words/dataIndex/due.json',1821,'due','words/due.json','{"partOfSpeech":"words/partOfSpeech/noun.json"}'
 'Data/DataClasses/words/dataIndex/dump.json',5712,'dump','words/dump.json','{"partOfSpeech":"words/partOfSpeech/noun.json"}'
 'Data/DataClasses/words/dataIndex/during.json',534,'during','words/during.json','{"partOfSpeech":"words/partOfSpeech/preposition.json"}'

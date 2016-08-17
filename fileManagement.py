@@ -39,6 +39,48 @@ def clean_json():
     print("Deleted " + str(len(to_delete)) + " files")
 
 
+def dedup_minFile(location):
+    lines = set()
+    with open(location) as minFile:
+        t = minFile.read().split("\n")
+        try:
+            t.remove("\n")
+        except ValueError:
+            pass
+        lines |= set(t)
+    new_lines = {}
+    for line in lines:
+        lineKey = line.split(",")[0]
+        try:
+            cur_line = new_lines[lineKey]
+        except KeyError:
+            cur_line = ""
+        if len(line) > len(cur_line):
+            new_lines[lineKey] = line
+    result = new_lines.values()
+    result.sort()
+    try:
+        result.remove("")
+    except ValueError:
+        pass
+    with open(location, 'r+') as oldMin:
+        oldMin.writelines("\n".join(result) + "\n")
+        oldMin.truncate()
+
+
+def add_minObject_to_file(minObject, destination):
+    with open(destination, 'a') as minFile:
+        minFile.write(minObject + "\n")
+    dedup_minFile(destination)
+
+
+def get_index_for_minFile(location):
+    with open(location) as minFile:
+        lines = minFile.read().split("\n")
+        indexes = [a.split(",")[1] for a in lines if a != ""]
+        return int(max(indexes)) + 1
+
+
 def create_word(word):
     minFile = "'Data/FlowGraphs/words/" + word + ".json','["
     for i, c in enumerate(word):
@@ -90,5 +132,6 @@ def create_word_attribute(word, attribute):
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
 
-clean_json()
-refreshData()
+if __name__ == '__main__':
+    clean_json()
+    refreshData()
