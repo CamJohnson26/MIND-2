@@ -20,7 +20,7 @@ def create_word(word, dataClasses):
             n = "null"
         else:
             n = str(i + 1)
-        node = '[' + str(i) + ',"letter.json",{"dataIndex":"letters/class_' + c + '.json}",[' + n + ']],'
+        node = '[' + str(i) + ',"letter.json",{"dataIndex":"letters/dataIndex/class_' + c + '.json"},[' + n + ']],'
         minFile += node
     minFile = minFile[:-1]
     minFile += "]','[0]','[]','class:" + word + "'\n"
@@ -49,5 +49,3 @@ def create_word_attribute(word, attribute):
     minDataClass = '"Data/DataClasses/words/' + attribute + 's/' + word + '.json",' + str(index) + ',"' + word + '","words/' + attribute + 's/' + word + '.json"\n'
     with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
         f.write(minDataClass)
-
-create_word("dude",{"partOfSpeech": "words/partOfSpeech/noun.json"})
