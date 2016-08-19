@@ -1,4 +1,5 @@
 from Utilities.constructors import *
+from Utilities.dataClassFileManager import DataClassFileManager
 import json
 import os
 
@@ -17,13 +18,18 @@ import os
 
 
 def refreshData():
-    refreshDataTypes()
-    refreshDataNodes()
-    refreshDataClasses()
-    refreshFlowGraphs()
+    dtfm = DataTypeFileManager()
+    dnfm = DataNodeFileManager()
+    dcfm = DataClassFileManager()
+    fgfm = FlowGraphFileManager()
 
-    refreshDataClasses()
-    refreshFlowGraphs()
+    dtfm.refreshObjects()
+    dnfm.refreshObjects()
+    dcfm.refreshObjects()
+    fgfm.refreshObjects()
+
+    dcfm.refreshObjects()
+    fgfm.refreshObjects()
 
 
 def clean_json():
@@ -39,41 +45,6 @@ def clean_json():
     print("Deleted " + str(len(to_delete)) + " files")
 
 
-def dedup_minFile(location):
-    lines = set()
-    with open(location) as minFile:
-        t = minFile.read().split("\n")
-        try:
-            t.remove("\n")
-        except ValueError:
-            pass
-        lines |= set(t)
-    new_lines = {}
-    for line in lines:
-        lineKey = line.split(",")[0]
-        try:
-            cur_line = new_lines[lineKey]
-        except KeyError:
-            cur_line = ""
-        if len(line) > len(cur_line):
-            new_lines[lineKey] = line
-    result = new_lines.values()
-    result.sort()
-    try:
-        result.remove("")
-    except ValueError:
-        pass
-    with open(location, 'r+') as oldMin:
-        oldMin.writelines("\n".join(result) + "\n")
-        oldMin.truncate()
-
-
-def add_minObject_to_file(minObject, destination):
-    with open(destination, 'a') as minFile:
-        minFile.write(minObject + "\n")
-    dedup_minFile(destination)
-
-
 def get_index_for_minFile(location):
     with open(location) as minFile:
         lines = minFile.read().split("\n")
@@ -81,57 +52,14 @@ def get_index_for_minFile(location):
         return int(max(indexes)) + 1
 
 
-def create_word(word):
-    minFile = "'Data/FlowGraphs/words/" + word + ".json','["
-    for i, c in enumerate(word):
-        if i == len(word) - 1:
-            n = "null"
-        else:
-            n = str(i + 1)
-        node = '[' + str(i) + ',"letter.json",{"dataIndex":"letters/class_' + c + '.json}",[' + n + ']],'
-        minFile += node
-    minFile = minFile[:-1]
-    minFile += "]','[0]','[]','class:" + word + "'\n"
-
-    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
-        f.write(minFile)
-
-    index = 0
-    with open("Data/DataClasses/dataClasses.dataClass") as f:
-        inputValues = csv.reader(f, delimiter=",", quotechar="\'")
-        for value in inputValues:
-            if int(value[1]) > index:
-                    index = int(value[1])
-
-    index += 1
-
-    minDataClass = '"Data/DataClasses/words/' + word + '.json",' + str(index + 1) + ',"' + word + '","words/' + word + '.json"\n'
-
-    with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
-        f.write(minDataClass)
-
-
-def create_word_attribute(word, attribute):
-    create_word(word)
-
-    minFile = "'Data/FlowGraphs/words/" + attribute + "s/" + word + ".json','[[0,\"word.json\",{\"dataIndex\":\"words/" + word + ".json\"},[null]]]','[0]','[]','" + attribute + ":" + word + "'\n"
-
-    with open("Data/FlowGraphs/flowGraphs.flowGraph", "a") as f:
-        f.write(minFile)
-
-    index = 0
-    with open("Data/DataClasses/dataClasses.dataClass") as f:
-        inputValues = csv.reader(f, delimiter=",", quotechar="\'")
-        for value in inputValues:
-            if int(value[1]) > index:
-                    index = int(value[1])
-
-    index += 1
-
-    minDataClass = '"Data/DataClasses/words/' + attribute + 's/' + word + '.json",' + str(index) + ',"' + word + '","words/' + attribute + 's/' + word + '.json"\n'
-    with open("Data/DataClasses/dataClasses.dataClass", "a") as f:
-        f.write(minDataClass)
-
 if __name__ == '__main__':
     clean_json()
     refreshData()
+    # print(dnfm.objectFromJSON("""{
+    #     "dataType": "letter.json", 
+    #     "parsedData": "E", 
+    #     "class": "DataNode", 
+    #     "dataClasses": {}
+    # }"""))
+    #print(dcfm.min_file_to_json("'abcdefg',0,'adjective',,'{}'"))
+    # 'abcdefg',0,'adjective',,'{}'

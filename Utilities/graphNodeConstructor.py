@@ -5,26 +5,28 @@ from dataType import DataType
 from dataNode import DataNode
 from guidMapper import GuidMapper
 import Data.matchFunctions as matchFunctions
-import dataNodeConstructor
-import dataClassConstructor
+from dataNodeFileManager import DataNodeFileManager
+from dataClassFileManager import DataClassFileManager
 import json
 
 
 def graphNodeFromJSON(inputJSON, guidMapper=GuidMapper()):
     inputObject = json.loads(inputJSON)
+    dnfm = DataNodeFileManager()
+    dcfm = DataClassFileManager()
     if type(inputObject["dataNode"]) is unicode:
-        dataNode = dataNodeConstructor.loadDataNode(inputObject["dataNode"])
+        dataNode = dnfm.loadObject(inputObject["dataNode"])
     else:
         node_json = json.dumps(inputObject["dataNode"])
-        dataNode = dataNodeConstructor.dataNodeFromJSON(node_json)
+        dataNode = dnfm.loadObject(node_json)
     dataClasses = {}
     for key in inputObject["dataClasses"].keys():
         if not inputObject["dataClasses"][key]:
             dataClasses[key] = None
         elif type(inputObject["dataClasses"][key]) in [unicode, str]:
-            dataClasses[key] = dataClassConstructor.loadDataClass(inputObject["dataClasses"][key])
+            dataClasses[key] = dcfm.loadObject(inputObject["dataClasses"][key])
         else:
-            dataClasses[key] = dataClassConstructor.dataClassFromJSON(json.dumps(inputObject["dataClasses"][key]))
+            dataClasses[key] = dcfm.loadObject(json.dumps(inputObject["dataClasses"][key]))
     graphNode = GraphNode(dataNode)
     graphNode.guid = guidMapper.get(inputObject["guid"])
     graphNode.nexts = []

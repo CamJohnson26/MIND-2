@@ -4,7 +4,7 @@ from chainGraph import ChainGraph
 from chainGraphFlattener import ChainGraphFlattener
 from bridgeNode import BridgeNode
 from Utilities.graphNodeConstructor import graph_node_from_cursor
-from Utilities.dataClassConstructor import loadDataClasses
+from Utilities.dataClassFileManager import DataClassFileManager
 
 
 class ChainGraphLayer:
@@ -29,7 +29,8 @@ class ChainGraphLayer:
         for dataType in dataTypes:
             dataClassName = dataType.dataClasses["dataIndex"]
             dataTypeName = dataType.dataTypeName
-            dataClasses[dataTypeName] = loadDataClasses(dataClassName)
+            dcfm = DataClassFileManager()
+            dataClasses[dataTypeName] = dcfm.loadObjects(dataClassName)
         for node in self.chainGraph.graph.nodes:
             node.classify(dataClasses)
 
