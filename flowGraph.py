@@ -26,9 +26,8 @@ class FlowGraph:
     def matches_chainGraph(self, chainGraph):
         cursor = FlowGraphCursor(self, chainGraph.graph.nodes[0])
         for graphNode in chainGraph.graph.nodes:
-            if cursor.graphCursor.feed(graphNode):
-                if cursor.graphCursor.cursor_complete():
-                    return True
-            else:
+            if not cursor.graphCursor.feed(graphNode):
                 return False
+        if cursor.graphCursor.cursor_complete():
+            return True
         return False
