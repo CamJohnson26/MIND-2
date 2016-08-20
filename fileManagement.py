@@ -45,13 +45,6 @@ def clean_json():
     print("Deleted " + str(len(to_delete)) + " files")
 
 
-def get_index_for_minFile(location):
-    with open(location) as minFile:
-        lines = minFile.read().split("\n")
-        indexes = [a.split(",")[1] for a in lines if a != ""]
-        return int(max(indexes)) + 1
-
-
 if __name__ == '__main__':
     clean_json()
     refreshData()

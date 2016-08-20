@@ -2,6 +2,7 @@ from dataClass import DataClass
 from abstractFileManager import AbstractFileManager
 from flowGraphFileManager import FlowGraphFileManager
 import json
+from os.path import join
 
 
 class DataClassFileManager(AbstractFileManager):
@@ -50,3 +51,9 @@ class DataClassFileManager(AbstractFileManager):
         rv.append(j["flowGraph"])
         rv.append(j["dataClasses"])
         return self.array_to_min(rv)
+
+    def get_next_index(self):
+        with open(join(self.home_folder, self.min_file_name)) as minFile:
+            lines = minFile.read().split("\n")
+            indexes = [a.split(",")[1] for a in lines if a != ""]
+            return int(max(indexes)) + 1

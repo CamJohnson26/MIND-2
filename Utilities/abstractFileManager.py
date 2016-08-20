@@ -61,7 +61,7 @@ class AbstractFileManager():
         self.dedup_min_file(tempMin)
         self.generateFiles()
 
-    def add_minObject_to_file(minObject):
+    def add_minObject_to_file(self, minObject):
         with open(join(self.home_folder, self.min_file_name), 'a') as minFile:
             minFile.write(minObject + "\n")
 
