@@ -32,13 +32,40 @@ class ChainGraphLayer:
             dcfm = DataClassFileManager()
             dataClasses[dataTypeName] = dcfm.loadObjects(dataClassName)
         for node in self.chainGraph.graph.nodes:
-            node.classify(dataClasses)
+            if node.dataClasses["dataIndex"] is None:
+                matches = node.get_matching_classes(dataClasses)
+                try:
+                    c = matches.pop()
+                    node.rollup_dataClass(c)
+                    node.dataClasses["dataIndex"] = c
+                except IndexError:
+                    pass
+                for c in matches:
+                    copy = self.copy_node(node)
+                    copy.rollup_dataClass(c)
+                    copy.dataClasses["dataIndex"] = c
 
     def get_json(self):
         rv = {"class": "ChainGraph"}
         rv["chainGraph"] = self.chainGraph.get_json()
         rv["bridgeNodes"] = [a.get_json() for a in self.bridgeNodes]
         return rv
+
+    def copy_node(self, node):
+        copy = node.get_copy()
+        for n in self.chainGraph.graph.nodes:
+            if node in n.nexts:
+                n.nexts.append(copy)
+        bncopies = []
+        for bn in self.bridgeNodes:
+            if bn.targetGraphNode.guid == node.guid:
+                bncopy = bn.get_copy()
+                bncopy.targetGraphNode = copy
+                bncopies.append(bncopy)
+        index = self.chainGraph.graph.nodes.index(node) + 1
+        self.chainGraph.graph.nodes.insert(index, copy)
+        self.bridgeNodes.extend(bncopies)
+        return copy
 
     def save_cursor(self, graphNode, cursor):
         newNode = graph_node_from_cursor(cursor)

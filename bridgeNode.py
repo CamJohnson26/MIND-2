@@ -9,7 +9,10 @@ class BridgeNode:
     targetGraphNode = None
     guid = ""
 
-    def __init__(self, startGraphNode=None, endGraphNode=None, targetGraphNode=None):
+    def __init__(self,
+                 startGraphNode=None,
+                 endGraphNode=None,
+                 targetGraphNode=None):
         self.startGraphNode = startGraphNode
         self.endGraphNode = endGraphNode
         self.targetGraphNode = targetGraphNode
@@ -25,4 +28,9 @@ class BridgeNode:
         rv["targetGraphNode"] = self.targetGraphNode.get_json()
         rv["guid"] = str(self.guid)
         return rv
-    # Merge this class with Cursor, or create a new DataGraph cursor
+
+    def get_copy(self):
+        copy = BridgeNode(startGraphNode=self.startGraphNode,
+                          endGraphNode=self.endGraphNode,
+                          targetGraphNode=self.targetGraphNode)
+        return copy

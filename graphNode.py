@@ -18,6 +18,13 @@ class GraphNode:
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
 
+    def get_copy(self):
+        copy = GraphNode(self.dataNode)
+        for key in self.dataClasses:
+            copy.dataClasses[key] = self.dataClasses[key]
+        copy.nexts = [n for n in self.nexts]
+        return copy
+
     def get_json(self):
         rv = {"class": "GraphNode"}
         rv["dataNode"] = self.dataNode.get_json()
@@ -57,19 +64,19 @@ class GraphNode:
         else:
             return False
 
-    def classify(self, dataClasses):
+    def get_matching_classes(self, dataClasses):
         if self.dataNode.dataType.dataTypeName == "word":
-            #print(self)
             pass
-        dataClass = None
+        matches = []
         try:
             for c in dataClasses[self.dataNode.dataType.dataTypeName]:
                 if c.matches(self.dataNode):
-                    dataClass = c
+                    matches.append(c)
         except KeyError:
             pass
-        if dataClass:
-            dataClass.rollup_classes()
-            for key in dataClass.dataClasses.keys():
-                self.dataClasses[key] = dataClass.dataClasses[key]
-        self.dataClasses["dataIndex"] = dataClass
+        return matches
+
+    def rollup_dataClass(self, dataClass):
+        dataClass.rollup_classes()
+        for key in dataClass.dataClasses.keys():
+            self.dataClasses[key] = dataClass.dataClasses[key]
