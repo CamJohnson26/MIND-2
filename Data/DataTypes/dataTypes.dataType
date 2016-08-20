@@ -5,7 +5,7 @@
 'Data/DataTypes/conjunction.json','conjunction','{"dataIndex":"words/conjunctions"}','alwaysFalse'
 'Data/DataTypes/letter.json','letter','{"dataIndex":"letters/dataIndex"}','letterMatch'
 'Data/DataTypes/noun.json','noun','{"dataIndex":"words/nouns"}','alwaysFalse'
-'Data/DataTypes/number.json','number','{"dataIndex":null}','numberMatch'
+'Data/DataTypes/number.json','number','{"dataIndex":"numbers/dataIndex"}','numberMatch'
 'Data/DataTypes/preposition.json','preposition','{"dataIndex":"words/prepositions"}','alwaysFalse'
 'Data/DataTypes/properNoun.json','properNoun',''{"dataIndex":"words/properNouns"},'alwaysFalse'
 'Data/DataTypes/punctuation.json','punctuation','{"dataIndex":null}','punctuationMatch'

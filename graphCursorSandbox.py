@@ -27,7 +27,7 @@ graphMachine = GraphMachine(flowGraphs, originalChainGraphLayer)
 graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
 
 # print(graphMachine.chainGraphLayer)
-graphMachine.chainGraphLayer.classify([dtfm.loadObject("word.json")])
+graphMachine.chainGraphLayer.classify([dtfm.loadObject("word.json"), dtfm.loadObject("number.json")])
 
 # print(graphMachine.chainGraphLayer)
 print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))

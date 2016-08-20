@@ -58,6 +58,16 @@
 'Data/DataNodes/letters/char_z.json','letter.json','{}','z'
 'Data/DataNodes/noun.json','noun.json','{}',
 'Data/DataNodes/number.json','number.json','{}',
+'Data/DataNodes/numbers/char_0.json','number.json','{}','0'
+'Data/DataNodes/numbers/char_1.json','number.json','{}','1'
+'Data/DataNodes/numbers/char_2.json','number.json','{}','2'
+'Data/DataNodes/numbers/char_3.json','number.json','{}','3'
+'Data/DataNodes/numbers/char_4.json','number.json','{}','4'
+'Data/DataNodes/numbers/char_5.json','number.json','{}','5'
+'Data/DataNodes/numbers/char_6.json','number.json','{}','6'
+'Data/DataNodes/numbers/char_7.json','number.json','{}','7'
+'Data/DataNodes/numbers/char_8.json','number.json','{}','8'
+'Data/DataNodes/numbers/char_9.json','number.json','{}','9'
 'Data/DataNodes/preposition.json','preposition.json','{}',
 'Data/DataNodes/properNoun.json','properNoun.json','{}',
 'Data/DataNodes/punctuation.json','punctuation.json','{}',

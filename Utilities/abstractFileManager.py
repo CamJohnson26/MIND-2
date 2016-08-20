@@ -96,6 +96,10 @@ class AbstractFileManager():
             rString = rString[:-1]
         return rString
 
+    def save_home_folder_to_min_file(self):
+        home = join(self.home_folder, self.min_file_name)
+        self.save_folder_to_min_file(home)
+
     def save_folder_to_min_file(self, folder):
         minFile = ""
         for subdir, dirs, files in walk(join(self.home_folder, folder)):

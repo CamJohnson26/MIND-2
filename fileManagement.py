@@ -16,13 +16,12 @@ import os
 # print(saveFlowGraphFolderToMinFile("Data\FlowGraphs"))
 # print(saveDataNodeFolderToMinFile("Data\DataNodes"))
 
+dtfm = DataTypeFileManager()
+dnfm = DataNodeFileManager()
+dcfm = DataClassFileManager()
+fgfm = FlowGraphFileManager()
 
 def refreshData():
-    dtfm = DataTypeFileManager()
-    dnfm = DataNodeFileManager()
-    dcfm = DataClassFileManager()
-    fgfm = FlowGraphFileManager()
-
     dtfm.refreshObjects()
     dnfm.refreshObjects()
     dcfm.refreshObjects()
@@ -45,7 +44,20 @@ def clean_json():
     print("Deleted " + str(len(to_delete)) + " files")
 
 
+def save_all_folders():
+    dtfm = DataTypeFileManager()
+    dnfm = DataNodeFileManager()
+    dcfm = DataClassFileManager()
+    fgfm = FlowGraphFileManager()
+
+    dtfm.save_home_folder_to_min_file()
+    dnfm.save_home_folder_to_min_file()
+    dcfm.save_home_folder_to_min_file()
+    fgfm.save_home_folder_to_min_file()
+
+
 if __name__ == '__main__':
+    #save_all_folders()
     clean_json()
     refreshData()
     # print(dnfm.objectFromJSON("""{
