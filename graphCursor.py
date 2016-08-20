@@ -27,6 +27,8 @@ class GraphCursor:
         return rv
 
     def feed(self, dataPoint):
+        if len([a for a in self.currentNodes if a is not None]) == 0:
+            return False
         success = False
         new_currentNodes = []
         dataType = dataPoint.dataNode.dataType

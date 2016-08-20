@@ -47,8 +47,7 @@ class GraphMachine:
             if cursor.graphCursor.feed(graphNode):
                 if cursor.graphCursor.cursor_complete():
                     self.chainGraphLayer.save_cursor(graphNode, cursor)
-                else:
-                    new_cursors.append(cursor)
+                new_cursors.append(cursor)
         self.cursors = new_cursors
 
     def feed_chain_graph_layer(self, chainGraphLayer):
