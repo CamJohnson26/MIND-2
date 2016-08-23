@@ -80,7 +80,10 @@ class AbstractFileManager():
             elif type(i) is dict:
                 rString += "'{"
                 for key in i.keys():
-                    rString += "\"" + key + "\":\"" + i[key] + "\","
+                    if not i[key]:
+                        rString += "\"" + key + "\": null,"
+                    else:
+                        rString += "\"" + key + "\":\"" + i[key] + "\","
                 if len(i.keys()) > 0:
                     rString = rString[:-1]
                 rString += "}'"
@@ -97,8 +100,10 @@ class AbstractFileManager():
         return rString
 
     def save_home_folder_to_min_file(self):
-        home = join(self.home_folder, self.min_file_name)
-        self.save_folder_to_min_file(home)
+        minFile = self.save_folder_to_min_file("")
+        for m in minFile.split("\n"):
+            self.add_minObject_to_file(m)
+        self.dedup_min_file(minFile)
 
     def save_folder_to_min_file(self, folder):
         minFile = ""

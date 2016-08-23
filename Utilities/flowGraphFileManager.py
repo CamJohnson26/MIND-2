@@ -99,7 +99,7 @@ class FlowGraphFileManager(AbstractFileManager):
         rv.append(newNodes)
         newNodes = "["
         for i, n in enumerate(j["contextNodes"]):
-            newNodes += str(i)
+            newNodes += str(n)
             newNodes += ","
         if len(newNodes) > 1:
             newNodes = newNodes[:-1]

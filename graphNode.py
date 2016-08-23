@@ -65,8 +65,6 @@ class GraphNode:
             return False
 
     def get_matching_classes(self, dataClasses):
-        if self.dataNode.dataType.dataTypeName == "word":
-            pass
         matches = []
         try:
             for c in dataClasses[self.dataNode.dataType.dataTypeName]:

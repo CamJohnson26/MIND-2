@@ -37,7 +37,8 @@ def graphNodeFromJSON(inputJSON, guidMapper=GuidMapper()):
 def graph_node_from_cursor(cursor):
     dataTypeName = cursor.graphCursor.graph.graph.name
     dataClasses = {"dataIndex": None}
-    parsedGraph = GraphStructure(cursor.graphCursor.parsedData, dataTypeName)
+    parsedData = cursor.graphCursor.parsedData
+    parsedGraph = GraphStructure(parsedData, dataTypeName)
     parsedData = ChainGraph(parsedGraph)
     matchFunction = getattr(matchFunctions, "matchFunction")
     dataType = DataType(dataTypeName, dataClasses, matchFunction)
