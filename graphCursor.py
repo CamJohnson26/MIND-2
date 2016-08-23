@@ -1,16 +1,22 @@
 import json
+import uuid
 
 
 class GraphCursor:
 
     graph = None
-    currentNodes = []
+    currentNodes = {}
     parsedData = []
     previousNodes = []
 
     def __init__(self, graph, startNodes):
         self.graph = graph
-        self.currentNodes = startNodes
+        self.currentNodes = {}
+        for n in startNodes:
+            if n not in self.graph.contextNodes:
+                self.currentNodes[uuid.uuid4()] = {"node": n, "parsedData":[n]}
+            else:
+                self.currentNodes[uuid.uuid4()] = {"node": n, "parsedData": []}
         self.parsedData = []
         self.previousNodes = []
 
@@ -27,23 +33,33 @@ class GraphCursor:
         return rv
 
     def feed(self, dataPoint):
+        self.parsedData = []
         if len([a for a in self.currentNodes if a is not None]) == 0:
             return False
         success = False
-        new_currentNodes = []
+        new_currentNodes = {}
         dataType = dataPoint.dataNode.dataType
-        isContext = False
-        for c in self.currentNodes:
-            if c is not None and c.matches(dataPoint):
-                new_currentNodes.extend(c.nexts)
-                dataType = c.dataNode.dataType
+        for key in self.currentNodes.keys():
+            c = self.currentNodes[key]
+            if c and c["node"].matches(dataPoint):
+                for n in c["node"].nexts:
+                    if n:
+                        temp_cursor = {}
+                        temp_cursor["node"] = n
+                        new_pd = [a for a in c["parsedData"]]
+                        temp_cursor["parsedData"] = new_pd
+                        dataType = c["node"].dataNode.dataType
+                        dataPoint.dataNode.dataType = dataType
+                        if c["node"] not in self.graph.contextNodes:
+                            pd = temp_cursor.get("parsedData") or []
+                            pd.append(dataPoint)
+                            temp_cursor["parsedData"] = pd
+                        new_currentNodes[uuid.uuid4()] = temp_cursor
+                    else:
+                        self.parsedData.append(c["parsedData"])
                 success = True
-                isContext = c in self.graph.contextNodes
-        dataPoint.dataNode.dataType = dataType
-        if isContext is False:
-            self.parsedData.append(dataPoint)
         self.currentNodes = new_currentNodes
         return success
 
     def cursor_complete(self):
-        return None in self.currentNodes
+        return len(self.parsedData) > 0

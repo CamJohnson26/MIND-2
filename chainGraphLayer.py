@@ -3,7 +3,7 @@ from graphStructure import GraphStructure
 from chainGraph import ChainGraph
 from chainGraphFlattener import ChainGraphFlattener
 from bridgeNode import BridgeNode
-from Utilities.graphNodeConstructor import graph_node_from_cursor
+from Utilities.graphNodeConstructor import graph_nodes_from_cursor
 from Utilities.dataClassFileManager import DataClassFileManager
 
 
@@ -68,11 +68,12 @@ class ChainGraphLayer:
         return copy
 
     def save_cursor(self, graphNode, cursor):
-        newNode = graph_node_from_cursor(cursor)
-        self.chainGraph.graph.nodes.append(newNode)
-        bridge = BridgeNode(cursor.anchorPoint, graphNode, newNode)
-        self.bridgeNodes.append(bridge)
-        self.set_node_nexts(newNode, cursor)
+        newNodes = graph_nodes_from_cursor(cursor)
+        for newNode in newNodes:
+            self.chainGraph.graph.nodes.append(newNode)
+            bridge = BridgeNode(cursor.anchorPoint, graphNode, newNode)
+            self.bridgeNodes.append(bridge)
+            self.set_node_nexts(newNode, cursor)
 
     def set_node_nexts(self, graphNode, cursor):
         for node in cursor.graphCursor.previousNodes:

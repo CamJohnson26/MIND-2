@@ -34,14 +34,16 @@ def graphNodeFromJSON(inputJSON, guidMapper=GuidMapper()):
     return graphNode
 
 
-def graph_node_from_cursor(cursor):
+def graph_nodes_from_cursor(cursor):
     dataTypeName = cursor.graphCursor.graph.graph.name
     dataClasses = {"dataIndex": None}
-    parsedData = cursor.graphCursor.parsedData
-    parsedGraph = GraphStructure(parsedData, dataTypeName)
-    parsedData = ChainGraph(parsedGraph)
     matchFunction = getattr(matchFunctions, "matchFunction")
     dataType = DataType(dataTypeName, dataClasses, matchFunction)
-    dataNode = DataNode(dataType, parsedData)
-    graphNode = GraphNode(dataNode)
-    return graphNode
+    graphNodes = []
+    parsedData = cursor.graphCursor.parsedData
+    for pd in parsedData:
+        parsedGraph = GraphStructure(pd, dataTypeName)
+        new_pd = ChainGraph(parsedGraph)
+        dataNode = DataNode(dataType, new_pd)
+        graphNodes.append(GraphNode(dataNode))
+    return graphNodes
