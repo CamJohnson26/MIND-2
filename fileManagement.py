@@ -57,7 +57,8 @@ def save_all_folders():
 
 
 if __name__ == '__main__':
-    #save_all_folders()
+    # fgfm.save_home_folder_to_min_file()
+    # save_all_folders()
     clean_json()
     refreshData()
     # print(dnfm.objectFromJSON("""{
