@@ -8,13 +8,13 @@ def pretty_chainGraphLayer(chainGraphLayer, indent=""):
 def pretty_chainGraph(chainGraph, indent=""):
     rv = ""
     for n in chainGraph.graph.nodes:
-        rv += str(n.dataNode.dataType.dataTypeName) + ": "
+        rv += indent + str(n.dataNode.dataType.dataTypeName) + ": "
         for key in n.dataClasses.keys():
             if n.dataClasses[key]:
-                rv += indent + " " + key + " : " + n.dataClasses[key].dataClassString
+                rv += " " + key + " : " + n.dataClasses[key].dataClassString
             else:
                 rv += " " + key + " : None"
-        rv += indent + "\n Parsed Data: " + pretty_parsed_data(n.dataNode.parsedData, "\t")
+        rv += " Parsed Data: \n" + pretty_parsed_data(n.dataNode.parsedData, "\t")
         rv += "\n"
     return rv
 
