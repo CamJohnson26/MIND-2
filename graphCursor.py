@@ -13,10 +13,7 @@ class GraphCursor:
         self.graph = graph
         self.currentNodes = {}
         for n in startNodes:
-            if n not in self.graph.contextNodes:
-                self.currentNodes[uuid.uuid4()] = {"node": n, "parsedData":[n]}
-            else:
-                self.currentNodes[uuid.uuid4()] = {"node": n, "parsedData": []}
+            self.currentNodes[uuid.uuid4()] = {"node": n, "parsedData": []}
         self.parsedData = []
         self.previousNodes = []
 
@@ -56,7 +53,12 @@ class GraphCursor:
                             temp_cursor["parsedData"] = pd
                         new_currentNodes[uuid.uuid4()] = temp_cursor
                     else:
-                        self.parsedData.append(c["parsedData"])
+                        dataType = c["node"].dataNode.dataType
+                        dataPoint.dataNode.dataType = dataType
+                        if c["node"] not in self.graph.contextNodes:
+                            pd = [a for a in c["parsedData"]]
+                            pd.append(dataPoint)
+                            self.parsedData.append(pd)
                 success = True
         self.currentNodes = new_currentNodes
         return success
