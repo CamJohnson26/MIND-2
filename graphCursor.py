@@ -55,10 +55,10 @@ class GraphCursor:
                     else:
                         dataType = c["node"].dataNode.dataType
                         dataPoint.dataNode.dataType = dataType
+                        pd = [a for a in c["parsedData"]]
                         if c["node"] not in self.graph.contextNodes:
-                            pd = [a for a in c["parsedData"]]
                             pd.append(dataPoint)
-                            self.parsedData.append(pd)
+                        self.parsedData.append(pd)
                 success = True
         self.currentNodes = new_currentNodes
         return success
