@@ -42,33 +42,41 @@ class GraphMachine:
         :param graphNode:
         :return: None
         """
-        self.update_memory(graphNode)
-        self.refresh_cursors(graphNode)
+        self.memory = self.add_graphnode_to_memory(graphNode, self.memory)
+        self.cursors.extend(self.build_flowgraphcursors(self.flowGraphs, graphNode, self.memory))
         self.feed_all_cursors(graphNode)
 
-    def refresh_cursors(self, graphNode):
+    def build_flowgraphcursors(self, flowGraphs, anchorNode, memory):
         """
         Create a new flowGraphCursor for each flowGraph
 
-        :param graphNode:
-        :return:
+        :param memory:
+        :param flowGraphs:
+        :param anchorNode:
+        :return: list: List of flowGraphcursors
         """
-        for flowGraph in self.flowGraphs:
-            flowGraphCursor = FlowGraphCursor(flowGraph, graphNode)
-            previousNodes = [n for n in self.memory]
+        flowGraphCursors = []
+        for flowGraph in flowGraphs:
+            flowGraphCursor = FlowGraphCursor(flowGraph, anchorNode)
+            previousNodes = [n for n in memory]
             flowGraphCursor.graphCursor.previousNodes = previousNodes
-            self.cursors.append(flowGraphCursor)
+            flowGraphCursors.append(flowGraphCursor)
+        return flowGraphCursors
 
-    def update_memory(self, graphNode):
+
+    def add_graphnode_to_memory(self, graphNode, memory):
         """
-        Does something special for context, refactor?
+        Add a graphNode to the given memory array
 
+        :param memory: Array of nodes
         :param graphNode:
-        :return: None
+        :return: New memory array with the graphNode added
         """
-        self.memory.append(graphNode)
-        if len(self.memory) > 2:
-            self.memory.remove(self.memory[0])
+        new_memory = [a for a in memory]
+        new_memory.append(graphNode)
+        if len(new_memory) > 2:
+            new_memory.remove(new_memory[0])
+        return new_memory
 
     def feed_all_cursors(self, graphNode):
         """

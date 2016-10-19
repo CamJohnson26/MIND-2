@@ -35,6 +35,12 @@ def graphNodeFromJSON(inputJSON, guidMapper=GuidMapper()):
 
 
 def graph_nodes_from_cursor(cursor):
+    """
+    Given a flowGraph cursor, return a list of graphNodes, one for each of the parsedData pieces the cursor found
+
+    :param cursor:
+    :return:
+    """
     dataTypeName = cursor.graphCursor.graph.graph.name
     dataClasses = {"dataIndex": None}
     matchFunction = getattr(matchFunctions, "matchFunction")

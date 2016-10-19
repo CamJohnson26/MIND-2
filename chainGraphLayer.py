@@ -91,9 +91,9 @@ class ChainGraphLayer:
 
     def save_cursor(self, graphNode, cursor):
         """
-        Given a cursor and a start node, create bridgeNodes for this chainGraphLayer
+        Given a cursor and a end node, create bridgeNodes for this chainGraphLayer
 
-        :param graphNode: start nodde in the chain graph
+        :param graphNode: endNode in the chain graph
         :param cursor: some graphCursor with end node and target node information
         :return: None
         """
