@@ -3,7 +3,9 @@ import json
 
 
 class GraphNode:
-
+    """
+    Container for a dataNode so it can be used in a flowGraph or chainGraph
+    """
     dataNode = None
     dataClasses = {}
     nexts = []
@@ -18,16 +20,17 @@ class GraphNode:
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
 
-    def get_copy(self):
-        copy = GraphNode(self.dataNode)
-        for key in self.dataClasses:
-            copy.dataClasses[key] = self.dataClasses[key]
-        copy.nexts = [n for n in self.nexts]
-        return copy
+    def __repr__(self):
+        return json.dumps(self.get_json())
 
     def get_json(self):
+        """
+        Get JSON representation of class
+
+        :return: str
+        """
         rv = {"class": "GraphNode"}
-        rv["dataNode"] = self.dataNode.get_json()
+        rv["dataNode"] = get_json()
         rv["guid"] = str(self.guid)
         rv["nexts"] = [str(a.guid) for a in self.nexts if a is not None]
         rv["nexts"].extend([a for a in self.nexts if a is None])
@@ -40,7 +43,25 @@ class GraphNode:
         rv["dataClasses"] = dataClassesJson
         return rv
 
+    def get_copy(self):
+        """
+        Return a copy of this graphNode
+
+        :return: graphNode
+        """
+        copy = GraphNode(self.dataNode)
+        for key in self.dataClasses:
+            copy.dataClasses[key] = self.dataClasses[key]
+        copy.nexts = [n for n in self.nexts]
+        return copy
+
     def matches(self, inputData):
+        """
+        Match 2 graphNodes based on complicated logic
+
+        :param inputData: graphNode
+        :return: boolean
+        """
         inputDataTypeName = inputData.dataNode.dataType.dataTypeName
         inputDataParsedData = inputData.dataNode.parsedData
         dataClassMatches = True
@@ -65,6 +86,12 @@ class GraphNode:
             return False
 
     def get_matching_classes(self, dataClasses):
+        """
+        No idea what this does. refactor?
+
+        :param dataClasses:
+        :return: list: list of matching classes
+        """
         matches = []
         try:
             for c in dataClasses[self.dataNode.dataType.dataTypeName]:
@@ -75,6 +102,12 @@ class GraphNode:
         return matches
 
     def rollup_dataClass(self, dataClass):
+        """
+        Since dataClasses can be nested we need to roll them up to the parent
+
+        :param dataClass:
+        :return: None
+        """
         dataClass.rollup_classes()
         for key in dataClass.dataClasses.keys():
             self.dataClasses[key] = dataClass.dataClasses[key]

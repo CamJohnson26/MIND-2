@@ -5,7 +5,9 @@ import json
 
 
 class GraphParse:
-
+    """
+    Deprecated? Convert this class to graph stepper?
+    """
     name = ""
     dataGraph = None
     current = None
@@ -18,14 +20,28 @@ class GraphParse:
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
 
+    def __repr__(self):
+        return json.dumps(self.get_json())
+
     def get_json(self):
+        """
+        Get JSON representation of class
+
+        :return: str
+        """
         rv = {"class": "GraphParse"}
         rv["chainGraph"] = self.chainGraph.get_json()
         rv["name"] = str(self.name)
-        rv["current"] = self.current.get_json()
+        rv["current"] = get_json()
         return rv
 
     def addObject(self, dataPoint):
+        """
+        Who knows..
+
+        :param dataPoint:
+        :return:
+        """
         graphNode = GraphNode(dataPoint)
         if not self.chainGraph:
             graph = GraphStructure([graphNode], self.name)
@@ -35,4 +51,3 @@ class GraphParse:
             self.chainGraph.graph.nodes.append(graphNode)
             self.current.nexts.append(graphNode)
             self.current = graphNode
-    # Convert this class to graph stepper

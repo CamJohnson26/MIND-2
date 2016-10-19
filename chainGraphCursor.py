@@ -3,7 +3,9 @@ import json
 
 
 class ChainGraphCursor:
-
+    """
+    Class which handle the state of processing a chainGraph
+    """
     anchorPoint = None
     graphCursor = None
 
@@ -14,8 +16,16 @@ class ChainGraphCursor:
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
 
+    def __repr__(self):
+        return json.dumps(self.get_json())
+
     def get_json(self):
+        """
+        Get JSON representation of class
+
+        :return: str
+        """
         rv = {"class": "ChainGraphCursor"}
         rv["graphCursor"] = self.graphCursor.get_json()
-        rv["anchorPoint"] = self.anchorPoint.get_json()
+        rv["anchorPoint"] = get_json()
         return rv

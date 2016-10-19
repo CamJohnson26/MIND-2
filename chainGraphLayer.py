@@ -8,7 +8,9 @@ from Utilities.dataClassFileManager import DataClassFileManager
 
 
 class ChainGraphLayer:
-
+    """
+    Container for chainGraphs and their associated bridgeNodes
+    """
     chainGraph = None
     bridgeNodes = []
     chainGraphFlattener = None
@@ -24,7 +26,27 @@ class ChainGraphLayer:
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
 
+    def __repr__(self):
+        return json.dumps(self.get_json())
+
+    def get_json(self):
+        """
+        Get JSON representation of class
+
+        :return: str
+        """
+        rv = {"class": "ChainGraph"}
+        rv["chainGraph"] = self.chainGraph.get_json()
+        rv["bridgeNodes"] = [a.get_json() for a in self.bridgeNodes]
+        return rv
+
     def classify(self, dataTypes):
+        """
+        Given a list of dataTypes, apply a class to each node in the chainGraph
+
+        :param dataTypes:
+        :return: None
+        """
         dataClasses = {}
         for dataType in dataTypes:
             dataClassName = dataType.dataClasses["dataIndex"]
@@ -45,13 +67,13 @@ class ChainGraphLayer:
                     copy.rollup_dataClass(c)
                     copy.dataClasses["dataIndex"] = c
 
-    def get_json(self):
-        rv = {"class": "ChainGraph"}
-        rv["chainGraph"] = self.chainGraph.get_json()
-        rv["bridgeNodes"] = [a.get_json() for a in self.bridgeNodes]
-        return rv
-
     def copy_node(self, node):
+        """
+        Given a graphNode from the chainGraph, create a duplicate in the chainGraph
+
+        :param node: graphNode
+        :return: graphNode
+        """
         copy = node.get_copy()
         for n in self.chainGraph.graph.nodes:
             if node in n.nexts:
@@ -68,6 +90,13 @@ class ChainGraphLayer:
         return copy
 
     def save_cursor(self, graphNode, cursor):
+        """
+        Given a cursor and a start node, create bridgeNodes for this chainGraphLayer
+
+        :param graphNode: start nodde in the chain graph
+        :param cursor: some graphCursor with end node and target node information
+        :return: None
+        """
         newNodes = graph_nodes_from_cursor(cursor)
         for newNode in newNodes:
             self.chainGraph.graph.nodes.append(newNode)
@@ -76,6 +105,13 @@ class ChainGraphLayer:
             self.set_node_nexts(newNode, cursor)
 
     def set_node_nexts(self, graphNode, cursor):
+        """
+        Given a graphNode and a cursor, scan the bridgeNodes for something. Ugh bad code.
+
+        :param graphNode:
+        :param cursor:
+        :return:
+        """
         for node in cursor.graphCursor.previousNodes:
             for bridgeNode in self.bridgeNodes:
                 if bridgeNode.endGraphNode.guid == node.guid:

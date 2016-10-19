@@ -2,6 +2,9 @@ import json
 
 
 class DataType:
+    """
+    A named piece of information that matches some function and can have classes
+    """
 
     matchFunction = None
     dataTypeName = ""
@@ -17,7 +20,15 @@ class DataType:
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
 
+    def __repr__(self):
+        return json.dumps(self.get_json())
+
     def get_json(self):
+        """
+        Get JSON representation of class
+
+        :return: str
+        """
         rv = {"class": "DataType"}
         rv["dataTypeName"] = self.dataTypeName
         dataClassesJson = {}
@@ -31,4 +42,9 @@ class DataType:
         return rv
 
     def matches(self, inputVal):
+        """
+
+        :param inputVal:
+        :return: boolean
+        """
         return self.matchFunction(inputVal)

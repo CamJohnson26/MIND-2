@@ -3,7 +3,9 @@ import uuid
 
 
 class GraphCursor:
-
+    """
+    Handles the state of a graph
+    """
     graph = None
     currentNodes = {}
     parsedData = []
@@ -20,16 +22,30 @@ class GraphCursor:
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
 
+    def __repr__(self):
+        return json.dumps(self.get_json())
+
     def get_json(self):
+        """
+        Get JSON representation of class
+
+        :return: str
+        """
         rv = {"class": "GraphCursor"}
-        rv["graph"] = self.graph.get_json()
-        cursors = [c.get_json() for c in self.currentNodes if c is not None]
+        rv["graph"] = get_json()
+        cursors = [get_json() for c in self.currentNodes if c is not None]
         cursors.extend([c for c in self.currentNodes if c is None])
         rv["currentNodes"] = cursors
         rv["parsedData"] = [d.get_json() for d in self.parsedData]
         return rv
 
     def feed(self, dataPoint):
+        """
+        Insert a graphNode into the graph and handle the resulting state
+
+        :param dataPoint: graphNode
+        :return: boolean: T/F value for success of feed attempt
+        """
         self.parsedData = []
         if len([a for a in self.currentNodes if a is not None]) == 0:
             return False
@@ -64,4 +80,9 @@ class GraphCursor:
         return success
 
     def cursor_complete(self):
+        """
+        Could the cursor be finished?
+
+        :return: boolean
+        """
         return len(self.parsedData) > 0

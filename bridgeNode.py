@@ -3,7 +3,10 @@ import json
 
 
 class BridgeNode:
+    """
+    Links 2 chain graphs together with a start, an end, and a target
 
+    """
     startGraphNode = None
     endGraphNode = None
     targetGraphNode = None
@@ -21,15 +24,28 @@ class BridgeNode:
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
 
+    def __repr__(self):
+        return json.dumps(self.get_json())
+
     def get_json(self):
+        """
+        Get JSON representation of class
+
+        :return: str
+        """
         rv = {"class": "ParseNode"}
-        rv["startGraphNode"] = self.startGraphNode.get_json()
-        rv["endGraphNode"] = self.endGraphNode.get_json()
-        rv["targetGraphNode"] = self.targetGraphNode.get_json()
+        rv["startGraphNode"] = get_json()
+        rv["endGraphNode"] = get_json()
+        rv["targetGraphNode"] = get_json()
         rv["guid"] = str(self.guid)
         return rv
 
     def get_copy(self):
+        """
+        Create a copy of this object
+
+        :return: BridgeNode
+        """
         copy = BridgeNode(startGraphNode=self.startGraphNode,
                           endGraphNode=self.endGraphNode,
                           targetGraphNode=self.targetGraphNode)
