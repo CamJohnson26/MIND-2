@@ -46,12 +46,19 @@ class GraphCursor:
         :param dataPoint: graphNode
         :return: boolean: T/F value for success of feed attempt
         """
-        self.parsedData = []
+
+        return len(self.currentNodes.keys()) > 0 or len(self.parsedData) > 0
+
+        """
+        Send the graphNode through the cursor and return the resulting cursor
+
+        :param graphNode: The node to check for matches
+        :param currentNodes: The initial state of the cursor
+        :return: {NodeId: {"node" : Node, "parsedData": [Node, Node]}} the resulting state and the finished data
+        """
         new_current_nodes = {}
-        if len([a for a in self.currentNodes if a is not None]) == 0:
-            return False
-        success = False
-        for key in self.currentNodes.keys():
+        extracted_data = []
+        for key in currentNodes.keys():
             current_node = self.currentNodes[key]
             if current_node["node"] and current_node["node"].matches(graphNode):
                 for n in current_node["node"].nexts:
@@ -60,11 +67,9 @@ class GraphCursor:
                         next_node["parsedData"].append(graphNode)
                     if n:
                         new_current_nodes[uuid.uuid4()] = next_node
-                    else:
-                        self.parsedData.append(next_node["parsedData"])
-                success = True
-        self.currentNodes = new_current_nodes
-        return success
+                    if not n:
+                        extracted_data.append(next_node["parsedData"])
+        return new_current_nodes, extracted_data
 
     def cursor_complete(self):
         """
