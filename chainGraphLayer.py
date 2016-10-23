@@ -67,53 +67,63 @@ class ChainGraphLayer:
                     copy.rollup_dataClass(c)
                     copy.dataClasses["dataIndex"] = c
 
-    def copy_node(self, node):
+    def copy_node(self, graphNode):
         """
         Given a graphNode from the chainGraph, create a duplicate in the chainGraph
 
-        :param node: graphNode
+        :param graphNode: graphNode
         :return: graphNode
         """
-        copy = node.get_copy()
+        copy = graphNode.get_copy()
         for n in self.chainGraph.graph.nodes:
-            if node in n.nexts:
+            if graphNode in n.nexts:
                 n.nexts.append(copy)
         bncopies = []
         for bn in self.bridgeNodes:
-            if bn.targetGraphNode.guid == node.guid:
+            if bn.targetGraphNode.guid == graphNode.guid:
                 bncopy = bn.get_copy()
                 bncopy.targetGraphNode = copy
                 bncopies.append(bncopy)
-        index = self.chainGraph.graph.nodes.index(node) + 1
+        index = self.chainGraph.graph.nodes.index(graphNode) + 1
         self.chainGraph.graph.nodes.insert(index, copy)
         self.bridgeNodes.extend(bncopies)
         return copy
 
-    def save_cursor(self, graphNode, cursor):
+    def apply_cursor_to_chain_graph_layer(self, graph_node, cursor, chain_graph_layer):
         """
-        Given a cursor and a end node, create bridgeNodes for this chainGraphLayer
+        Given a cursor and an end node, create bridgeNodes for this chainGraphLayer
 
         :param graphNode: endNode in the chain graph
         :param cursor: some graphCursor with end node and target node information
         :return: None
         """
+        new_chain_graph_nodes = [a for a in chain_graph_layer.chainGraph.graph.nodes]
+        new_bridge_nodes = [a for a in chain_graph_layer.bridgeNodes]
         newNodes = graph_nodes_from_cursor(cursor)
         for newNode in newNodes:
-            self.chainGraph.graph.nodes.append(newNode)
-            bridge = BridgeNode(cursor.anchorPoint, graphNode, newNode)
-            self.bridgeNodes.append(bridge)
-            self.set_node_nexts(newNode, cursor)
+            new_chain_graph_nodes.append(newNode)
+            bridge = BridgeNode(cursor.anchorPoint, graph_node, newNode)
+            new_bridge_nodes.append(bridge)
+            for target in self.get_previous_targets(newNode, new_bridge_nodes, cursor.graphCursor.previousNodes):
+                target.nexts.append(newNode)
+        return new_bridge_nodes, new_chain_graph_nodes
 
-    def set_node_nexts(self, graphNode, cursor):
+    def get_previous_targets(self, graph_node, bridge_nodes, previous_nodes):
         """
-        Given a graphNode and a cursor, scan the bridgeNodes for something. Ugh bad code.
+        Given a target graph_node, a list of bridge_nodes, and a cursor find all the previous node for that graph_node
 
         :param graphNode:
         :param cursor:
         :return:
         """
-        for node in cursor.graphCursor.previousNodes:
-            for bridgeNode in self.bridgeNodes:
-                if bridgeNode.endGraphNode.guid == node.guid:
-                    if bridgeNode.targetGraphNode.guid != graphNode.guid:
-                        bridgeNode.targetGraphNode.nexts.append(graphNode)
+        previous_targets = []
+        # Loop through the nodes that came before this cursor
+        for prev_node in previous_nodes:
+            for bridge_node in bridge_nodes:
+                # Find the bridge node that came before this cursor
+                if bridge_node.endGraphNode.guid == prev_node.guid:
+                    # Make sure this graph node isn't the bridge node's target
+                    if bridge_node.targetGraphNode.guid != graph_node.guid:
+                        # return this bridge_node's target
+                        previous_targets.append(bridge_node.targetGraphNode)
+        return previous_targets

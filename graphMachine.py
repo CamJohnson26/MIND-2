@@ -91,7 +91,8 @@ class GraphMachine:
             cursor.graphCursor.currentNodes, cursor.graphCursor.extracted_data = cn, ed
             if len(cn.keys()) > 0 or len(ed) > 0:
                 if cursor.graphCursor.cursor_complete():
-                    self.chainGraphLayer.save_cursor(graphNode, cursor)
+                    bn, cgn = self.chainGraphLayer.apply_cursor_to_chain_graph_layer(graphNode, cursor, self.chainGraphLayer)
+                    self.chainGraphLayer.bridgeNodes, self.chainGraphLayer.chainGraph.graph.nodes = bn, cgn
                 new_cursors.append(cursor)
         self.cursors = new_cursors
 
