@@ -46,9 +46,10 @@ class GraphCursor:
         :param dataPoint: graphNode
         :return: boolean: T/F value for success of feed attempt
         """
-
+        self.currentNodes, self.parsedData = self.step_forward(graphNode, self.currentNodes)
         return len(self.currentNodes.keys()) > 0 or len(self.parsedData) > 0
 
+    def step_forward(self, graphNode, currentNodes):
         """
         Send the graphNode through the cursor and return the resulting cursor
 
