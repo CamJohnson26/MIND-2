@@ -41,7 +41,9 @@ class FlowGraph:
         """
         cursor = FlowGraphCursor(self, chainGraph.graph.nodes[0])
         for graphNode in chainGraph.graph.nodes:
-            if not cursor.graphCursor.feed(graphNode):
+            cn, ed = cursor.graphCursor.step_forward(graphNode, cursor.graphCursor.currentNodes)
+            cursor.graphCursor.currentNodes, cursor.graphCursor.extracted_data = cn, ed
+            if not (len(cn.keys()) > 0 or len(ed) > 0):
                 return False
         if cursor.graphCursor.cursor_complete():
             return True

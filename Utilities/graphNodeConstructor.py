@@ -46,7 +46,7 @@ def graph_nodes_from_cursor(cursor):
     matchFunction = getattr(matchFunctions, "matchFunction")
     dataType = DataType(dataTypeName, dataClasses, matchFunction)
     graphNodes = []
-    parsedData = cursor.graphCursor.parsedData
+    parsedData = cursor.graphCursor.extracted_data
     for pd in parsedData:
         parsedGraph = GraphStructure(pd, dataTypeName)
         new_pd = ChainGraph(parsedGraph)

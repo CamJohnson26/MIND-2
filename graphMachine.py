@@ -87,7 +87,9 @@ class GraphMachine:
         """
         new_cursors = []
         for cursor in self.cursors:
-            if cursor.graphCursor.feed(graphNode):
+            cn, ed = cursor.graphCursor.step_forward(graphNode, cursor.graphCursor.currentNodes)
+            cursor.graphCursor.currentNodes, cursor.graphCursor.extracted_data = cn, ed
+            if len(cn.keys()) > 0 or len(ed) > 0:
                 if cursor.graphCursor.cursor_complete():
                     self.chainGraphLayer.save_cursor(graphNode, cursor)
                 new_cursors.append(cursor)

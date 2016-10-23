@@ -8,7 +8,7 @@ class GraphCursor:
     """
     graph = None
     currentNodes = {}           # First node in each branch {NodeId: {"node" : Node, "parsedData": [Node, Node]}}
-    parsedData = []
+    extracted_data = []
     previousNodes = []
 
     def __init__(self, graph, startNodes):
@@ -16,7 +16,7 @@ class GraphCursor:
         self.currentNodes = {}
         for n in startNodes:
             self.currentNodes[uuid.uuid4()] = {"node": n, "parsedData": []}
-        self.parsedData = []
+        self.extracted_data = []
         self.previousNodes = []
 
     def __str__(self):
@@ -36,18 +36,8 @@ class GraphCursor:
         cursors = [get_json() for c in self.currentNodes if c is not None]
         cursors.extend([c for c in self.currentNodes if c is None])
         rv["currentNodes"] = cursors
-        rv["parsedData"] = [d.get_json() for d in self.parsedData]
+        rv["parsedData"] = [d.get_json() for d in self.extracted_data]
         return rv
-
-    def feed(self, graphNode):
-        """
-        Insert a graphNode into the graph and handle the resulting state
-
-        :param dataPoint: graphNode
-        :return: boolean: T/F value for success of feed attempt
-        """
-        self.currentNodes, self.parsedData = self.step_forward(graphNode, self.currentNodes)
-        return len(self.currentNodes.keys()) > 0 or len(self.parsedData) > 0
 
     def step_forward(self, graphNode, currentNodes):
         """
@@ -78,4 +68,4 @@ class GraphCursor:
 
         :return: boolean
         """
-        return len(self.parsedData) > 0
+        return len(self.extracted_data) > 0
