@@ -89,7 +89,7 @@ class ChainGraphLayer:
         self.bridgeNodes.extend(bncopies)
         return copy
 
-    def apply_cursor_to_chain_graph_layer(self, graph_node, cursor, chain_graph_layer):
+    def apply_cursor_to_chain_graph_layer(self, graph_node, cursor):
         """
         Given a cursor and an end node, create bridgeNodes for this chainGraphLayer
 
@@ -97,8 +97,8 @@ class ChainGraphLayer:
         :param cursor: some graphCursor with end node and target node information
         :return: None
         """
-        new_chain_graph_nodes = [a for a in chain_graph_layer.chainGraph.graph.nodes]
-        new_bridge_nodes = [a for a in chain_graph_layer.bridgeNodes]
+        new_chain_graph_nodes = [a for a in self.chainGraph.graph.nodes]
+        new_bridge_nodes = [a for a in self.bridgeNodes]
         newNodes = graph_nodes_from_cursor(cursor)
         for newNode in newNodes:
             new_chain_graph_nodes.append(newNode)

@@ -44,7 +44,7 @@ class GraphMachine:
         """
         self.memory = self.add_graphnode_to_memory(graphNode, self.memory)
         self.cursors.extend(self.build_flowgraphcursors(self.flowGraphs, graphNode, self.memory))
-        self.feed_all_cursors(graphNode)
+        self.cursors = self.feed_all_cursors(graphNode)
 
     def build_flowgraphcursors(self, flowGraphs, anchorNode, memory):
         """
@@ -91,10 +91,10 @@ class GraphMachine:
             cursor.graphCursor.currentNodes, cursor.graphCursor.extracted_data = cn, ed
             if len(cn.keys()) > 0 or len(ed) > 0:
                 if cursor.graphCursor.cursor_complete():
-                    bn, cgn = self.chainGraphLayer.apply_cursor_to_chain_graph_layer(graphNode, cursor, self.chainGraphLayer)
+                    bn, cgn = self.chainGraphLayer.apply_cursor_to_chain_graph_layer(graphNode, cursor)
                     self.chainGraphLayer.bridgeNodes, self.chainGraphLayer.chainGraph.graph.nodes = bn, cgn
                 new_cursors.append(cursor)
-        self.cursors = new_cursors
+        return new_cursors
 
     def feed_chain_graph_layer(self, chainGraphLayer):
         """
