@@ -92,7 +92,8 @@ class GraphMachine:
             if len(cn.keys()) > 0 or len(ed) > 0:
                 if cursor.graphCursor.cursor_complete():
                     bn, cgn = self.chainGraphLayer.apply_cursor_to_chain_graph_layer(graphNode, cursor)
-                    self.chainGraphLayer.bridgeNodes, self.chainGraphLayer.chainGraph.graph.nodes = bn, cgn
+                    self.chainGraphLayer.bridgeNodes.extend(bn)
+                    self.chainGraphLayer.chainGraph.graph.nodes.extend(cgn)
                 new_cursors.append(cursor)
         return new_cursors
 

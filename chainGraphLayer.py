@@ -97,8 +97,8 @@ class ChainGraphLayer:
         :param cursor: some graphCursor with end node and target node information
         :return: None
         """
-        new_chain_graph_nodes = [a for a in self.chainGraph.graph.nodes]
-        new_bridge_nodes = [a for a in self.bridgeNodes]
+        new_chain_graph_nodes = []
+        new_bridge_nodes = []
         newNodes = graph_nodes_from_cursor(cursor)
         for newNode in newNodes:
             new_chain_graph_nodes.append(newNode)
