@@ -35,16 +35,17 @@ class GraphMachine:
         rv["flowGraph"] = get_json()
         return rv
 
-    def feed(self, graphNode):
+    def feed(self, graphNode, memory, flow_graphs, cursors, chain_graph_layer):
         """
         Insert a graphNode into this machine
 
         :param graphNode:
         :return: None
         """
-        self.memory = self.add_graphnode_to_memory(graphNode, self.memory)
-        self.cursors.extend(self.build_flowgraphcursors(self.flowGraphs, graphNode, self.memory))
-        self.cursors = self.feed_all_cursors(graphNode)
+        new_cursors = [c for c in cursors]
+        new_cursors.extend(self.build_flowgraphcursors(flow_graphs, graphNode, memory))
+        new_cursors, bn, cgn = self.feed_all_cursors(graphNode, new_cursors, chain_graph_layer)
+        return new_cursors, bn, cgn
 
     def build_flowgraphcursors(self, flowGraphs, anchorNode, memory):
         """
@@ -78,7 +79,7 @@ class GraphMachine:
             new_memory.remove(new_memory[0])
         return new_memory
 
-    def feed_all_cursors(self, graphNode):
+    def feed_all_cursors(self, graphNode, cursors, chain_graph_layer):
         """
         Feed a graphNode into all the machine's current cursors
 
@@ -86,16 +87,18 @@ class GraphMachine:
         :return: None
         """
         new_cursors = []
-        for cursor in self.cursors:
+        bridge_nodes = []
+        chain_graph_nodes = []
+        for cursor in cursors:
             cn, ed = cursor.graphCursor.step_forward(graphNode, cursor.graphCursor.currentNodes)
             cursor.graphCursor.currentNodes, cursor.graphCursor.extracted_data = cn, ed
             if len(cn.keys()) > 0 or len(ed) > 0:
                 if cursor.graphCursor.cursor_complete():
-                    bn, cgn = self.chainGraphLayer.apply_cursor_to_chain_graph_layer(graphNode, cursor)
-                    self.chainGraphLayer.bridgeNodes.extend(bn)
-                    self.chainGraphLayer.chainGraph.graph.nodes.extend(cgn)
+                    bn, cgn = chain_graph_layer.apply_cursor_to_chain_graph_layer(graphNode, cursor)
+                    bridge_nodes.extend(bn)
+                    chain_graph_nodes.extend(cgn)
                 new_cursors.append(cursor)
-        return new_cursors
+        return new_cursors, bridge_nodes, chain_graph_nodes
 
     def feed_chain_graph_layer(self, chainGraphLayer):
         """
@@ -106,4 +109,7 @@ class GraphMachine:
         """
         self.chainGraphLayer = ChainGraphLayer(chainGraphLayer)
         for d in chainGraphLayer.chainGraph.graph.nodes:
-            self.feed(d)
+            self.memory = self.add_graphnode_to_memory(d, self.memory)
+            self.cursors, bn, cgn = self.feed(d, self.memory, self.flowGraphs, self.cursors, self.chainGraphLayer)
+            self.chainGraphLayer.bridgeNodes.extend(bn)
+            self.chainGraphLayer.chainGraph.graph.nodes.extend(cgn)
