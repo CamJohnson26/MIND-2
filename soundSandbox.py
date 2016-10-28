@@ -30,9 +30,16 @@ originalChainGraphLayer.classify([dtfm.loadObject("letter.json")])
 #print(pretty_chainGraphLayer(originalChainGraphLayer))
 
 # Create DataGraphMachine and feed data
-flowGraphs = fgfm.loadObjects(["sound"])
-graphMachine = GraphMachine(flowGraphs, originalChainGraphLayer)
-graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
+flow_graphs = fgfm.loadObjects(["sound"])
+graphMachine = GraphMachine(flow_graphs, originalChainGraphLayer)
+
+memory = graphMachine.memory
+cursors = graphMachine.cursors
+cgl, m, c = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, memory, cursors, flow_graphs)
+graphMachine.chainGraphLayer = cgl
+graphMachine.memory = m
+graphMachine.cursors = c
+
 print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 #graphMachine.chainGraphLayer.classify([dtfm.loadObject("word.json"), dtfm.loadObject("number.json")])

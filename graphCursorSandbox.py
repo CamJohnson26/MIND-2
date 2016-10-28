@@ -27,18 +27,30 @@ originalChainGraphLayer.classify([dtfm.loadObject("letter.json")])
 # print(pretty_chainGraphLayer(originalChainGraphLayer))
 
 # Create DataGraphMachine and feed data
-flowGraphs = fgfm.loadObjects(["word", "number", "punctuation"])
-graphMachine = GraphMachine(flowGraphs, originalChainGraphLayer)
-graphMachine.feed_chain_graph_layer(originalChainGraphLayer)
+flow_graphs = fgfm.loadObjects(["word", "number", "punctuation"])
+graphMachine = GraphMachine(flow_graphs, originalChainGraphLayer)
+
+memory = graphMachine.memory
+cursors = graphMachine.cursors
+cgl, m, c = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, memory, cursors, flow_graphs)
+graphMachine.chainGraphLayer = cgl
+graphMachine.memory = m
+graphMachine.cursors = c
 #print(graphMachine.chainGraphLayer)
 
 graphMachine.chainGraphLayer.classify([dtfm.loadObject("word.json"), dtfm.loadObject("number.json")])
 #print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 # Sentence Structures??
-flowGraphs = fgfm.loadObjects(["jobPostingSkill"])
-graphMachine.flowGraphs = flowGraphs
-graphMachine.feed_chain_graph_layer(graphMachine.chainGraphLayer)
+flow_graphs = fgfm.loadObjects(["jobPostingSkill"])
+graphMachine.flowGraphs = flow_graphs
+
+memory = graphMachine.memory
+cursors = graphMachine.cursors
+cgl, m, c = graphMachine.feed_chain_graph_layer(graphMachine.chainGraphLayer, memory, cursors, flow_graphs)
+graphMachine.chainGraphLayer = cgl
+graphMachine.memory = m
+graphMachine.cursors = c
 
 #print(graphMachine.chainGraphLayer)
 print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))

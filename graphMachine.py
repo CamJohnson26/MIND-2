@@ -99,17 +99,18 @@ class GraphMachine:
                     chain_graph_nodes.extend(cgn)
                 new_cursors.append(cursor)
         return new_cursors, bridge_nodes, chain_graph_nodes
-
-    def feed_chain_graph_layer(self, chainGraphLayer):
+#, memory, cursors, flow_graphs
+    def feed_chain_graph_layer(self, chainGraphLayer, memory, cursors, flow_graphs):
         """
         Match a chainGraphLayer to this machine
 
         :param chainGraphLayer:
         :return: None
         """
-        self.chainGraphLayer = ChainGraphLayer(chainGraphLayer)
+        new_chain_graph_layer = ChainGraphLayer(chainGraphLayer)
         for d in chainGraphLayer.chainGraph.graph.nodes:
-            self.memory = self.add_graphnode_to_memory(d, self.memory)
-            self.cursors, bn, cgn = self.feed(d, self.memory, self.flowGraphs, self.cursors, self.chainGraphLayer)
-            self.chainGraphLayer.bridgeNodes.extend(bn)
-            self.chainGraphLayer.chainGraph.graph.nodes.extend(cgn)
+            memory = self.add_graphnode_to_memory(d, memory)
+            cursors, bn, cgn = self.feed(d, memory, flow_graphs, cursors, chainGraphLayer)
+            new_chain_graph_layer.bridgeNodes.extend(bn)
+            new_chain_graph_layer.chainGraph.graph.nodes.extend(cgn)
+        return new_chain_graph_layer, memory, cursors
