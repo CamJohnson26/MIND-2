@@ -9,13 +9,11 @@ class GraphMachine:
     Convert a chainGraphLayer to a chainGraphLayer matched to given flowGraphs
     """
     cursors = []
-    flowGraphs = []
     chainGraphLayer = None
     memory = []
 
-    def __init__(self, flowGraphs, parentChainGraphLayer):
+    def __init__(self, parentChainGraphLayer):
         self.cursors = []
-        self.flowGraphs = flowGraphs
         self.chainGraphLayer = ChainGraphLayer(parentChainGraphLayer)
         self.memory = []
 
@@ -31,11 +29,10 @@ class GraphMachine:
 
         :return: str
         """
-        rv = {"class": "FlowGraphCursor"}
-        rv["flowGraph"] = get_json()
+        rv = {"class": "GraphMachine"}
         return rv
 
-    def feed(self, graphNode, memory, flow_graphs, cursors, chain_graph_layer):
+    def feed(self, graphNode, chain_graph_layer, flow_graphs, cursors, memory):
         """
         Insert a graphNode into this machine
 
@@ -43,11 +40,11 @@ class GraphMachine:
         :return: None
         """
         new_cursors = [c for c in cursors]
-        new_cursors.extend(self.build_flowgraphcursors(flow_graphs, graphNode, memory))
-        new_cursors, bn, cgn = self.feed_all_cursors(graphNode, new_cursors, chain_graph_layer)
+        new_cursors.extend(self.build_flowgraphcursors(graphNode, flow_graphs, memory))
+        new_cursors, bn, cgn = self.feed_all_cursors(graphNode, chain_graph_layer, new_cursors)
         return new_cursors, bn, cgn
 
-    def build_flowgraphcursors(self, flowGraphs, anchorNode, memory):
+    def build_flowgraphcursors(self, anchorNode, flowGraphs, memory):
         """
         Create a new flowGraphCursor for each flowGraph
 
@@ -79,7 +76,7 @@ class GraphMachine:
             new_memory.remove(new_memory[0])
         return new_memory
 
-    def feed_all_cursors(self, graphNode, cursors, chain_graph_layer):
+    def feed_all_cursors(self, graphNode, chain_graph_layer, cursors):
         """
         Feed a graphNode into all the machine's current cursors
 
@@ -99,18 +96,20 @@ class GraphMachine:
                     chain_graph_nodes.extend(cgn)
                 new_cursors.append(cursor)
         return new_cursors, bridge_nodes, chain_graph_nodes
-#, memory, cursors, flow_graphs
-    def feed_chain_graph_layer(self, chainGraphLayer, memory, cursors, flow_graphs):
+
+    def feed_chain_graph_layer(self, chainGraphLayer, flow_graphs):
         """
         Match a chainGraphLayer to this machine
 
         :param chainGraphLayer:
         :return: None
         """
+        memory = []
+        cursors = []
         new_chain_graph_layer = ChainGraphLayer(chainGraphLayer)
         for d in chainGraphLayer.chainGraph.graph.nodes:
             memory = self.add_graphnode_to_memory(d, memory)
-            cursors, bn, cgn = self.feed(d, memory, flow_graphs, cursors, chainGraphLayer)
+            cursors, bn, cgn = self.feed(d, chainGraphLayer, flow_graphs, cursors, memory)
             new_chain_graph_layer.bridgeNodes.extend(bn)
             new_chain_graph_layer.chainGraph.graph.nodes.extend(cgn)
-        return new_chain_graph_layer, memory, cursors
+        return new_chain_graph_layer
