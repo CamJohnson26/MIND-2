@@ -107,9 +107,9 @@ class GraphMachine:
         memory = []
         cursors = []
         new_chain_graph_layer = ChainGraphLayer(chainGraphLayer)
-        for d in chainGraphLayer.chainGraph.graph.nodes:
-            memory = self.add_graphnode_to_memory(d, memory)
-            cursors, bn, cgn = self.feed(d, chainGraphLayer, flow_graphs, cursors, memory)
+        for n in chainGraphLayer.chainGraph.graph.nodes:
+            memory = self.add_graphnode_to_memory(n, memory)
+            cursors, bn, cgn = self.feed(n, chainGraphLayer, flow_graphs, cursors, memory)
             new_chain_graph_layer.bridgeNodes.extend(bn)
             new_chain_graph_layer.chainGraph.graph.nodes.extend(cgn)
         return new_chain_graph_layer

@@ -32,8 +32,7 @@ originalChainGraphLayer.classify([dtfm.loadObject("letter.json")])
 # Create DataGraphMachine and feed data
 flow_graphs = fgfm.loadObjects(["sound"])
 graphMachine = GraphMachine(originalChainGraphLayer)
-cgl = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, flow_graphs)
-graphMachine.chainGraphLayer = cgl
+graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, flow_graphs)
 
 print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 

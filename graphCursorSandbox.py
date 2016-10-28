@@ -30,17 +30,17 @@ originalChainGraphLayer.classify([dtfm.loadObject("letter.json")])
 flow_graphs = fgfm.loadObjects(["word", "number", "punctuation"])
 graphMachine = GraphMachine(originalChainGraphLayer)
 
-cgl = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, flow_graphs)
-graphMachine.chainGraphLayer = cgl
+graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, flow_graphs)
+
 #print(graphMachine.chainGraphLayer)
 
 graphMachine.chainGraphLayer.classify([dtfm.loadObject("word.json"), dtfm.loadObject("number.json")])
+
 #print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 # Sentence Structures??
 flow_graphs = fgfm.loadObjects(["jobPostingSkill"])
-cgl = graphMachine.feed_chain_graph_layer(graphMachine.chainGraphLayer, flow_graphs)
-graphMachine.chainGraphLayer = cgl
+graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(graphMachine.chainGraphLayer, flow_graphs)
 
 #print(graphMachine.chainGraphLayer)
 print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
