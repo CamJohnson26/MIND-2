@@ -24,5 +24,5 @@ class ChainGraph:
         :return: str
         """
         rv = {"class": "ChainGraph"}
-        rv["graph"] = get_json()
+        rv["graph"] = self.graph.get_json()
         return rv

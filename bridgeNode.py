@@ -34,9 +34,9 @@ class BridgeNode:
         :return: str
         """
         rv = {"class": "ParseNode"}
-        rv["startGraphNode"] = get_json()
-        rv["endGraphNode"] = get_json()
-        rv["targetGraphNode"] = get_json()
+        rv["startGraphNode"] = self.startGraphNode.get_json()
+        rv["endGraphNode"] = self.endGraphNode.get_json()
+        rv["targetGraphNode"] = self.targetGraphNode.get_json()
         rv["guid"] = str(self.guid)
         return rv
 

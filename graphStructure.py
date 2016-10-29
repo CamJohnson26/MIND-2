@@ -30,5 +30,5 @@ class GraphStructure:
         rv = {"class": "GraphStructure"}
         rv["name"] = self.name
         rv["guid"] = str(self.guid)
-        rv["nodes"] = [get_json() for a in self.nodes if a is not None]
+        rv["nodes"] = [a.get_json() for a in self.nodes if a is not None]
         return rv

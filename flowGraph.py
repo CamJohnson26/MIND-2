@@ -28,7 +28,7 @@ class FlowGraph:
         :return: str
         """
         rv = {"class": "FlowGraph"}
-        rv["graph"] = get_json()
+        rv["graph"] = self.graph.get_json()
         rv["startNodes"] = [str(a.guid) for a in self.startNodes]
         rv["contextNodes"] = [str(a.guid) for a in self.contextNodes]
         return rv

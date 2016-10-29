@@ -25,11 +25,11 @@ class DataNode:
         :return: str
         """
         rv = {"class": "DataNode"}
-        rv["dataType"] = get_json()
+        rv["dataType"] = self.dataType.get_json()
         if not self.parsedData:
             rv["parsedData"] = None
         elif type(self.parsedData) in [str, unicode]:
             rv["parsedData"] = self.parsedData
         else:
-            rv["parsedData"] = get_json()
+            rv["parsedData"] = self.parsedData.get_json()
         return rv

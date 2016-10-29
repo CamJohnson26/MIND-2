@@ -30,7 +30,7 @@ class GraphNode:
         :return: str
         """
         rv = {"class": "GraphNode"}
-        rv["dataNode"] = get_json()
+        rv["dataNode"] = self.dataNode.get_json()
         rv["guid"] = str(self.guid)
         rv["nexts"] = [str(a.guid) for a in self.nexts if a is not None]
         rv["nexts"].extend([a for a in self.nexts if a is None])

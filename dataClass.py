@@ -34,7 +34,7 @@ class DataClass:
         """
         rv = {"class": "DataClass"}
         if self.flowGraph:
-            rv["flowGraph"] = get_json()
+            rv["flowGraph"] = self.flowGraph.get_json()
         else:
             rv["flowGraph"] = None
         rv["dataClassIndex"] = self.dataClassIndex
@@ -45,7 +45,7 @@ class DataClass:
                 if type(self.dataClasses[key]) in [str, unicode]:
                     dataClassesJson[key] = self.dataClasses[key]
                 else:
-                    dataClassesJson[key] = get_json()
+                    dataClassesJson[key] = self.dataClasses[key].get_json()
             else:
                 dataClassesJson[key] = None
         rv["dataClasses"] = dataClassesJson
