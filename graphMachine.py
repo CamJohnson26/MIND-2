@@ -104,12 +104,54 @@ class GraphMachine:
         :param chainGraphLayer:
         :return: None
         """
-        memory = []
-        cursors = []
+        return self.multi_layer_feed([chainGraphLayer.chainGraph.graph.nodes[0]], chainGraphLayer, flow_graphs)
+        # memory = []
+        # cursors = []
+        # new_chain_graph_layer = ChainGraphLayer(chainGraphLayer)
+        # for n in chainGraphLayer.chainGraph.graph.nodes:
+        #     memory = self.add_graphnode_to_memory(n, memory)
+        #     cursors, bn, cgn = self.feed(n, chainGraphLayer, flow_graphs, cursors, memory)
+        #     new_chain_graph_layer.bridgeNodes.extend(bn)
+        #     new_chain_graph_layer.chainGraph.graph.nodes.extend(cgn)
+        # return new_chain_graph_layer
+
+    def multi_layer_feed(self, sn, chainGraphLayer, flow_graphs):
+        dynamic_memory = {}
         new_chain_graph_layer = ChainGraphLayer(chainGraphLayer)
-        for n in chainGraphLayer.chainGraph.graph.nodes:
-            memory = self.add_graphnode_to_memory(n, memory)
-            cursors, bn, cgn = self.feed(n, chainGraphLayer, flow_graphs, cursors, memory)
-            new_chain_graph_layer.bridgeNodes.extend(bn)
-            new_chain_graph_layer.chainGraph.graph.nodes.extend(cgn)
+        memory_map = {}
+        for n in sn:
+            memory_map[n.guid] = []
+        while len(sn) > 0:
+            new_sn = []
+            for n in sn:
+                bridge_nodes = []
+                chain_graph_nodes = []
+                if n:
+                    memory = self.add_graphnode_to_memory(n, memory_map[n.guid])
+                    new_cursors = self.build_flowgraphcursors(n, flow_graphs, memory)
+                    node = n
+                    while len(new_cursors) > 0 and not (node is None):
+                        new_cursors, bn, cgn = self.feed_all_cursors(node, chainGraphLayer, new_cursors)
+                        bridge_nodes.extend(bn)
+                        chain_graph_nodes.extend(cgn)
+                        node = node.nexts[0]
+                    new_chain_graph_layer.bridgeNodes.extend(bridge_nodes)
+                    new_chain_graph_layer.chainGraph.graph.nodes.extend(chain_graph_nodes)
+                    dynamic_memory[n.guid] = bridge_nodes
+                    new_sn.extend(n.nexts)
+                    for m in n.nexts:
+                        if m:
+                            memory_map[m.guid] = memory
+            sn = new_sn
+        for b in new_chain_graph_layer.bridgeNodes:
+            if b.endGraphNode.guid == b.startGraphNode.guid:
+                temp = []
+                for n in b.endGraphNode.nexts:
+                    if n:
+                        temp.extend([a.targetGraphNode for a in dynamic_memory[n.guid]])
+                b.targetGraphNode.nexts = temp
+            else:
+                b.targetGraphNode.nexts = [a.targetGraphNode for a in dynamic_memory[b.endGraphNode.guid]]
+            if len(b.targetGraphNode.nexts):
+                b.targetGraphNode.nexts = [None]
         return new_chain_graph_layer
