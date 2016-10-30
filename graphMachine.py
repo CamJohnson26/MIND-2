@@ -121,27 +121,46 @@ class GraphMachine:
         memory_map = {}
         for n in sn:
             memory_map[n.guid] = []
+        # Loop until the nexts array is empty
         while len(sn) > 0:
             new_sn = []
+            # Loop through each next node
             for n in sn:
                 bridge_nodes = []
                 chain_graph_nodes = []
                 if n:
+                    # Break if it's already been processed
+                    if dynamic_memory.has_key(n.guid):
+                        break
+                    # Setup the variables for processing this node
                     memory = self.add_graphnode_to_memory(n, memory_map[n.guid])
                     new_cursors = self.build_flowgraphcursors(n, flow_graphs, memory)
-                    node = n
-                    while len(new_cursors) > 0 and not (node is None):
-                        new_cursors, bn, cgn = self.feed_all_cursors(node, chainGraphLayer, new_cursors)
-                        bridge_nodes.extend(bn)
-                        chain_graph_nodes.extend(cgn)
-                        node = node.nexts[0]
+                    # Create the stack to store the state at the current node
+                    stack = [([n], new_cursors)]
+                    while len(stack) > 0:
+                        # Process the next element in the stack
+                        next_process = stack.pop()
+                        nodes = [a for a in next_process[0] if a is not None]
+                        cursors = next_process[1]
+                        for node in nodes:
+                            # Loop through all the nodes in the current stack and feed them
+                            temp, bn, cgn = self.feed_all_cursors(node, chainGraphLayer, copy.deepcopy(cursors))
+                            # Store the results in the chain graph
+                            bridge_nodes.extend(bn)
+                            chain_graph_nodes.extend(cgn)
+                            if len(temp) > 0:
+                                # If there's results, add this to the stack so that we'll feed the next element too
+                                stack.append((node.nexts, temp))
                     new_chain_graph_layer.bridgeNodes.extend(bridge_nodes)
                     new_chain_graph_layer.chainGraph.graph.nodes.extend(chain_graph_nodes)
+                    # Save the results of processing this node
                     dynamic_memory[n.guid] = bridge_nodes
+                    # Add the nodes next nodes to process on the next loop
                     new_sn.extend(n.nexts)
                     for m in n.nexts:
                         if m:
-                            memory_map[m.guid] = memory
+                            # Store each of the next nodes in memory
+                            memory_map[m.guid] = [a for a in memory]
             sn = new_sn
         for b in new_chain_graph_layer.bridgeNodes:
             if b.endGraphNode.guid == b.startGraphNode.guid:
@@ -151,7 +170,18 @@ class GraphMachine:
                         temp.extend([a.targetGraphNode for a in dynamic_memory[n.guid]])
                 b.targetGraphNode.nexts = temp
             else:
-                b.targetGraphNode.nexts = [a.targetGraphNode for a in dynamic_memory[b.endGraphNode.guid]]
+                nexts = [a for a in b.endGraphNode.nexts if a is not None]
+                while None not in nexts and len([n.guid for n in nexts if n.guid in dynamic_memory]) == 0 and len(nexts) != 0:
+                    new_nexts = []
+                    for n in nexts:
+                        new_nexts.extend(n.nexts)
+                    nexts = new_nexts
+                new_nexts = []
+                for n in nexts:
+                    if n and n.guid in dynamic_memory:
+                        new_nexts.extend(dynamic_memory[n.guid])
+                nexts = [n.targetGraphNode for n in new_nexts]
+                b.targetGraphNode.nexts = nexts
             if len(b.targetGraphNode.nexts) == 0:
                 b.targetGraphNode.nexts = [None]
         return new_chain_graph_layer
