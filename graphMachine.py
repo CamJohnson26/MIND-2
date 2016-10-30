@@ -152,6 +152,6 @@ class GraphMachine:
                 b.targetGraphNode.nexts = temp
             else:
                 b.targetGraphNode.nexts = [a.targetGraphNode for a in dynamic_memory[b.endGraphNode.guid]]
-            if len(b.targetGraphNode.nexts):
+            if len(b.targetGraphNode.nexts) == 0:
                 b.targetGraphNode.nexts = [None]
         return new_chain_graph_layer
