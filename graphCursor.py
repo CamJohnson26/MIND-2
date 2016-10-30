@@ -10,6 +10,8 @@ class GraphCursor:
     currentNodes = {}           # First node in each branch {NodeId: {"node" : Node, "parsedData": [Node, Node]}}
     extracted_data = []
     previousNodes = []
+    start_node = None
+    end_node = None
 
     def __init__(self, graph, startNodes):
         self.graph = graph
@@ -39,7 +41,7 @@ class GraphCursor:
         rv["parsedData"] = [d.get_json() for d in self.extracted_data]
         return rv
 
-    def step_forward(self, graphNode, currentNodes):
+    def step_forward(self, graphNode, currentNodes, start_node, end_node):
         """
         Send the graphNode through the cursor and return the resulting cursor
 
@@ -56,11 +58,14 @@ class GraphCursor:
                     next_node = {"node": n, "parsedData": [a for a in current_node["parsedData"]]}
                     if current_node["node"] not in self.graph.contextNodes:
                         next_node["parsedData"].append(graphNode)
+                        if start_node is None:
+                            start_node = graphNode
+                        end_node = graphNode
                     if n:
                         new_current_nodes[uuid.uuid4()] = next_node
                     if not n:
                         extracted_data.append(next_node["parsedData"])
-        return new_current_nodes, extracted_data
+        return new_current_nodes, extracted_data, start_node, end_node
 
     def cursor_complete(self):
         """

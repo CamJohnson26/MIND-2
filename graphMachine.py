@@ -87,11 +87,12 @@ class GraphMachine:
         bridge_nodes = []
         chain_graph_nodes = []
         for cursor in cursors:
-            cn, ed = cursor.graphCursor.step_forward(graphNode, cursor.graphCursor.currentNodes)
+            cn, ed, sn, en = cursor.graphCursor.step_forward(graphNode, cursor.graphCursor.currentNodes, cursor.graphCursor.start_node, cursor.graphCursor.end_node)
             cursor.graphCursor.currentNodes, cursor.graphCursor.extracted_data = cn, ed
+            cursor.graphCursor.start_node, cursor.graphCursor.end_node = sn, en
             if len(cn.keys()) > 0 or len(ed) > 0:
                 if cursor.graphCursor.cursor_complete():
-                    bn, cgn = chain_graph_layer.apply_cursor_to_chain_graph_layer(graphNode, cursor)
+                    bn, cgn = chain_graph_layer.apply_cursor_to_chain_graph_layer(cursor)
                     bridge_nodes.extend(bn)
                     chain_graph_nodes.extend(cgn)
                 new_cursors.append(cursor)
@@ -145,6 +146,11 @@ class GraphMachine:
                             cursors = next_process[1]
                             for node in nodes:
                                 # Loop through all the nodes in the current stack and feed them
+                                # This copy is too deep
+                                # Our current problem is that sometimes the bridge node points to context.
+                                # This screws us up when we try to set the nexts.
+                                # Solution is to make the bridge nodes only point to parsed data
+                                # but that is more difficult
                                 temp, bn, cgn = self.feed_all_cursors(node, chainGraphLayer, copy.deepcopy(cursors))
                                 # Store the results in the chain graph
                                 bridge_nodes.extend(bn)

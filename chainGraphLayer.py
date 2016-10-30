@@ -89,7 +89,7 @@ class ChainGraphLayer:
         self.bridgeNodes.extend(bncopies)
         return copy
 
-    def apply_cursor_to_chain_graph_layer(self, graph_node, cursor):
+    def apply_cursor_to_chain_graph_layer(self, cursor):
         """
         Given a cursor and an end node, create bridgeNodes for this chainGraphLayer
 
@@ -102,12 +102,13 @@ class ChainGraphLayer:
         newNodes = graph_nodes_from_cursor(cursor)
         for newNode in newNodes:
             new_chain_graph_nodes.append(newNode)
-            bridge = BridgeNode(cursor.anchorPoint, graph_node, newNode)
+            bridge = BridgeNode(cursor.graphCursor.start_node, cursor.graphCursor.end_node, newNode)
             new_bridge_nodes.append(bridge)
             for target in self.get_previous_targets(newNode, new_bridge_nodes, cursor.graphCursor.previousNodes):
                 target.nexts.append(newNode)
         return new_bridge_nodes, new_chain_graph_nodes
 
+    # Next step, get this out of chaingraphlayer
     def get_previous_targets(self, graph_node, bridge_nodes, previous_nodes):
         """
         Given a target graph_node, a list of bridge_nodes, and a cursor find all the previous node for that graph_node
