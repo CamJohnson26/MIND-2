@@ -131,26 +131,27 @@ class GraphMachine:
                 if n:
                     # Break if it's already been processed
                     if dynamic_memory.has_key(n.guid):
-                        break
-                    # Setup the variables for processing this node
-                    memory = self.add_graphnode_to_memory(n, memory_map[n.guid])
-                    new_cursors = self.build_flowgraphcursors(n, flow_graphs, memory)
-                    # Create the stack to store the state at the current node
-                    stack = [([n], new_cursors)]
-                    while len(stack) > 0:
-                        # Process the next element in the stack
-                        next_process = stack.pop()
-                        nodes = [a for a in next_process[0] if a is not None]
-                        cursors = next_process[1]
-                        for node in nodes:
-                            # Loop through all the nodes in the current stack and feed them
-                            temp, bn, cgn = self.feed_all_cursors(node, chainGraphLayer, copy.deepcopy(cursors))
-                            # Store the results in the chain graph
-                            bridge_nodes.extend(bn)
-                            chain_graph_nodes.extend(cgn)
-                            if len(temp) > 0:
-                                # If there's results, add this to the stack so that we'll feed the next element too
-                                stack.append((node.nexts, temp))
+                        pass
+                    else:
+                        # Setup the variables for processing this node
+                        memory = self.add_graphnode_to_memory(n, memory_map[n.guid])
+                        new_cursors = self.build_flowgraphcursors(n, flow_graphs, memory)
+                        # Create the stack to store the state at the current node
+                        stack = [([n], new_cursors)]
+                        while len(stack) > 0:
+                            # Process the next element in the stack
+                            next_process = stack.pop()
+                            nodes = [a for a in next_process[0] if a is not None]
+                            cursors = next_process[1]
+                            for node in nodes:
+                                # Loop through all the nodes in the current stack and feed them
+                                temp, bn, cgn = self.feed_all_cursors(node, chainGraphLayer, copy.deepcopy(cursors))
+                                # Store the results in the chain graph
+                                bridge_nodes.extend(bn)
+                                chain_graph_nodes.extend(cgn)
+                                if len(temp) > 0:
+                                    # If there's results, add this to the stack so that we'll feed the next element too
+                                    stack.append((node.nexts, temp))
                     new_chain_graph_layer.bridgeNodes.extend(bridge_nodes)
                     new_chain_graph_layer.chainGraph.graph.nodes.extend(chain_graph_nodes)
                     # Save the results of processing this node
