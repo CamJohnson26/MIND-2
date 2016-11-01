@@ -154,25 +154,11 @@ class GraphMachine:
 
     def update_bridge_nodes(self, new_chain_graph_layer, dynamic_memory):
         for bridge_node in new_chain_graph_layer.bridgeNodes:
-            nexts = [a for a in bridge_node.endGraphNode.nexts if a is not None]
-            if bridge_node.endGraphNode.guid == bridge_node.startGraphNode.guid:
-                new_nexts = []
-                for n in nexts:
-                    if n:
-                        new_nexts.extend([a.targetGraphNode for a in dynamic_memory[n.guid]])
-                bridge_node.targetGraphNode.nexts = new_nexts
-            else:
-                current_nexts = nexts
-                while len(current_nexts) > 0 and None not in current_nexts and len([n.guid for n in current_nexts if n.guid in dynamic_memory]) == 0:
-                    temp = []
-                    for n in current_nexts:
-                        temp.extend(n.nexts)
-                    current_nexts = temp
-                new_nexts = []
-                for n in current_nexts:
-                    if n and n.guid in dynamic_memory:
-                        new_nexts.extend(dynamic_memory[n.guid])
-                bridge_node.targetGraphNode.nexts = [n.targetGraphNode for n in new_nexts]
+            current_nexts = [a for a in bridge_node.endGraphNode.nexts if a is not None]
+            if bridge_node.endGraphNode.guid != bridge_node.startGraphNode.guid:
+                while len([n for n in current_nexts if n.guid in dynamic_memory]) == 0 and None not in current_nexts:
+                    current_nexts = sum([n.nexts for n in current_nexts], [])
+            bridge_node.targetGraphNode.nexts = sum([[a.targetGraphNode for a in dynamic_memory[n.guid]] for n in current_nexts], [])
             if len(bridge_node.targetGraphNode.nexts) == 0:
                 bridge_node.targetGraphNode.nexts = [None]
         return new_chain_graph_layer
