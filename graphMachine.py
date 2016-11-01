@@ -153,26 +153,26 @@ class GraphMachine:
         return self.update_bridge_nodes(new_chain_graph_layer, dynamic_memory)
 
     def update_bridge_nodes(self, new_chain_graph_layer, dynamic_memory):
-        for b in new_chain_graph_layer.bridgeNodes:
-            if b.endGraphNode.guid == b.startGraphNode.guid:
-                temp = []
-                for n in b.endGraphNode.nexts:
-                    if n:
-                        temp.extend([a.targetGraphNode for a in dynamic_memory[n.guid]])
-                b.targetGraphNode.nexts = temp
-            else:
-                nexts = [a for a in b.endGraphNode.nexts if a is not None]
-                while None not in nexts and len([n.guid for n in nexts if n.guid in dynamic_memory]) == 0 and len(nexts) != 0:
-                    new_nexts = []
-                    for n in nexts:
-                        new_nexts.extend(n.nexts)
-                    nexts = new_nexts
+        for bridge_node in new_chain_graph_layer.bridgeNodes:
+            nexts = [a for a in bridge_node.endGraphNode.nexts if a is not None]
+            if bridge_node.endGraphNode.guid == bridge_node.startGraphNode.guid:
                 new_nexts = []
                 for n in nexts:
+                    if n:
+                        new_nexts.extend([a.targetGraphNode for a in dynamic_memory[n.guid]])
+                bridge_node.targetGraphNode.nexts = new_nexts
+            else:
+                current_nexts = nexts
+                while len(current_nexts) > 0 and None not in current_nexts and len([n.guid for n in current_nexts if n.guid in dynamic_memory]) == 0:
+                    temp = []
+                    for n in current_nexts:
+                        temp.extend(n.nexts)
+                    current_nexts = temp
+                new_nexts = []
+                for n in current_nexts:
                     if n and n.guid in dynamic_memory:
                         new_nexts.extend(dynamic_memory[n.guid])
-                nexts = [n.targetGraphNode for n in new_nexts]
-                b.targetGraphNode.nexts = nexts
-            if len(b.targetGraphNode.nexts) == 0:
-                b.targetGraphNode.nexts = [None]
+                bridge_node.targetGraphNode.nexts = [n.targetGraphNode for n in new_nexts]
+            if len(bridge_node.targetGraphNode.nexts) == 0:
+                bridge_node.targetGraphNode.nexts = [None]
         return new_chain_graph_layer
