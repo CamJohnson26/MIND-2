@@ -87,15 +87,16 @@ class GraphMachine:
         bridge_nodes = []
         chain_graph_nodes = []
         for cursor in cursors:
-            cn, ed, sn, en = cursor.graphCursor.step_forward(graphNode, cursor.graphCursor.currentNodes, cursor.graphCursor.start_node, cursor.graphCursor.end_node)
-            cursor.graphCursor.currentNodes, cursor.graphCursor.extracted_data = cn, ed
-            cursor.graphCursor.start_node, cursor.graphCursor.end_node = sn, en
+            new_cursor = cursor.get_copy()
+            cn, ed, sn, en = new_cursor.graphCursor.step_forward(graphNode, new_cursor.graphCursor.currentNodes, new_cursor.graphCursor.start_node, new_cursor.graphCursor.end_node)
+            new_cursor.graphCursor.currentNodes, new_cursor.graphCursor.extracted_data = cn, ed
+            new_cursor.graphCursor.start_node, new_cursor.graphCursor.end_node = sn, en
             if len(cn.keys()) > 0 or len(ed) > 0:
-                if cursor.graphCursor.cursor_complete():
-                    bn, cgn = chain_graph_layer.apply_cursor_to_chain_graph_layer(cursor)
+                if new_cursor.graphCursor.cursor_complete():
+                    bn, cgn = chain_graph_layer.apply_cursor_to_chain_graph_layer(new_cursor)
                     bridge_nodes.extend(bn)
                     chain_graph_nodes.extend(cgn)
-                new_cursors.append(cursor)
+                new_cursors.append(new_cursor)
         return new_cursors, bridge_nodes, chain_graph_nodes
 
     def feed_chain_graph_layer(self, chainGraphLayer, flow_graphs):
@@ -127,7 +128,7 @@ class GraphMachine:
             nodes = [a for a in next_process[0] if a is not None]
             cursors = next_process[1]
             for node in nodes:
-                temp, bn, cgn = self.feed_all_cursors(node, chainGraphLayer, copy.deepcopy(cursors))
+                temp, bn, cgn = self.feed_all_cursors(node, chainGraphLayer, cursors)
                 bridge_nodes.extend(bn)
                 chain_graph_nodes.extend(cgn)
                 if len(temp) > 0:

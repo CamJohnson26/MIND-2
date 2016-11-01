@@ -41,6 +41,16 @@ class GraphCursor:
         rv["parsedData"] = [d.get_json() for d in self.extracted_data]
         return rv
 
+    def get_copy(self):
+        new_cursor = GraphCursor(self.graph, [])
+        new_cursor.extracted_data = [a for a in self.extracted_data]
+        new_cursor.previousNodes = [a for a in self.previousNodes]
+        new_cursor.start_node = self.start_node
+        new_cursor.end_node = self.end_node
+        for key in self.currentNodes.keys():
+            new_cursor.currentNodes[key] = self.currentNodes[key]
+        return new_cursor
+
     def step_forward(self, graphNode, currentNodes, start_node, end_node):
         """
         Send the graphNode through the cursor and return the resulting cursor

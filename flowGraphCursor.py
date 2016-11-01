@@ -29,3 +29,9 @@ class FlowGraphCursor:
         rv["graphCursor"] = self.graphCursor.get_json()
         rv["anchorPoint"] = get_json()
         return rv
+
+    def get_copy(self):
+        new_cursor = FlowGraphCursor(self.graphCursor.graph, [])
+        new_cursor.graphCursor = self.graphCursor.get_copy()
+        new_cursor.anchorPoint = self.anchorPoint
+        return new_cursor
