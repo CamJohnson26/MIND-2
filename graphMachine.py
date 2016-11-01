@@ -116,59 +116,43 @@ class GraphMachine:
         #     new_chain_graph_layer.chainGraph.graph.nodes.extend(cgn)
         # return new_chain_graph_layer
 
-    def multi_layer_feed(self, sn, chainGraphLayer, flow_graphs):
-        dynamic_memory = {}
+    def unknown(self, graph_node, flow_graphs, memory, chainGraphLayer):
+        memory = self.add_graphnode_to_memory(graph_node, memory)
+        new_cursors = self.build_flowgraphcursors(graph_node, flow_graphs, memory)
+        bridge_nodes = []
+        chain_graph_nodes = []
+        stack = [([graph_node], new_cursors)]
+        while len(stack) > 0:
+            next_process = stack.pop()
+            nodes = [a for a in next_process[0] if a is not None]
+            cursors = next_process[1]
+            for node in nodes:
+                temp, bn, cgn = self.feed_all_cursors(node, chainGraphLayer, copy.deepcopy(cursors))
+                bridge_nodes.extend(bn)
+                chain_graph_nodes.extend(cgn)
+                if len(temp) > 0:
+                    stack.append((node.nexts, temp))
+        return bridge_nodes, chain_graph_nodes, memory
+
+    def multi_layer_feed(self, current_nodes, chainGraphLayer, flow_graphs):
         new_chain_graph_layer = ChainGraphLayer(chainGraphLayer)
+        dynamic_memory = {}
         memory_map = {}
-        for n in sn:
-            memory_map[n.guid] = []
-        # Loop until the nexts array is empty
-        while len(sn) > 0:
-            new_sn = []
-            # Loop through each next node
-            for n in sn:
-                bridge_nodes = []
-                chain_graph_nodes = []
-                if n:
-                    # Break if it's already been processed
-                    if dynamic_memory.has_key(n.guid):
-                        pass
-                    else:
-                        # Setup the variables for processing this node
-                        memory = self.add_graphnode_to_memory(n, memory_map[n.guid])
-                        new_cursors = self.build_flowgraphcursors(n, flow_graphs, memory)
-                        # Create the stack to store the state at the current node
-                        stack = [([n], new_cursors)]
-                        while len(stack) > 0:
-                            # Process the next element in the stack
-                            next_process = stack.pop()
-                            nodes = [a for a in next_process[0] if a is not None]
-                            cursors = next_process[1]
-                            for node in nodes:
-                                # Loop through all the nodes in the current stack and feed them
-                                # This copy is too deep
-                                # Our current problem is that sometimes the bridge node points to context.
-                                # This screws us up when we try to set the nexts.
-                                # Solution is to make the bridge nodes only point to parsed data
-                                # but that is more difficult
-                                temp, bn, cgn = self.feed_all_cursors(node, chainGraphLayer, copy.deepcopy(cursors))
-                                # Store the results in the chain graph
-                                bridge_nodes.extend(bn)
-                                chain_graph_nodes.extend(cgn)
-                                if len(temp) > 0:
-                                    # If there's results, add this to the stack so that we'll feed the next element too
-                                    stack.append((node.nexts, temp))
-                    new_chain_graph_layer.bridgeNodes.extend(bridge_nodes)
-                    new_chain_graph_layer.chainGraph.graph.nodes.extend(chain_graph_nodes)
-                    # Save the results of processing this node
-                    dynamic_memory[n.guid] = bridge_nodes
-                    # Add the nodes next nodes to process on the next loop
-                    new_sn.extend(n.nexts)
-                    for m in n.nexts:
-                        if m:
-                            # Store each of the next nodes in memory
-                            memory_map[m.guid] = [a for a in memory]
-            sn = new_sn
+        memory = []
+        while 0 < len(current_nodes):
+            new_current_nodes = []
+            for node in current_nodes:
+                memory_map[node.guid] = [a for a in memory]
+                if not dynamic_memory.has_key(node.guid):
+                    bn, cgn, memory = self.unknown(node, flow_graphs, memory_map[node.guid], chainGraphLayer)
+                    new_chain_graph_layer.bridgeNodes.extend(bn)
+                    new_chain_graph_layer.chainGraph.graph.nodes.extend(cgn)
+                    dynamic_memory[node.guid] = bn
+                new_current_nodes.extend([nex for nex in node.nexts if nex is not None])
+            current_nodes = new_current_nodes
+        return self.update_bridge_nodes(new_chain_graph_layer, dynamic_memory)
+
+    def update_bridge_nodes(self, new_chain_graph_layer, dynamic_memory):
         for b in new_chain_graph_layer.bridgeNodes:
             if b.endGraphNode.guid == b.startGraphNode.guid:
                 temp = []
