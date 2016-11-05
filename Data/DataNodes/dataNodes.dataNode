@@ -71,6 +71,8 @@
 'Data/DataNodes/preposition.json','preposition.json','{}',
 'Data/DataNodes/properNoun.json','properNoun.json','{}',
 'Data/DataNodes/punctuation.json','punctuation.json','{}',
+'Data/DataNodes/sound.json','sound.json','{}',
+'Data/DataNodes/sound_word.json','sound_word.json','{}',
 'Data/DataNodes/verb.json','verb.json','{}',
 'Data/DataNodes/whiteSpace.json','whiteSpace.json','{}',
 'Data/DataNodes/word.json','word.json','{}',

@@ -10,6 +10,8 @@
 'Data/DataTypes/preposition.json','preposition','{"dataIndex":"words/prepositions"}','alwaysFalse'
 'Data/DataTypes/properNoun.json','properNoun','{"dataIndex":"words/properNouns"}','alwaysFalse'
 'Data/DataTypes/punctuation.json','punctuation','{"dataIndex": null}','punctuationMatch'
+'Data/DataTypes/sound.json','sound','{"dataIndex":"sounds/dataIndex"}','alwaysFalse'
+'Data/DataTypes/sound_word.json','sound_word','{"dataIndex":"sound_words/dataIndex"}','alwaysFalse'
 'Data/DataTypes/verb.json','verb','{"dataIndex":"words/verbs"}','alwaysFalse'
 'Data/DataTypes/whiteSpace.json','whiteSpace','{"dataIndex": null}','whiteSpaceMatch'
 'Data/DataTypes/word.json','word','{"dataIndex":"words/dataIndex"}','alwaysFalse'
