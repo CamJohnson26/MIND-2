@@ -20,6 +20,9 @@ testData = " Job description Web Application Developer at Belvedere Trading Belv
 #testData = "Job description. As the worlds largest research organization, Nielsen is powered by talented creative scientists. Our Data Scientists come from diverse disciplines such as statistics, research methodology, mathematics, psychology, business, engineering and demography. These professionals drive innovation, new product ideation, experimental design and testing, complex analysis and delivery of data insights.. . The Data Scientists primary role will be to support the analytical needs for the Video/Scarborough team within the Product group. The role will include assisting with analysis, application of Nielsens proprietary methodologies, and developing, testing and facilitating implementation of statistical solutions to address specific issues or client needs.. . Job Responsibilities. Work as an integral member of the Video/Scarborough Sampling team in a time-critical production environment.. Assist in developing and automating methodologies in R and Python and identifying and recommending process improvements.. Maintain and update documented departmental procedures and metrics comprehensively and on a timely basis.. Query data from large relational databases for various analyses and/or requests, using SQL.. Monitor tools to better plan, predict and monitor sample performance at the survey and/or market level.. Work with cross-functional teams to design, implement and test new methodologies.. Confidently represent Data Science methods and approaches to internal and external partners and clients.. Work closely with internal customers and IT team to improve current processes and engineer new methods. This includes support with writing new software, testing and end-user requirements.. Detect, troubleshoot, and resolve data or system anomalies to support uninterrupted production and ensure data integrity.. Interaction with sample vendors to acquire sample.. Role Requirements. Undergraduate degree in mathematics, statistics, engineering, computer science, economics, business or fields that employ rigorous data analysis.. Strong verbal, presentation, and written skills. Critical thinking and creative problem solving skills. Accuracy and attention to detail. Experience creating, organizing and analyzing large datasets. Proficient in at least one statistical software package such as SAS, R or SPSS. Experience with scripting languages such as Python or SQL. Data visualization skills such as Spotfire or Tableau. Intellectual curiosity and persistence to find answers to questions. Knowledge of process improvement methodologies such as Lean or Six Sigma"
 #testData = " The job requires experience with technologies such as python. "
 #testData = " Experience with technologies. "
+
+testData = " This is my job description. You need to develop with amazon robot engines. Not machine learning. "
+
 # Set up ChainGraphLayer
 originalChainGraphLayer = chainGraphLayerFromString(testData)
 originalChainGraphLayer.classify([dtfm.loadObject("letter.json")])
@@ -32,11 +35,11 @@ graphMachine = GraphMachine(originalChainGraphLayer)
 
 graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, flow_graphs)
 
-print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
+#print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 graphMachine.chainGraphLayer.classify([dtfm.loadObject("word.json"), dtfm.loadObject("number.json")])
 
-print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
+#print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 # Sentence Structures??
 flow_graphs = fgfm.loadObjects(["jobPostingSkill"])

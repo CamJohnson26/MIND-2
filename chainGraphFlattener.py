@@ -45,3 +45,20 @@ class ChainGraphFlattener:
         """
         return nodes[0]
 
+    def remove_unclassified_nodes(self):
+        """
+        This is a demo method and will break the chain graph, only use it for display
+        :return:
+        """
+        new_nodes = []
+        for node in self.chainGraph.graph.nodes:
+            new_nexts = []
+            for next in node.nexts:
+                if (next is None) or (next.dataClasses["dataIndex"] is not None):
+                    new_nexts.append(next)
+            node.nexts = new_nexts
+            if node.dataClasses["dataIndex"] is not None:
+                new_nodes.append(node)
+        self.chainGraph.graph.nodes = new_nodes
+
+

@@ -22,7 +22,8 @@ testData = " Job description Web Application Developer at Belvedere Trading Belv
 # testData = " Experience with technologies. "
 testData = " Job description. Groupon's mission is to become the world's commerce operating system. By connecting buyers and sellers through price and discovery, we have the opportunity to become one of the world's essential companies, a daily habit for our customers and merchant partners. We're in relentless pursuit of excellence, continually raising our own bar to remain at the forefront of local commerce. With ongoing testing and improvements to our site design, mobile app, inventory, and shopping experience, we've built the world's largest marketplace of deals to deliver all the things our customers love, anywhere, anytime.. . We are looking for an experienced Software Development Engineer in Test (SDET) to work on the Search & Browse experience, a core part of the user experience. In this role, you would be responsible for the architecture, design and implementation of testing frameworks and tools, working along the Groupon Product and Engineering team to build game changing products. Our teams work very collaboratively, following agile methodologies.. . Your team will work on new initiatives that will power the search experience allowing customers to not only search for deals, but reservations, menus, and more. We're going to own the local search experience and we want you to be a part of that.. . Responsibilities:. . Design and implementation of automated test frameworks and test suites in a fast-paced agile environment. Architecture and implementation of test automation infrastructures that will be utilized across multiple test and development teams. Development and maintenance of tools and reporting infrastructures for visualization of key test metrics. Research emerging test tools, trends and methodologies and enhance existing systems and processes. Mentor junior SDETs on test methodologies, test automation coding standards and best practices through code reviews and designing quality test plans.. Voice of quality in highly collaborative agile product teams. . . Required Skills:. . 3+ years of software development and/or test development.. BE, or MS in Computer Science or equivalent experience.. Excellent coding skills in one or more Object Oriented programming languages: C++, Java. Familiarity with one or more dynamic languages like Ruby, Python, Groovy.. Hands-on experience with one or more relational databases is preferred.. Proficiency in writing WebDriver/Selenium 2.0 based UI automation tests.. Proven track record of Test planning and Test metrics generation for large-scale web applications and services.. Experience with one of the build/project management tools such as Ant, Ivy, Maven, Gradle.. Excellent written and oral communication skills.. Passion for testing! "
 
-testData = " aim to please all "
+testData = " t aim to please all "
+testData = " over at as for into to over "
 # Set up ChainGraphLayer
 originalChainGraphLayer = chainGraphLayerFromString(testData)
 originalChainGraphLayer.classify([dtfm.loadObject("letter.json")])
@@ -33,13 +34,15 @@ originalChainGraphLayer.classify([dtfm.loadObject("letter.json")])
 flow_graphs = fgfm.loadObjects(["sound", "whiteSpace"])
 graphMachine = GraphMachine(originalChainGraphLayer)
 graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, flow_graphs)
+#print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 graphMachine.chainGraphLayer.classify([dtfm.loadObject("sound.json")])
-#print(graphMachine.chainGraphLayer)
+#print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 
 flow_graphs = fgfm.loadObjects(["sound_word"])
 graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(graphMachine.chainGraphLayer, flow_graphs)
 graphMachine.chainGraphLayer.classify([dtfm.loadObject("sound_word.json")])
+graphMachine.chainGraphLayer.chainGraphFlattener.remove_unclassified_nodes()
 print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 
