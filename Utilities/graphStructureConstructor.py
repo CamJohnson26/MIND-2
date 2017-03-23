@@ -1,6 +1,6 @@
 from graphStructure import GraphStructure
-from guidMapper import GuidMapper
-import graphNodeConstructor
+from Utilities.guidMapper import GuidMapper
+import Utilities.graphNodeConstructor
 import json
 
 
@@ -10,7 +10,7 @@ def graphStructureFromJSON(inputJSON, guidMapper=GuidMapper()):
     nodes = []
     nodeGuids = {}
     for node in inputObject["nodes"]:
-        new_node = graphNodeConstructor.graphNodeFromJSON(json.dumps(node), guidMapper=guidMapper)
+        new_node = Utilities.graphNodeConstructor.graphNodeFromJSON(json.dumps(node), guidMapper=guidMapper)
         nodeGuids[new_node.guid] = new_node
         nodes.append(new_node)
     for node in inputObject["nodes"]:

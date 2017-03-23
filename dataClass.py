@@ -58,7 +58,7 @@ class DataClass:
         :param dataNode:
         :return: boolean
         """
-        if type(dataNode.parsedData) in [str, unicode]:
+        if type(dataNode.parsedData) in [str]:
             nodes = [GraphNode(dataNode)]
             graphStructure = GraphStructure(nodes, self.dataClassString)
             chainGraph = ChainGraph(graphStructure)

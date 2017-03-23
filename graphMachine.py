@@ -144,7 +144,7 @@ class GraphMachine:
             new_current_nodes = []
             for node in current_nodes:
                 memory_map[node.guid] = [a for a in memory]
-                if not dynamic_memory.has_key(node.guid):
+                if not node.guid in dynamic_memory:
                     bn, cgn, memory = self.unknown(node, flow_graphs, memory_map[node.guid], chainGraphLayer)
                     new_chain_graph_layer.bridgeNodes.extend(bn)
                     new_chain_graph_layer.chainGraph.graph.nodes.extend(cgn)
