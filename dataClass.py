@@ -51,19 +51,19 @@ class DataClass:
         rv["dataClasses"] = dataClassesJson
         return rv
 
-    def matches(self, dataNode):
+    def matches(self, graphNode):
         """
         Does the given dataNode match this class?
 
         :param dataNode:
         :return: boolean
         """
-        if type(dataNode.parsedData) in [str]:
-            nodes = [GraphNode(dataNode)]
+        if type(graphNode.parsedData) is str:
+            nodes = [GraphNode(graphNode.dataType, graphNode.parsedData)]
             graphStructure = GraphStructure(nodes, self.dataClassString)
             chainGraph = ChainGraph(graphStructure)
         else:
-            chainGraph = dataNode.parsedData
+            chainGraph = graphNode.parsedData
         return self.flowGraph.matches_chainGraph(chainGraph)
 
     def rollup_classes(self):

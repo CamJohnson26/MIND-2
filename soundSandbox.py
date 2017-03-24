@@ -3,7 +3,6 @@ from Utilities.constructors import *
 from Utilities.pretty_representation import *
 
 dtfm = DataTypeFileManager()
-dnfm = DataNodeFileManager()
 dcfm = DataClassFileManager()
 fgfm = FlowGraphFileManager()
 
@@ -34,8 +33,8 @@ originalChainGraphLayer.classify([dtfm.loadObject("letter.json")])
 flow_graphs = fgfm.loadObjects(["sound", "whiteSpace"])
 graphMachine = GraphMachine(originalChainGraphLayer)
 graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, flow_graphs)
-#print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 graphMachine.chainGraphLayer.classify([dtfm.loadObject("sound.json")])
+print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 #print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 

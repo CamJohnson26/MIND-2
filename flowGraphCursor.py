@@ -27,7 +27,7 @@ class FlowGraphCursor:
         """
         rv = {"class": "FlowGraphCursor"}
         rv["graphCursor"] = self.graphCursor.get_json()
-        rv["anchorPoint"] = get_json()
+        rv["anchorPoint"] = self.anchorPoint.get_json()
         return rv
 
     def get_copy(self):
