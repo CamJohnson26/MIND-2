@@ -1,4 +1,4 @@
-import uuid
+from os import urandom
 import json
 
 
@@ -13,7 +13,7 @@ class GraphStructure:
     def __init__(self, nodes, name):
         self.nodes = nodes
         self.name = name
-        self.guid = uuid.uuid4()
+        self.guid = urandom(16)
 
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)

@@ -1,4 +1,4 @@
-import uuid
+from os import urandom
 import json
 
 
@@ -19,7 +19,7 @@ class BridgeNode:
         self.startGraphNode = startGraphNode
         self.endGraphNode = endGraphNode
         self.targetGraphNode = targetGraphNode
-        self.guid = uuid.uuid4()
+        self.guid = urandom(16)
 
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)

@@ -1,4 +1,4 @@
-import uuid
+import os
 import json
 
 
@@ -15,7 +15,7 @@ class GraphNode:
     def __init__(self, dataType, parsedData=None):
         self.dataType = dataType
         self.dataClasses = {"dataIndex": None}
-        self.guid = uuid.uuid4()
+        self.guid = os.urandom(16)
         self.nexts = []
         self.parsedData = parsedData
 

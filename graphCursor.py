@@ -1,5 +1,5 @@
 import json
-import uuid
+from os import urandom
 
 
 class GraphCursor:
@@ -18,7 +18,7 @@ class GraphCursor:
         self.graph = graph
         self.currentNodes = {}
         for n in startNodes:
-            self.currentNodes[uuid.uuid4()] = {"node": n, "parsedData": []}
+            self.currentNodes[urandom(16)] = {"node": n, "parsedData": []}
         self.extracted_data = []
         self.previousNodes = []
         self.anchorPoint = anchorPoint
@@ -65,7 +65,7 @@ class GraphCursor:
         new_current_nodes = {}
         extracted_data = []
         for key in currentNodes.keys():
-            current_node = self.currentNodes[key]
+            current_node = currentNodes[key]
             if current_node["node"] and current_node["node"].matches(graphNode):
                 for n in current_node["node"].nexts:
                     next_node = {"node": n, "parsedData": [a for a in current_node["parsedData"]]}
@@ -75,7 +75,7 @@ class GraphCursor:
                             start_node = graphNode
                         end_node = graphNode
                     if n:
-                        new_current_nodes[uuid.uuid4()] = next_node
+                        new_current_nodes[urandom(16)] = next_node
                     if not n:
                         extracted_data.append(next_node["parsedData"])
         return new_current_nodes, extracted_data, start_node, end_node
