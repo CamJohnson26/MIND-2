@@ -20,7 +20,7 @@ def pretty_chainGraph(chainGraph, indent=""):
 
 
 def pretty_parsed_data(parsedData, indent):
-    if type(parsedData) in [str, unicode]:
+    if type(parsedData) in [str]:
         return parsedData
     elif isinstance(parsedData, ChainGraph):
         return pretty_chainGraph(parsedData, indent=indent+"\t")
