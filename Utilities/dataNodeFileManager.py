@@ -1,6 +1,6 @@
 from dataNode import DataNode
-from abstractFileManager import AbstractFileManager
-from dataTypeFileManager import DataTypeFileManager
+from Utilities.abstractFileManager import AbstractFileManager
+from Utilities.dataTypeFileManager import DataTypeFileManager
 import json
 
 
@@ -14,7 +14,7 @@ class DataNodeFileManager(AbstractFileManager):
     def objectFromJSON(self, inputJSON):
         inputObject = json.loads(inputJSON)
         dtfm = DataTypeFileManager()
-        if type(inputObject["dataType"]) in [unicode, str]:
+        if type(inputObject["dataType"]) in [str]:
             dataType = dtfm.loadObject(inputObject["dataType"])
         else:
             dataType = dtfm.objectFromJSON(json.dumps(inputObject["dataType"]))

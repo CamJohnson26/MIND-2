@@ -42,7 +42,7 @@ class DataClass:
         dataClassesJson = {}
         for key in self.dataClasses.keys():
             if self.dataClasses[key]:
-                if type(self.dataClasses[key]) in [str, unicode]:
+                if type(self.dataClasses[key]) in [str]:
                     dataClassesJson[key] = self.dataClasses[key]
                 else:
                     dataClassesJson[key] = self.dataClasses[key].get_json()
@@ -58,7 +58,7 @@ class DataClass:
         :param dataNode:
         :return: boolean
         """
-        if type(dataNode.parsedData) in [str, unicode]:
+        if type(dataNode.parsedData) in [str]:
             nodes = [GraphNode(dataNode)]
             graphStructure = GraphStructure(nodes, self.dataClassString)
             chainGraph = ChainGraph(graphStructure)

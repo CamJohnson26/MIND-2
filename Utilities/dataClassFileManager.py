@@ -1,6 +1,6 @@
 from dataClass import DataClass
-from abstractFileManager import AbstractFileManager
-from flowGraphFileManager import FlowGraphFileManager
+from Utilities.abstractFileManager import AbstractFileManager
+from Utilities.flowGraphFileManager import FlowGraphFileManager
 import json
 from os.path import join
 
@@ -17,7 +17,7 @@ class DataClassFileManager(AbstractFileManager):
         fgfm = FlowGraphFileManager()
         if not inputObject["flowGraph"]:
             flowGraph = None
-        elif type(inputObject["flowGraph"] is unicode):
+        elif type(inputObject["flowGraph"] is str):
             flowGraph = fgfm.loadObject(inputObject["flowGraph"])
         else:
             flowGraph = fgfm.objectFromJSON(json.dumps(inputObject["flowGraph"]))

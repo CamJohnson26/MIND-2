@@ -28,7 +28,7 @@ class DataNode:
         rv["dataType"] = self.dataType.get_json()
         if not self.parsedData:
             rv["parsedData"] = None
-        elif type(self.parsedData) in [str, unicode]:
+        elif type(self.parsedData) in [str]:
             rv["parsedData"] = self.parsedData
         else:
             rv["parsedData"] = self.parsedData.get_json()

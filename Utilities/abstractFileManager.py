@@ -73,7 +73,7 @@ class AbstractFileManager():
     def array_to_min(iarray):
         rString = ""
         for i in iarray:
-            if type(i) is unicode or type(i) is str:
+            if type(i) is str:
                 rString += "\'" + i + "\'"
             elif type(i) is list:
                 rString += ("[" + ",".join([dc for dc in i]) + "]")

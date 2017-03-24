@@ -4,7 +4,7 @@ from graphStructure import GraphStructure
 from chainGraphLayer import ChainGraphLayer
 from Utilities.dataNodeFileManager import DataNodeFileManager
 from Utilities.dataTypeFileManager import DataTypeFileManager
-import graphStructureConstructor
+import Utilities.graphStructureConstructor
 import json
 
 
