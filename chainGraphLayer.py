@@ -3,7 +3,7 @@ from graphStructure import GraphStructure
 from chainGraph import ChainGraph
 from chainGraphFlattener import ChainGraphFlattener
 from bridgeNode import BridgeNode
-from Utilities.graphNodeConstructor import graph_nodes_from_cursor
+from Utilities.constructors import graph_nodes_from_cursor
 from Utilities.dataClassFileManager import DataClassFileManager
 
 

@@ -1,7 +1,7 @@
 from flowGraph import FlowGraph
 from Utilities.guidMapper import GuidMapper
 from Utilities.abstractFileManager import AbstractFileManager
-from Utilities.graphStructureConstructor import graphStructureFromJSON
+from Utilities.constructors import graphStructureFromJSON
 import json
 
 

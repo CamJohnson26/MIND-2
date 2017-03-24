@@ -1,6 +1,9 @@
 from graphMachine import GraphMachine
 from Utilities.constructors import *
 from Utilities.pretty_representation import *
+from Utilities.dataClassFileManager import DataClassFileManager
+from Utilities.dataTypeFileManager import DataTypeFileManager
+from Utilities.flowGraphFileManager import FlowGraphFileManager
 
 dtfm = DataTypeFileManager()
 dcfm = DataClassFileManager()
@@ -20,7 +23,7 @@ testData = " Job description Web Application Developer at Belvedere Trading Belv
 #testData = " The job requires experience with technologies such as python. "
 #testData = " Experience with technologies. "
 
-#testData = " This is my job description. You need to develop with amazon robot engines. Not machine learning. "
+testData = " This is my job description. You need to develop with amazon robot engines. Not machine learning. "
 
 # Set up ChainGraphLayer
 originalChainGraphLayer = chainGraphLayerFromString(testData)
