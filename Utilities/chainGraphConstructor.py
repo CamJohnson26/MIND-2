@@ -2,7 +2,6 @@ from chainGraph import ChainGraph
 from graphNode import GraphNode
 from graphStructure import GraphStructure
 from chainGraphLayer import ChainGraphLayer
-from Utilities.dataNodeFileManager import DataNodeFileManager
 from Utilities.dataTypeFileManager import DataTypeFileManager
 import Utilities.graphStructureConstructor
 import json
@@ -19,16 +18,14 @@ def chainGraphFromString(inputString):
     testDataGraphNodes = []
     previousNode = None
     dtfm = DataTypeFileManager()
-    dnfm = DataNodeFileManager()
     dataTypes = [dtfm.loadObject("letter.json"), dtfm.loadObject("number.json"), dtfm.loadObject("punctuation.json"), dtfm.loadObject("whiteSpace.json")]
     for c in inputString:
         cDataTypeName = "char"
         for dataType in dataTypes:
             if dataType.matches(c):
                 cDataTypeName = dataType.dataTypeName
-        cDataNode = dnfm.loadObject(cDataTypeName + ".json")
-        cDataNode.parsedData = c
-        cGraphNode = GraphNode(cDataNode)
+        cDataType = dtfm.loadObject(cDataTypeName + ".json")
+        cGraphNode = GraphNode(cDataType, c)
         testDataGraphNodes.append(cGraphNode)
         if previousNode:
             previousNode.nexts.append(cGraphNode)
@@ -39,6 +36,8 @@ def chainGraphFromString(inputString):
 
 
 def chainGraphLayerFromString(inputString):
+    dtfm = DataTypeFileManager()
     chainGraphLayer = ChainGraphLayer(None)
     chainGraphLayer.chainGraph = chainGraphFromString(inputString)
+    chainGraphLayer.classify([dtfm.loadObject("letter.json")])
     return chainGraphLayer
