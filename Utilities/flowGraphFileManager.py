@@ -38,7 +38,7 @@ class FlowGraphFileManager(AbstractFileManager):
         for n in nodes:
             new_node = {"class": "GraphNode", "dataClass": None}
             new_node["guid"] = int(n[0])
-            new_node["dataNode"] = n[1]
+            new_node["dataType"] = n[1]
             new_node["dataClasses"] = n[2]
             new_node["nexts"] = n[3]
             new_json["graph"]["nodes"].append(new_node)
@@ -60,7 +60,7 @@ class FlowGraphFileManager(AbstractFileManager):
             newNodes += "["
             newNodes += str(i)
             newNodes += ","
-            newNodes += "\"" + n["dataNode"] + "\"" if n["dataNode"] else "null"
+            newNodes += "\"" + n["dataType"] + "\"" if n["dataType"] else "null"
             newNodes += ","
             newNodes += "{"
             for key in n["dataClasses"].keys():

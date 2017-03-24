@@ -17,13 +17,11 @@ import os
 # print(saveDataNodeFolderToMinFile("Data\DataNodes"))
 
 dtfm = DataTypeFileManager()
-dnfm = DataNodeFileManager()
 dcfm = DataClassFileManager()
 fgfm = FlowGraphFileManager()
 
 def refreshData():
     dtfm.refreshObjects()
-    dnfm.refreshObjects()
     dcfm.refreshObjects()
     fgfm.refreshObjects()
 
@@ -46,12 +44,10 @@ def clean_json():
 
 def save_all_folders():
     dtfm = DataTypeFileManager()
-    dnfm = DataNodeFileManager()
     dcfm = DataClassFileManager()
     fgfm = FlowGraphFileManager()
 
     dtfm.save_home_folder_to_min_file()
-    dnfm.save_home_folder_to_min_file()
     dcfm.save_home_folder_to_min_file()
     fgfm.save_home_folder_to_min_file()
 

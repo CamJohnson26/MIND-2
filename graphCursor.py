@@ -34,8 +34,8 @@ class GraphCursor:
         :return: str
         """
         rv = {"class": "GraphCursor"}
-        rv["graph"] = get_json()
-        cursors = [get_json() for c in self.currentNodes if c is not None]
+        rv["graph"] = self.graph.get_json()
+        cursors = [c.get_json() for c in self.currentNodes if c is not None]
         cursors.extend([c for c in self.currentNodes if c is None])
         rv["currentNodes"] = cursors
         rv["parsedData"] = [d.get_json() for d in self.extracted_data]

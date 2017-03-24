@@ -27,5 +27,5 @@ class ChainGraphCursor:
         """
         rv = {"class": "ChainGraphCursor"}
         rv["graphCursor"] = self.graphCursor.get_json()
-        rv["anchorPoint"] = get_json()
+        rv["anchorPoint"] = self.anchorPoint.get_json()
         return rv

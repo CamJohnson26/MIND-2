@@ -3,7 +3,6 @@ from Utilities.constructors import *
 from Utilities.pretty_representation import *
 
 dtfm = DataTypeFileManager()
-dnfm = DataNodeFileManager()
 dcfm = DataClassFileManager()
 fgfm = FlowGraphFileManager()
 
@@ -27,7 +26,7 @@ testData = " This is my job description. You need to develop with amazon robot e
 originalChainGraphLayer = chainGraphLayerFromString(testData)
 originalChainGraphLayer.classify([dtfm.loadObject("letter.json")])
 # print(originalChainGraphLayer)
-# print(pretty_chainGraphLayer(originalChainGraphLayer))
+#print(pretty_chainGraphLayer(originalChainGraphLayer))
 
 # Create DataGraphMachine and feed data
 flow_graphs = fgfm.loadObjects(["word", "number", "punctuation"])

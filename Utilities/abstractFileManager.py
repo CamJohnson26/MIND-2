@@ -141,7 +141,7 @@ class AbstractFileManager():
                 cur_line = ""
             if len(line) > len(cur_line):
                 new_lines[lineKey] = line
-        result = new_lines.values()
+        result = list(new_lines.values())
         result.sort()
         try:
             result.remove("")

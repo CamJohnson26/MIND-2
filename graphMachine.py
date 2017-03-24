@@ -107,15 +107,6 @@ class GraphMachine:
         :return: None
         """
         return self.multi_layer_feed([chainGraphLayer.chainGraph.graph.nodes[0]], chainGraphLayer, flow_graphs)
-        # memory = []
-        # cursors = []
-        # new_chain_graph_layer = ChainGraphLayer(chainGraphLayer)
-        # for n in chainGraphLayer.chainGraph.graph.nodes:
-        #     memory = self.add_graphnode_to_memory(n, memory)
-        #     cursors, bn, cgn = self.feed(n, chainGraphLayer, flow_graphs, cursors, memory)
-        #     new_chain_graph_layer.bridgeNodes.extend(bn)
-        #     new_chain_graph_layer.chainGraph.graph.nodes.extend(cgn)
-        # return new_chain_graph_layer
 
     def unknown(self, graph_node, flow_graphs, memory, chainGraphLayer):
         memory = self.add_graphnode_to_memory(graph_node, memory)

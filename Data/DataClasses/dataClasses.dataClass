@@ -38,7 +38,7 @@
 'Data/DataClasses/sound_words/dataIndex/c-a-m.json',1,'cam','sound_words/c-a-m.json','{}'
 'Data/DataClasses/sounds/dataIndex/a.json',3,'a','sounds/a.json','{}'
 'Data/DataClasses/sounds/dataIndex/ah.json',1,'ah','sounds/ah.json','{}'
-'Data/DataClasses/sounds/dataIndex/ai.json',2,'ai','sounds/ai.json','{}'
+'Data/DataClasses/sounds/dataIndex/ai.json',0,'ai','sounds/ai.json','{}'
 'Data/DataClasses/sounds/dataIndex/air.json',5,'air','sounds/air.json','{}'
 'Data/DataClasses/sounds/dataIndex/ar.json',4,'ar','sounds/ar.json','{}'
 'Data/DataClasses/sounds/dataIndex/b.json',6,'b','sounds/b.json','{}'

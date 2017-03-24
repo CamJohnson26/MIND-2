@@ -6,16 +6,18 @@ class GraphNode:
     """
     Container for a dataNode so it can be used in a flowGraph or chainGraph
     """
-    dataNode = None
+    dataType = None
     dataClasses = {}
     nexts = []
     guid = ""
+    parsedData = ""
 
-    def __init__(self, dataNode):
-        self.dataNode = dataNode
+    def __init__(self, dataType, parsedData=None):
+        self.dataType = dataType
         self.dataClasses = {"dataIndex": None}
         self.guid = uuid.uuid4()
         self.nexts = []
+        self.parsedData = parsedData
 
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
@@ -30,10 +32,16 @@ class GraphNode:
         :return: str
         """
         rv = {"class": "GraphNode"}
-        rv["dataNode"] = self.dataNode.get_json()
+        rv["dataType"] = self.dataType.get_json()
         rv["guid"] = str(self.guid)
         rv["nexts"] = [str(a.guid) for a in self.nexts if a is not None]
         rv["nexts"].extend([a for a in self.nexts if a is None])
+        if not self.parsedData:
+            rv["parsedData"] = None
+        elif type(self.parsedData) in [str]:
+            rv["parsedData"] = self.parsedData
+        else:
+            rv["parsedData"] = self.parsedData.get_json()
         dataClassesJson = {}
         for key in self.dataClasses.keys():
             if self.dataClasses[key]:
@@ -49,7 +57,7 @@ class GraphNode:
 
         :return: graphNode
         """
-        copy = GraphNode(self.dataNode)
+        copy = GraphNode(self.dataType)
         for key in self.dataClasses:
             copy.dataClasses[key] = self.dataClasses[key]
         copy.nexts = [n for n in self.nexts]
@@ -62,8 +70,8 @@ class GraphNode:
         :param inputData: graphNode
         :return: boolean
         """
-        inputDataTypeName = inputData.dataNode.dataType.dataTypeName
-        inputDataParsedData = inputData.dataNode.parsedData
+        inputDataTypeName = inputData.dataType.dataTypeName
+        inputDataParsedData = inputData.parsedData
         dataClassMatches = True
         for dataClassKey in self.dataClasses.keys():
             inputDataClass = inputData.dataClasses.get(dataClassKey)
@@ -74,12 +82,12 @@ class GraphNode:
             if not (dataClass is None or                                          # Data Classes are equal
              (dataClass.dataClassIndex == inputDataClassIndex)):
                 dataClassMatches = False
-        if (((self.dataNode.dataType.dataTypeName == inputDataTypeName) and     # Data Types are equal
+        if (((self.dataType.dataTypeName == inputDataTypeName) and     # Data Types are equal
             dataClassMatches and        # Data Classes are equal
-            ((self.dataNode.parsedData == inputDataParsedData) or               # Parsed Data is equal or null
-            (self.dataNode.parsedData is None))) or                             # OR
-            ((self.dataNode.parsedData is None) and                             # Parsed data is null and
-             self.dataNode.dataType.matches(inputDataParsedData)) and           # Matches Function works and
+            ((self.parsedData == inputDataParsedData) or               # Parsed Data is equal or null
+            (self.parsedData is None))) or                             # OR
+            ((self.parsedData is None) and                             # Parsed data is null and
+             self.dataType.matches(inputDataParsedData)) and           # Matches Function works and
             dataClassMatches):
             return True
         else:
@@ -94,8 +102,8 @@ class GraphNode:
         """
         matches = []
         try:
-            for c in dataClasses[self.dataNode.dataType.dataTypeName]:
-                if c.matches(self.dataNode):
+            for c in dataClasses[self.dataType.dataTypeName]:
+                if c.matches(self):
                     matches.append(c)
         except KeyError:
             pass
