@@ -102,9 +102,9 @@ class ChainGraphLayer:
         newNodes = graph_nodes_from_cursor(cursor)
         for newNode in newNodes:
             new_chain_graph_nodes.append(newNode)
-            bridge = BridgeNode(cursor.graphCursor.start_node, cursor.graphCursor.end_node, newNode)
+            bridge = BridgeNode(cursor.start_node, cursor.end_node, newNode)
             new_bridge_nodes.append(bridge)
-            for target in self.get_previous_targets(newNode, new_bridge_nodes, cursor.graphCursor.previousNodes):
+            for target in self.get_previous_targets(newNode, new_bridge_nodes, cursor.previousNodes):
                 target.nexts.append(newNode)
         return new_bridge_nodes, new_chain_graph_nodes
 

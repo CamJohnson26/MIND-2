@@ -12,14 +12,16 @@ class GraphCursor:
     previousNodes = []
     start_node = None
     end_node = None
+    anchorPoint = None
 
-    def __init__(self, graph, startNodes):
+    def __init__(self, graph, startNodes, anchorPoint):
         self.graph = graph
         self.currentNodes = {}
         for n in startNodes:
             self.currentNodes[uuid.uuid4()] = {"node": n, "parsedData": []}
         self.extracted_data = []
         self.previousNodes = []
+        self.anchorPoint = anchorPoint
 
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
@@ -39,10 +41,11 @@ class GraphCursor:
         cursors.extend([c for c in self.currentNodes if c is None])
         rv["currentNodes"] = cursors
         rv["parsedData"] = [d.get_json() for d in self.extracted_data]
+        rv["anchorPoint"] = self.anchorPoint.get_json()
         return rv
 
     def get_copy(self):
-        new_cursor = GraphCursor(self.graph, [])
+        new_cursor = GraphCursor(self.graph, [], self.anchorPoint)
         new_cursor.extracted_data = [a for a in self.extracted_data]
         new_cursor.previousNodes = [a for a in self.previousNodes]
         new_cursor.start_node = self.start_node

@@ -1,4 +1,4 @@
-from flowGraphCursor import FlowGraphCursor
+from graphCursor import GraphCursor
 from chainGraphLayer import ChainGraphLayer
 import json
 import copy
@@ -55,9 +55,9 @@ class GraphMachine:
         """
         flowGraphCursors = []
         for flowGraph in flowGraphs:
-            flowGraphCursor = FlowGraphCursor(flowGraph, anchorNode)
+            flowGraphCursor = GraphCursor(flowGraph, flowGraph.startNodes, anchorNode)
             previousNodes = [n for n in memory]
-            flowGraphCursor.graphCursor.previousNodes = previousNodes
+            flowGraphCursor.previousNodes = previousNodes
             flowGraphCursors.append(flowGraphCursor)
         return flowGraphCursors
 
@@ -88,11 +88,11 @@ class GraphMachine:
         chain_graph_nodes = []
         for cursor in cursors:
             new_cursor = cursor.get_copy()
-            cn, ed, sn, en = new_cursor.graphCursor.step_forward(graphNode, new_cursor.graphCursor.currentNodes, new_cursor.graphCursor.start_node, new_cursor.graphCursor.end_node)
-            new_cursor.graphCursor.currentNodes, new_cursor.graphCursor.extracted_data = cn, ed
-            new_cursor.graphCursor.start_node, new_cursor.graphCursor.end_node = sn, en
+            cn, ed, sn, en = new_cursor.step_forward(graphNode, new_cursor.currentNodes, new_cursor.start_node, new_cursor.end_node)
+            new_cursor.currentNodes, new_cursor.extracted_data = cn, ed
+            new_cursor.start_node, new_cursor.end_node = sn, en
             if len(cn.keys()) > 0 or len(ed) > 0:
-                if new_cursor.graphCursor.cursor_complete():
+                if new_cursor.cursor_complete():
                     bn, cgn = chain_graph_layer.apply_cursor_to_chain_graph_layer(new_cursor)
                     bridge_nodes.extend(bn)
                     chain_graph_nodes.extend(cgn)

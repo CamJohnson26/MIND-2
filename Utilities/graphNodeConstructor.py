@@ -40,12 +40,12 @@ def graph_nodes_from_cursor(cursor):
     :param cursor:
     :return:
     """
-    dataTypeName = cursor.graphCursor.graph.graph.name
+    dataTypeName = cursor.graph.graph.name
     dataClasses = {"dataIndex": None}
     matchFunction = getattr(matchFunctions, "matchFunction")
     dataType = DataType(dataTypeName, dataClasses, matchFunction)
     graphNodes = []
-    parsedData = cursor.graphCursor.extracted_data
+    parsedData = cursor.extracted_data
     for pd in parsedData:
         parsedGraph = GraphStructure(pd, dataTypeName)
         new_pd = ChainGraph(parsedGraph)
