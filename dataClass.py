@@ -1,7 +1,6 @@
 import json
 from graphNode import GraphNode
 from chainGraph import ChainGraph
-from graphStructure import GraphStructure
 
 
 class DataClass:
@@ -60,8 +59,7 @@ class DataClass:
         """
         if type(graphNode.parsedData) is str:
             nodes = [GraphNode(graphNode.dataType, graphNode.parsedData)]
-            graphStructure = GraphStructure(nodes, self.dataClassString)
-            chainGraph = ChainGraph(graphStructure)
+            chainGraph = ChainGraph(nodes, self.dataClassString)
         else:
             chainGraph = graphNode.parsedData
         return self.flowGraph.matches_chainGraph(chainGraph)

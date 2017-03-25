@@ -1,5 +1,4 @@
 import json
-from graphStructure import GraphStructure
 from chainGraph import ChainGraph
 from chainGraphFlattener import ChainGraphFlattener
 from bridgeNode import BridgeNode
@@ -18,8 +17,7 @@ class ChainGraphLayer:
 
     def __init__(self, parentLayer):
         self.parentLayer = parentLayer
-        graph = GraphStructure([], "DataLayer")
-        self.chainGraph = ChainGraph(graph)
+        self.chainGraph = ChainGraph([], "DataLayer")
         self.bridgeNodes = []
         self.chainGraphFlattener = ChainGraphFlattener(self.chainGraph)
 
@@ -53,7 +51,7 @@ class ChainGraphLayer:
             dataTypeName = dataType.dataTypeName
             file_manager = FileManager()
             dataClasses[dataTypeName] = file_manager.load_data_classes(dataClassName)
-        for node in self.chainGraph.graph.nodes:
+        for node in self.chainGraph.nodes:
             if node.dataClasses["dataIndex"] is None:
                 matches = node.get_matching_classes(dataClasses)
                 try:

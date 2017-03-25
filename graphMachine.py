@@ -106,7 +106,7 @@ class GraphMachine:
         :param chainGraphLayer:
         :return: None
         """
-        return self.multi_layer_feed([chainGraphLayer.chainGraph.graph.nodes[0]], chainGraphLayer, flow_graphs)
+        return self.multi_layer_feed([chainGraphLayer.chainGraph.nodes[0]], chainGraphLayer, flow_graphs)
 
     def unknown(self, graph_node, flow_graphs, memory, chainGraphLayer):
         memory = self.add_graphnode_to_memory(graph_node, memory)
@@ -138,7 +138,7 @@ class GraphMachine:
                 if not node.guid in dynamic_memory:
                     bn, cgn, memory = self.unknown(node, flow_graphs, memory_map[node.guid], chainGraphLayer)
                     new_chain_graph_layer.bridgeNodes.extend(bn)
-                    new_chain_graph_layer.chainGraph.graph.nodes.extend(cgn)
+                    new_chain_graph_layer.chainGraph.nodes.extend(cgn)
                     dynamic_memory[node.guid] = bn
                 new_current_nodes.extend([nex for nex in node.nexts if nex is not None])
             current_nodes = new_current_nodes

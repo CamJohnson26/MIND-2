@@ -2,7 +2,6 @@ import json
 from dataType import DataType
 from chainGraph import ChainGraph
 from graphNode import GraphNode
-from graphStructure import GraphStructure
 from Utilities.guidMapper import GuidMapper
 import Data.matchFunctions as matchFunctions
 
@@ -38,20 +37,19 @@ def graph_nodes_from_cursor(cursor):
     :param cursor:
     :return:
     """
-    dataTypeName = cursor.graph.graph.name
+    dataTypeName = cursor.graph.name
     dataClasses = {"dataIndex": None}
     matchFunction = getattr(matchFunctions, "matchFunction")
     dataType = DataType(dataTypeName, dataClasses, matchFunction)
     graphNodes = []
     parsedData = cursor.extracted_data
     for pd in parsedData:
-        parsedGraph = GraphStructure(pd, dataTypeName)
-        new_pd = ChainGraph(parsedGraph)
+        new_pd = ChainGraph(pd, dataTypeName)
         graphNodes.append(GraphNode(dataType, new_pd))
     return graphNodes
 
 
-def graphStructureFromJSON(inputJSON, guidMapper=GuidMapper()):
+def graphFromJSON(inputJSON, guidMapper=GuidMapper()):
     inputObject = json.loads(inputJSON)
     name = inputObject["name"]
     nodes = []
@@ -69,15 +67,13 @@ def graphStructureFromJSON(inputJSON, guidMapper=GuidMapper()):
             else:
                 new_nexts.append(nodeGuids[guidMapper.get(next_id)])
         current_node.nexts = new_nexts
-    graphStructure = GraphStructure(nodes, name)
-    graphStructure.guid = guidMapper.get(inputObject["guid"])
-    return graphStructure
+    return nodes, name
 
 
 def chainGraphFromJSON(inputJSON):
     inputObject = json.loads(inputJSON)
-    graph = graphStructureFromJSON(json.dumps(inputObject["graph"]))
-    chainGraph = ChainGraph(graph)
+    nodes, name = graphFromJSON(json.dumps(inputObject["graph"]))
+    chainGraph = ChainGraph(nodes, name)
     return chainGraph
 
 
@@ -99,8 +95,7 @@ def chainGraphFromString(inputString):
             previousNode.nexts.append(cGraphNode)
         previousNode = cGraphNode
     testDataGraphNodes[-1].nexts.append(None)
-    testDataGraph = GraphStructure(testDataGraphNodes, "character_stream")
-    return ChainGraph(testDataGraph)
+    return ChainGraph(testDataGraphNodes, "character_stream")
 
 
 def chainGraphLayerFromString(inputString):

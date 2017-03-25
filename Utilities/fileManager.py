@@ -3,7 +3,7 @@ from os.path import isfile, join
 import csv
 from flowGraph import FlowGraph
 from Utilities.guidMapper import GuidMapper
-from Utilities.constructors import graphStructureFromJSON
+from Utilities.constructors import graphFromJSON
 from dataClass import DataClass
 from os.path import join
 from dataType import DataType
@@ -23,7 +23,7 @@ class FileManager():
     def load_flow_graph(self, input_file_name):
         f = open(join(self.flow_graph_home_folder, input_file_name))
         json = f.read()
-        return self.flowGraphobjectFromJSON(json)
+        return self.flow_graph_object_from_json(json)
 
     def load_data_class(self, input_file_name):
         f = open(join(self.data_class_home_folder, input_file_name))
@@ -46,7 +46,7 @@ class FileManager():
         for file in files:
             f = open(join(self.flow_graph_home_folder, file))
             json = f.read()
-            rv.append(self.flowGraphobjectFromJSON(json))
+            rv.append(self.flow_graph_object_from_json(json))
         return rv
 
     def load_data_classes(self, inputFolder):
@@ -182,22 +182,22 @@ class FileManager():
             oldMin.writelines("\n".join(result) + "\n")
             oldMin.truncate()
 
-    def flowGraphobjectFromJSON(self, inputJSON):
+    def flow_graph_object_from_json(self, inputJSON):
         gm = GuidMapper()
 
         inputObject = json.loads(inputJSON)
-        graph = graphStructureFromJSON(json.dumps(inputObject["graph"]), guidMapper=gm)
+        nodes, name = graphFromJSON(json.dumps(inputObject["graph"]), guidMapper=gm)
         startNodes = []
         for node_id in inputObject["startNodes"]:
-            for node in graph.nodes:
+            for node in nodes:
                 if node.guid == gm.get(node_id):
                     startNodes.append(node)
         contextNodes = []
         for node_id in inputObject["contextNodes"]:
-            for node in graph.nodes:
+            for node in nodes:
                 if node.guid == gm.get(node_id):
                     contextNodes.append(node)
-        flowGraph = FlowGraph(graph, startNodes, contextNodes=contextNodes)
+        flowGraph = FlowGraph(nodes, name, startNodes, contextNodes=contextNodes)
         return flowGraph
 
     def flow_graph_min_file_to_json(self, minFile):
@@ -286,7 +286,7 @@ class FileManager():
         elif type(inputObject["flowGraph"] is str):
             flowGraph = self.load_flow_graph(inputObject["flowGraph"])
         else:
-            flowGraph = self.flowGraphobjectFromJSON(json.dumps(inputObject["flowGraph"]))
+            flowGraph = self.flow_graph_object_from_json(json.dumps(inputObject["flowGraph"]))
         dataClassIndex = inputObject["dataClassIndex"]
         dataClassString = inputObject["dataClassString"]
         dataClasses = inputObject["dataClasses"]

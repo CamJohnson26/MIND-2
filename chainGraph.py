@@ -1,15 +1,15 @@
 import json
-
+from os import urandom
 
 class ChainGraph:
     """
     A linear list of graph nodes which can have multiple branches
     """
 
-    graph = None
-
-    def __init__(self, graph):
-        self.graph = graph
+    def __init__(self, nodes, name):
+        self.nodes = nodes
+        self.name = name
+        self.guid = urandom(16)
 
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)
@@ -24,5 +24,7 @@ class ChainGraph:
         :return: str
         """
         rv = {"class": "ChainGraph"}
-        rv["graph"] = self.graph.get_json()
+        rv["name"] = self.name
+        rv["guid"] = str(self.guid)
+        rv["nodes"] = [a.get_json() for a in self.nodes if a is not None]
         return rv
