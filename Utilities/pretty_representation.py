@@ -7,7 +7,7 @@ def pretty_chainGraphLayer(chainGraphLayer, indent=""):
 
 def pretty_chainGraph(chainGraph, indent=""):
     rv = ""
-    for n in chainGraph.graph.nodes:
+    for n in chainGraph.nodes:
         rv += indent + str(n.dataType.dataTypeName) + ": "
         for key in n.dataClasses.keys():
             if n.dataClasses[key]:

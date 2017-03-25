@@ -44,7 +44,7 @@ def create_word_dataClass(word, pos):
                             }''')
     file = join(dcfm.home_folder, "words/dataIndex/" + word.lower() + "-" + pos + ".json")
     minFile = dcfm.json_to_min_file(json.dumps(dc_json), file)
-    dcfm.add_minObject_to_file(minFile)
+    dcfm.add_minObject_to_file(minFile, dcfm.home_folder, dcfm.min_file_name)
 
 def create_word_flowGraph(word):
     fgfm = FlowGraphFileManager()
@@ -81,7 +81,7 @@ def create_word_flowGraph(word):
         flow_json["graph"]["nodes"].append(letter_json)
     file = join(fgfm.home_folder, "words/" + word.lower() + ".json")
     minFile = fgfm.json_to_min_file(json.dumps(flow_json), file)
-    fgfm.add_minObject_to_file(minFile)
+    fgfm.add_minObject_to_file(minFile, fgfm.home_folder, fgfm.min_file_name)
 
 
 def create_noun(word):
