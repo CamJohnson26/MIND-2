@@ -1,16 +1,16 @@
 from os import listdir, walk, path
 from os.path import isfile, join
 import csv
-from flowGraph import FlowGraph
-from Utilities.guidMapper import GuidMapper
-from Utilities.constructors import graphFromJSON
-from dataClass import DataClass
-from os.path import join
-from dataType import DataType
 import json
-import Data.matchFunctions as matchFunctions
+from MIND2.flowGraph import FlowGraph
+from MIND2.Utilities.guidMapper import GuidMapper
+from MIND2.Utilities.constructors import graphFromJSON
+from MIND2.dataClass import DataClass
+from MIND2.dataType import DataType
+import MIND2.Data.matchFunctions as matchFunctions
 
-class FileManager():
+
+class FileManager:
 
     def __init__(self):
         self.flow_graph_home_folder = "Data/FlowGraphs/"
@@ -77,20 +77,19 @@ class FileManager():
             rv.append(self.dataTypeobjectFromJSON(json))
         return rv
 
-    def generateFiles(self, home_folder, min_file_name):
+    def generateFiles(self, home_folder, min_file_name, min_file_to_json):
         with open(join(home_folder, min_file_name)) as minFile:
             lines = minFile.readlines()
             for line in lines:
-                new_json = self.min_file_to_json(line)
+                new_json = min_file_to_json(line)
                 fileName = self.min_file_to_array(line)[0]
                 new_file = open(fileName, 'w')
                 new_file.write(new_json)
                 new_file.close()
 
-    def refreshObjects(self, home_folder, min_file_name):
-        tempMin = self.save_folder_to_min_file(home_folder)
-        self.dedup_min_file(tempMin, home_folder, min_file_name)
-        self.generateFiles(home_folder, min_file_name)
+    def refreshObjects(self, home_folder, min_file_name, json_to_min_file, min_file_to_json):
+        self.save_home_folder_to_min_file(home_folder, min_file_name, json_to_min_file)
+        self.generateFiles(home_folder, min_file_name, min_file_to_json)
 
     def add_minObject_to_file(self, minObject, home_folder, min_file_name):
         with open(join(home_folder, min_file_name), 'a') as minFile:
@@ -130,13 +129,8 @@ class FileManager():
             rString = rString[:-1]
         return rString
 
-    def save_home_folder_to_min_file(self, home_folder):
-        minFile = self.save_folder_to_min_file("", home_folder)
-        for m in minFile.split("\n"):
-            self.add_minObject_to_file(m)
-        self.dedup_min_file(minFile)
-
-    def save_folder_to_min_file(self, folder, home_folder):
+    def save_home_folder_to_min_file(self, home_folder, min_file_name, json_to_min_file):
+        folder = ""
         minFile = ""
         for subdir, dirs, files in walk(join(home_folder, folder)):
             for file in files:
@@ -144,9 +138,11 @@ class FileManager():
                 file = file.replace("\\", "/")
                 if (file.endswith("json")):
                     with open(file, 'r') as f:
-                        minFile += self.json_to_min_file(f.read(), file)
+                        minFile += json_to_min_file(f.read(), file)
                         minFile += "\n"
-        return minFile
+        for m in minFile.split("\n"):
+            self.add_minObject_to_file(m, home_folder, min_file_name)
+        self.dedup_min_file(minFile, home_folder, min_file_name)
 
     def dedup_min_file(self, tempMin, home_folder, min_file_name):
         fileLocation = join(home_folder, min_file_name)
@@ -201,7 +197,7 @@ class FileManager():
         return flowGraph
 
     def flow_graph_min_file_to_json(self, minFile):
-        value = self.file_manager.min_file_to_array(minFile)
+        value = self.min_file_to_array(minFile)
         new_json = {"class": "FlowGraph"}
         new_json["graph"] = {"nodes": [], "guid": -1, "class": "GraphStructure"}
         nodes = json.loads(value[1])
@@ -276,7 +272,7 @@ class FileManager():
         newNodes += "]"
         rv.append(newNodes)
         rv.append(j["graph"]["name"])
-        return self.file_manager.array_to_min(rv)
+        return self.array_to_min(rv)
 
 
     def dataClassobjectFromJSON(self, inputJSON):

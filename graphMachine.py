@@ -1,5 +1,5 @@
-from graphCursor import GraphCursor
-from chainGraphLayer import ChainGraphLayer
+from MIND2.graphCursor import GraphCursor
+from MIND2.chainGraphLayer import ChainGraphLayer
 import json
 import copy
 

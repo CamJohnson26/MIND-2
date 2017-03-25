@@ -1,4 +1,4 @@
-from chainGraph import ChainGraph
+from MIND2.chainGraph import ChainGraph
 
 
 def pretty_chainGraphLayer(chainGraphLayer, indent=""):

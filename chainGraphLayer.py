@@ -1,8 +1,8 @@
 import json
-from chainGraph import ChainGraph
-from bridgeNode import BridgeNode
-from Utilities.constructors import graph_nodes_from_cursor
-from Utilities.fileManager import FileManager
+from MIND2.chainGraph import ChainGraph
+from MIND2.bridgeNode import BridgeNode
+from MIND2.Utilities.constructors import graph_nodes_from_cursor
+from MIND2.Utilities.fileManager import FileManager
 
 
 class ChainGraphLayer:

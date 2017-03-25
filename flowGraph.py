@@ -1,6 +1,6 @@
 import json
-from graphCursor import GraphCursor
 from os import urandom
+from MIND2.graphCursor import GraphCursor
 
 class FlowGraph:
     """

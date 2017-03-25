@@ -1,6 +1,6 @@
 import json
-from graphNode import GraphNode
-from chainGraph import ChainGraph
+from MIND2.graphNode import GraphNode
+from MIND2.chainGraph import ChainGraph
 
 
 class DataClass:

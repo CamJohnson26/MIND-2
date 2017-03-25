@@ -1,13 +1,13 @@
 import json
-from dataType import DataType
-from chainGraph import ChainGraph
-from graphNode import GraphNode
-from Utilities.guidMapper import GuidMapper
-import Data.matchFunctions as matchFunctions
+from MIND2.dataType import DataType
+from MIND2.chainGraph import ChainGraph
+from MIND2.graphNode import GraphNode
+from MIND2.Utilities.guidMapper import GuidMapper
+import MIND2.Data.matchFunctions as matchFunctions
 
 
 def graphNodeFromJSON(inputJSON, guidMapper=GuidMapper()):
-    from Utilities.fileManager import FileManager
+    from MIND2.Utilities.fileManager import FileManager
     inputObject = json.loads(inputJSON)
     file_manager = FileManager()
     if type(inputObject["dataType"]) is str:
@@ -78,7 +78,7 @@ def chainGraphFromJSON(inputJSON):
 
 
 def chainGraphFromString(inputString):
-    from Utilities.fileManager import FileManager
+    from MIND2.Utilities.fileManager import FileManager
     testDataGraphNodes = []
     previousNode = None
     file_manager = FileManager()
@@ -99,8 +99,8 @@ def chainGraphFromString(inputString):
 
 
 def chainGraphLayerFromString(inputString):
-    from chainGraphLayer import ChainGraphLayer
-    from Utilities.fileManager import FileManager
+    from MIND2.chainGraphLayer import ChainGraphLayer
+    from MIND2.Utilities.fileManager import FileManager
     file_manager = FileManager()
     chainGraphLayer = ChainGraphLayer(None)
     chainGraphLayer.chainGraph = chainGraphFromString(inputString)
