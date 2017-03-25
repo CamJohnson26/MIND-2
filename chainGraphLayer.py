@@ -1,6 +1,5 @@
 import json
 from chainGraph import ChainGraph
-from chainGraphFlattener import ChainGraphFlattener
 from bridgeNode import BridgeNode
 from Utilities.constructors import graph_nodes_from_cursor
 from Utilities.fileManager import FileManager
@@ -12,14 +11,12 @@ class ChainGraphLayer:
     """
     chainGraph = None
     bridgeNodes = []
-    chainGraphFlattener = None
     parentLayer = None
 
     def __init__(self, parentLayer):
         self.parentLayer = parentLayer
         self.chainGraph = ChainGraph([], "DataLayer")
         self.bridgeNodes = []
-        self.chainGraphFlattener = ChainGraphFlattener(self.chainGraph)
 
     def __str__(self):
         return json.dumps(self.get_json(), indent=4)

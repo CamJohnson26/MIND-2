@@ -108,7 +108,7 @@ class GraphMachine:
         """
         return self.multi_layer_feed([chainGraphLayer.chainGraph.nodes[0]], chainGraphLayer, flow_graphs)
 
-    def unknown(self, graph_node, flow_graphs, memory, chainGraphLayer):
+    def parse(self, graph_node, flow_graphs, memory, chainGraphLayer):
         memory = self.add_graphnode_to_memory(graph_node, memory)
         new_cursors = self.build_flowgraphcursors(graph_node, flow_graphs, memory)
         bridge_nodes = []
@@ -136,7 +136,7 @@ class GraphMachine:
             for node in current_nodes:
                 memory_map[node.guid] = [a for a in memory]
                 if not node.guid in dynamic_memory:
-                    bn, cgn, memory = self.unknown(node, flow_graphs, memory_map[node.guid], chainGraphLayer)
+                    bn, cgn, memory = self.parse(node, flow_graphs, memory_map[node.guid], chainGraphLayer)
                     new_chain_graph_layer.bridgeNodes.extend(bn)
                     new_chain_graph_layer.chainGraph.nodes.extend(cgn)
                     dynamic_memory[node.guid] = bn
