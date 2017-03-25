@@ -2,19 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c26bed2-6d50-4a87-9051-76234b60347b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/MIND-2.iml" afterPath="$PROJECT_DIR$/.idea/MIND-2.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Utilities/dataClassFileManager.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Utilities/dataTypeFileManager.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Utilities/flowGraphFileManager.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Utilities/abstractFileManager.py" afterPath="$PROJECT_DIR$/Utilities/fileManager.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Utilities/chainGraphConstructor.py" afterPath="$PROJECT_DIR$/Utilities/chainGraphConstructor.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Utilities/constructors.py" afterPath="$PROJECT_DIR$/Utilities/constructors.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Utilities/dataClassFileManager.py" afterPath="$PROJECT_DIR$/Utilities/dataClassFileManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Utilities/dataNodeFileManager.py" afterPath="$PROJECT_DIR$/Utilities/dataNodeFileManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Utilities/dataTypeFileManager.py" afterPath="$PROJECT_DIR$/Utilities/dataTypeFileManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Utilities/flowGraphFileManager.py" afterPath="$PROJECT_DIR$/Utilities/flowGraphFileManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Utilities/graphNodeConstructor.py" afterPath="$PROJECT_DIR$/Utilities/graphNodeConstructor.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Utilities/graphStructureConstructor.py" afterPath="$PROJECT_DIR$/Utilities/graphStructureConstructor.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dataClass.py" afterPath="$PROJECT_DIR$/dataClass.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graphMachine.py" afterPath="$PROJECT_DIR$/graphMachine.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chainGraphLayer.py" afterPath="$PROJECT_DIR$/chainGraphLayer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fileManagement.py" afterPath="$PROJECT_DIR$/fileManagement.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graphCursorSandbox.py" afterPath="$PROJECT_DIR$/graphCursorSandbox.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manageData.py" afterPath="$PROJECT_DIR$/manageData.py" />
     </list>
     <ignored path="MIND-2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,7 +24,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/MIND-2$graphCursorSandbox.coverage" NAME="graphCursorSandbox Coverage Results" MODIFIED="1478831321819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MIND-2$graphCursorSandbox.coverage" NAME="graphCursorSandbox Coverage Results" MODIFIED="1490402017951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MIND-2$soundSandbox.coverage" NAME="soundSandbox Coverage Results" MODIFIED="1478838154423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MIND-2$soundSandbox_Python_3.coverage" NAME="soundSandbox Python 3 Coverage Results" MODIFIED="1490311152254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -40,11 +37,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="soundSandbox.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/soundSandbox.py">
+      <file leaf-file-name="graphCursorSandbox.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/graphCursorSandbox.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="705">
+              <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -52,51 +49,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="graphStructureConstructor.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Utilities/graphStructureConstructor.py">
+      <file leaf-file-name="fileManager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Utilities/fileManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="50" lean-forward="false" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
+            <state relative-caret-position="177">
+              <caret line="25" column="7" lean-forward="true" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
               <folding>
-                <element signature="e#0#41#0" expanded="true" />
+                <element signature="e#0#34#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dataClass.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dataClass.py">
+      <file leaf-file-name="chainGraphLayer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chainGraphLayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="60" column="44" lean-forward="false" selection-start-line="60" selection-start-column="44" selection-end-line="60" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="graphNodeConstructor.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Utilities/graphNodeConstructor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="25" column="55" lean-forward="false" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
+            <state relative-caret-position="165">
+              <caret line="54" column="57" lean-forward="false" selection-start-line="54" selection-start-column="57" selection-end-line="54" selection-end-column="57" />
               <folding>
-                <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="graphMachine.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/graphMachine.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="146" column="50" lean-forward="false" selection-start-line="146" selection-start-column="50" selection-end-line="146" selection-end-column="50" />
-              <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>DataClassFileManager</find>
+      <find>loadOb</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -104,12 +87,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/for.json" />
-        <option value="$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/from.json" />
-        <option value="$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/in.json" />
-        <option value="$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/inside.json" />
-        <option value="$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/into.json" />
-        <option value="$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/like.json" />
         <option value="$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/of.json" />
         <option value="$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/off.json" />
         <option value="$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/on.json" />
@@ -145,16 +122,22 @@
         <option value="$PROJECT_DIR$/Data/FlowGraphs/sound.json" />
         <option value="$PROJECT_DIR$/soundSandbox.py" />
         <option value="$PROJECT_DIR$/Data/FlowGraphs/sound_word.json" />
-        <option value="$PROJECT_DIR$/Utilities/dataTypeFileManager.py" />
-        <option value="$PROJECT_DIR$/Utilities/flowGraphFileManager.py" />
-        <option value="$PROJECT_DIR$/Utilities/constructors.py" />
         <option value="$PROJECT_DIR$/Utilities/chainGraphConstructor.py" />
         <option value="$PROJECT_DIR$/Utilities/dataNodeFileManager.py" />
-        <option value="$PROJECT_DIR$/Utilities/dataClassFileManager.py" />
         <option value="$PROJECT_DIR$/Utilities/graphStructureConstructor.py" />
         <option value="$PROJECT_DIR$/dataClass.py" />
         <option value="$PROJECT_DIR$/Utilities/graphNodeConstructor.py" />
         <option value="$PROJECT_DIR$/graphMachine.py" />
+        <option value="$PROJECT_DIR$/manageData.py" />
+        <option value="$PROJECT_DIR$/Utilities/abstractFileManager.py" />
+        <option value="$PROJECT_DIR$/Utilities/flowGraphFileManager.py" />
+        <option value="$PROJECT_DIR$/fileManagement.py" />
+        <option value="$PROJECT_DIR$/Utilities/dataClassFileManager.py" />
+        <option value="$PROJECT_DIR$/Utilities/dataTypeFileManager.py" />
+        <option value="$PROJECT_DIR$/Utilities/constructors.py" />
+        <option value="$PROJECT_DIR$/chainGraphLayer.py" />
+        <option value="$PROJECT_DIR$/Utilities/fileManager.py" />
+        <option value="$PROJECT_DIR$/graphCursorSandbox.py" />
       </list>
     </option>
   </component>
@@ -184,6 +167,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -311,7 +295,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -329,7 +312,7 @@
       </console-settings>
     </option>
   </component>
-  <component name="RunManager" selected="Python.soundSandbox Python 3">
+  <component name="RunManager" selected="Python.graphCursorSandbox">
     <configuration default="false" name="graphCursorSandbox" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -402,6 +385,12 @@
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -618,8 +607,8 @@
     </list>
     <recent_temporary>
       <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python.soundSandbox" />
-        <item index="1" class="java.lang.String" itemvalue="Python.graphCursorSandbox" />
+        <item index="0" class="java.lang.String" itemvalue="Python.graphCursorSandbox" />
+        <item index="1" class="java.lang.String" itemvalue="Python.soundSandbox" />
         <item index="2" class="java.lang.String" itemvalue="Python.fileManagement" />
       </list>
     </recent_temporary>
@@ -648,6 +637,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3309659" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -660,7 +650,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -695,41 +684,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Data/DataClasses/sounds/dataIndex/th.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/DataClasses/sounds/dataIndex/t.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/DataClasses/sounds/dataIndex/s.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/DataClasses/sounds/dataIndex/r.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/DataClasses/sounds/dataIndex/qu.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Data/DataClasses/sounds/dataIndex/p.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -912,20 +866,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound_words/over.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="49" column="1" lean-forward="false" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/over.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound_words/over.json" />
+    <entry file="file://$PROJECT_DIR$/Data/DataClasses/sound_words/dataIndex/over.json" />
     <entry file="file://$PROJECT_DIR$/Data/DataClasses/sounds/dataIndex/v.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -933,34 +875,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound_words/into.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-405">
-          <caret line="9" column="21" lean-forward="false" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound_words/of.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-226">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound_words/to.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="17" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound_words/after.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-511">
-          <caret line="5" column="56" lean-forward="false" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound_words/into.json" />
+    <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound_words/of.json" />
+    <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound_words/to.json" />
+    <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound_words/after.json" />
     <entry file="file://$PROJECT_DIR$/Data/FlowGraphs/sound.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-9061">
@@ -975,22 +893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities/dataTypeFileManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="15" lean-forward="false" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities/flowGraphFileManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="15" lean-forward="false" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/soundSandbox.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1001,54 +903,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities/constructors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities/chainGraphConstructor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities/dataNodeFileManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="45" lean-forward="false" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities/dataClassFileManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="19" column="49" lean-forward="false" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities/graphStructureConstructor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="50" lean-forward="false" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Utilities/chainGraphConstructor.py" />
+    <entry file="file://$PROJECT_DIR$/Utilities/dataNodeFileManager.py" />
+    <entry file="file://$PROJECT_DIR$/Utilities/graphStructureConstructor.py" />
     <entry file="file://$PROJECT_DIR$/dataClass.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -1057,21 +914,92 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities/graphNodeConstructor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="25" column="55" lean-forward="false" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Utilities/graphNodeConstructor.py" />
     <entry file="file://$PROJECT_DIR$/graphMachine.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="146" column="50" lean-forward="false" selection-start-line="146" selection-start-column="50" selection-end-line="146" selection-end-column="50" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manageData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="86" column="20" lean-forward="false" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utilities/flowGraphFileManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fileManagement.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="45" lean-forward="false" selection-start-line="0" selection-start-column="45" selection-end-line="0" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utilities/dataClassFileManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utilities/dataTypeFileManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-261">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utilities/constructors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chainGraphLayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="54" column="57" lean-forward="false" selection-start-line="54" selection-start-column="57" selection-end-line="54" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utilities/fileManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="25" column="7" lean-forward="true" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graphCursorSandbox.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

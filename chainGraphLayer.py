@@ -3,8 +3,8 @@ from graphStructure import GraphStructure
 from chainGraph import ChainGraph
 from chainGraphFlattener import ChainGraphFlattener
 from bridgeNode import BridgeNode
-from Utilities.graphNodeConstructor import graph_nodes_from_cursor
-from Utilities.dataClassFileManager import DataClassFileManager
+from Utilities.constructors import graph_nodes_from_cursor
+from Utilities.fileManager import FileManager
 
 
 class ChainGraphLayer:
@@ -51,8 +51,8 @@ class ChainGraphLayer:
         for dataType in dataTypes:
             dataClassName = dataType.dataClasses["dataIndex"]
             dataTypeName = dataType.dataTypeName
-            dcfm = DataClassFileManager()
-            dataClasses[dataTypeName] = dcfm.loadObjects(dataClassName)
+            file_manager = FileManager()
+            dataClasses[dataTypeName] = file_manager.load_data_classes(dataClassName)
         for node in self.chainGraph.graph.nodes:
             if node.dataClasses["dataIndex"] is None:
                 matches = node.get_matching_classes(dataClasses)
