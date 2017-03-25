@@ -50,11 +50,5 @@ if __name__ == '__main__':
     save_all_folders()
     #clean_json()
     #refreshData()
-    # print(dnfm.objectFromJSON("""{
-    #     "dataType": "letter.json", 
-    #     "parsedData": "E", 
-    #     "class": "DataNode", 
-    #     "dataClasses": {}
-    # }"""))
     #print(dcfm.min_file_to_json("'abcdefg',0,'adjective',,'{}'"))
     # 'abcdefg',0,'adjective',,'{}'
