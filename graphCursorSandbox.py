@@ -1,13 +1,9 @@
 from graphMachine import GraphMachine
 from Utilities.constructors import *
 from Utilities.pretty_representation import *
-from Utilities.dataClassFileManager import DataClassFileManager
-from Utilities.dataTypeFileManager import DataTypeFileManager
-from Utilities.flowGraphFileManager import FlowGraphFileManager
+from Utilities.fileManager import FileManager
 
-dtfm = DataTypeFileManager()
-dcfm = DataClassFileManager()
-fgfm = FlowGraphFileManager()
+file_manager = FileManager()
 
 # Test Data
 
@@ -27,24 +23,24 @@ testData = " This is my job description. You need to develop with amazon robot e
 
 # Set up ChainGraphLayer
 originalChainGraphLayer = chainGraphLayerFromString(testData)
-originalChainGraphLayer.classify([dtfm.loadObject("letter.json")])
+originalChainGraphLayer.classify([file_manager.load_data_type("letter.json")])
 # print(originalChainGraphLayer)
 #print(pretty_chainGraphLayer(originalChainGraphLayer))
 
 # Create DataGraphMachine and feed data
-flow_graphs = fgfm.loadObjects(["word", "number", "punctuation"])
+flow_graphs = file_manager.load_flow_graphs(["word", "number", "punctuation"])
 graphMachine = GraphMachine(originalChainGraphLayer)
 
 graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, flow_graphs)
 
 #print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
-graphMachine.chainGraphLayer.classify([dtfm.loadObject("word.json"), dtfm.loadObject("number.json")])
+graphMachine.chainGraphLayer.classify([file_manager.load_data_type("word.json"), file_manager.load_data_type("number.json")])
 
 #print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
 # Sentence Structures??
-flow_graphs = fgfm.loadObjects(["jobPostingSkill"])
+flow_graphs = file_manager.load_flow_graphs(["jobPostingSkill"])
 graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(graphMachine.chainGraphLayer, flow_graphs)
 
 #print(graphMachine.chainGraphLayer)

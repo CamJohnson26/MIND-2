@@ -8,24 +8,22 @@ import Data.matchFunctions as matchFunctions
 
 
 def graphNodeFromJSON(inputJSON, guidMapper=GuidMapper()):
-    from Utilities.dataTypeFileManager import DataTypeFileManager
-    from Utilities.dataClassFileManager import DataClassFileManager
+    from Utilities.fileManager import FileManager
     inputObject = json.loads(inputJSON)
-    dtfm = DataTypeFileManager()
-    dcfm = DataClassFileManager()
+    file_manager = FileManager()
     if type(inputObject["dataType"]) is str:
-        dataType = dtfm.loadObject(inputObject["dataType"])
+        dataType = file_manager.load_data_type(inputObject["dataType"])
     else:
         node_json = json.dumps(inputObject["dataType"])
-        dataType = dtfm.loadObject(node_json)
+        dataType = file_manager.load_data_type(node_json)
     dataClasses = {}
     for key in inputObject["dataClasses"].keys():
         if not inputObject["dataClasses"][key]:
             dataClasses[key] = None
         elif type(inputObject["dataClasses"][key]) in [str]:
-            dataClasses[key] = dcfm.loadObject(inputObject["dataClasses"][key])
+            dataClasses[key] = file_manager.load_data_class(inputObject["dataClasses"][key])
         else:
-            dataClasses[key] = dcfm.loadObject(json.dumps(inputObject["dataClasses"][key]))
+            dataClasses[key] = file_manager.load_data_class(json.dumps(inputObject["dataClasses"][key]))
     graphNode = GraphNode(dataType)
     graphNode.guid = guidMapper.get(inputObject["guid"])
     graphNode.nexts = []
@@ -84,17 +82,17 @@ def chainGraphFromJSON(inputJSON):
 
 
 def chainGraphFromString(inputString):
-    from Utilities.dataTypeFileManager import DataTypeFileManager
+    from Utilities.fileManager import FileManager
     testDataGraphNodes = []
     previousNode = None
-    dtfm = DataTypeFileManager()
-    dataTypes = [dtfm.loadObject("letter.json"), dtfm.loadObject("number.json"), dtfm.loadObject("punctuation.json"), dtfm.loadObject("whiteSpace.json")]
+    file_manager = FileManager()
+    dataTypes = [file_manager.load_data_type("letter.json"), file_manager.load_data_type("number.json"), file_manager.load_data_type("punctuation.json"), file_manager.load_data_type("whiteSpace.json")]
     for c in inputString:
         cDataTypeName = "char"
         for dataType in dataTypes:
             if dataType.matches(c):
                 cDataTypeName = dataType.dataTypeName
-        cDataType = dtfm.loadObject(cDataTypeName + ".json")
+        cDataType = file_manager.load_data_type(cDataTypeName + ".json")
         cGraphNode = GraphNode(cDataType, c)
         testDataGraphNodes.append(cGraphNode)
         if previousNode:
@@ -107,9 +105,9 @@ def chainGraphFromString(inputString):
 
 def chainGraphLayerFromString(inputString):
     from chainGraphLayer import ChainGraphLayer
-    from Utilities.dataTypeFileManager import DataTypeFileManager
-    dtfm = DataTypeFileManager()
+    from Utilities.fileManager import FileManager
+    file_manager = FileManager()
     chainGraphLayer = ChainGraphLayer(None)
     chainGraphLayer.chainGraph = chainGraphFromString(inputString)
-    chainGraphLayer.classify([dtfm.loadObject("letter.json")])
+    chainGraphLayer.classify([file_manager.load_data_type("letter.json")])
     return chainGraphLayer
