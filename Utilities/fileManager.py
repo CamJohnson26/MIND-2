@@ -20,6 +20,61 @@ class FileManager:
         self.data_type_home_folder = "Data/DataTypes/"
         self.data_type_min_file_name = "dataTypes.dataType"
 
+    def load_package(self, package_name):
+        package_folder = join("Data", package_name)
+        level_folders = [f for f in listdir(package_folder) if not isfile(f)]
+        levels = []
+        for level_folder in level_folders:
+            levels.append(self.load_level(level_folder, join("Data", package_name)))
+        return levels
+
+    def load_level(self, level_folder, root):
+        data_type_folders = [f for f in listdir(join(root, level_folder)) if not isfile(f)]
+        data_types = []
+        flow_graphs = []
+        for data_type_folder in data_type_folders:
+            data_types.append(self.load_data_type_new(data_type_folder, join(root, level_folder)))
+            flow_graphs.append(self.load_flow_graph_new("flow_graph.json", join(root, level_folder, data_type_folder)))
+        [print(a) for a in data_types]
+        return data_types
+
+    def load_data_type_new(self, data_type_folder, root):
+        data_class_types_path = join(root, data_type_folder, "classes")
+        try:
+            data_class_types = [f for f in listdir(data_class_types_path) if not isfile(f)]
+        except FileNotFoundError:
+            data_class_types = []
+        classes = {}
+        for data_class_type in data_class_types:
+            classes[data_class_type] = self.load_data_class_type(data_class_type, data_class_types_path)
+        match_function_name = "alwaysFalse"
+        data_type_name = data_type_folder
+        match_function = getattr(matchFunctions, match_function_name)
+        return DataType(data_type_name, {}, match_function)
+
+    def load_flow_graph_new(self, flow_graph_file, root):
+        try:
+            flow_graph_json = open(join(root, flow_graph_file)).read()
+            return self.flow_graph_object_from_json(flow_graph_json)
+        except FileNotFoundError:
+            return None
+
+    def load_data_class_type(self, data_class_type, root):
+        data_class_folders_path = join(root, data_class_type)
+        data_class_folders = [f for f in listdir(data_class_folders_path) if not isfile(f)]
+        data_classes = []
+        for data_class_folder in data_class_folders:
+            data_classes.append(self.load_data_class_new(data_class_folder, data_class_folders_path))
+        return data_classes
+
+    def load_data_class_new(self, data_class_folder, root):
+        data_class_json = json.loads(open(join(root, data_class_folder, "data_class.json")).read())
+        #flow_graph = self.load_flow_graph(join(root, data_class_folder, "flow_graph.json"))
+        flow_graph = None
+        data_class_index = int(data_class_folder.split(" - ")[0])
+        data_class_name = data_class_json["dataClassString"]
+        return DataClass(flow_graph, data_class_index, data_class_name)
+
     def load_flow_graph(self, input_file_name):
         f = open(join(self.flow_graph_home_folder, input_file_name))
         json = f.read()
