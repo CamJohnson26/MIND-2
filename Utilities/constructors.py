@@ -6,15 +6,11 @@ from MIND2.Utilities.guidMapper import GuidMapper
 import MIND2.Data.matchFunctions as matchFunctions
 
 
-def graphNodeFromJSON(inputJSON, guidMapper=GuidMapper()):
+def graphNodeFromJSON(inputJSON, data_types, guidMapper=GuidMapper()):
     from MIND2.Utilities.fileManager import FileManager
     inputObject = json.loads(inputJSON)
     file_manager = FileManager()
-    if type(inputObject["dataType"]) is str:
-        dataType = file_manager.load_data_type(inputObject["dataType"])
-    else:
-        node_json = json.dumps(inputObject["dataType"])
-        dataType = file_manager.load_data_type(node_json)
+    dataType = data_types[inputObject["dataType"]]
     dataClasses = {}
     for key in inputObject["dataClasses"].keys():
         if not inputObject["dataClasses"][key]:
@@ -49,13 +45,13 @@ def graph_nodes_from_cursor(cursor):
     return graphNodes
 
 
-def graphFromJSON(inputJSON, guidMapper=GuidMapper()):
+def graphFromJSON(inputJSON, data_types, guidMapper=GuidMapper()):
     inputObject = json.loads(inputJSON)
     name = inputObject["name"]
     nodes = []
     nodeGuids = {}
     for node in inputObject["nodes"]:
-        new_node = graphNodeFromJSON(json.dumps(node), guidMapper=guidMapper)
+        new_node = graphNodeFromJSON(json.dumps(node), data_types, guidMapper=guidMapper)
         nodeGuids[new_node.guid] = new_node
         nodes.append(new_node)
     for node in inputObject["nodes"]:

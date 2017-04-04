@@ -24,18 +24,25 @@ class FileManager:
         package_folder = join("Data", package_name)
         level_folders = [f for f in listdir(package_folder) if not isfile(f)]
         levels = []
+        data_types = {}
         for level_folder in level_folders:
-            levels.append(self.load_level(level_folder, join("Data", package_name)))
+            level = self.load_level(level_folder, join("Data", package_name), data_types)
+            for key in level:
+                data_types[key] = level[key]
+            levels.append(level)
         return levels
 
-    def load_level(self, level_folder, root):
+    def load_level(self, level_folder, root, low_level_data_types):
         data_type_folders = [f for f in listdir(join(root, level_folder)) if not isfile(f)]
-        data_types = []
-        flow_graphs = []
+        data_types = {}
+        flow_graphs = {}
         for data_type_folder in data_type_folders:
-            data_types.append(self.load_data_type_new(data_type_folder, join(root, level_folder)))
-            flow_graphs.append(self.load_flow_graph_new("flow_graph.json", join(root, level_folder, data_type_folder)))
-        [print(a) for a in data_types]
+            data_types[data_type_folder] = self.load_data_type_new(data_type_folder, join(root, level_folder))
+        for key in data_types:
+            low_level_data_types[key] = data_types[key]
+        for data_type_folder in data_type_folders:
+            flow_graphs[data_type_folder] = self.load_flow_graph_new("flow_graph.json", join(root, level_folder, data_type_folder), low_level_data_types)
+        print(flow_graphs)
         return data_types
 
     def load_data_type_new(self, data_type_folder, root):
@@ -52,10 +59,10 @@ class FileManager:
         match_function = getattr(matchFunctions, match_function_name)
         return DataType(data_type_name, {}, match_function)
 
-    def load_flow_graph_new(self, flow_graph_file, root):
+    def load_flow_graph_new(self, flow_graph_file, root, low_level_data_types):
         try:
             flow_graph_json = open(join(root, flow_graph_file)).read()
-            return self.flow_graph_object_from_json(flow_graph_json)
+            return self.flow_graph_object_from_json(flow_graph_json, low_level_data_types)
         except FileNotFoundError:
             return None
 
@@ -233,11 +240,11 @@ class FileManager:
             oldMin.writelines("\n".join(result) + "\n")
             oldMin.truncate()
 
-    def flow_graph_object_from_json(self, inputJSON):
+    def flow_graph_object_from_json(self, inputJSON, low_level_data_types):
         gm = GuidMapper()
 
         inputObject = json.loads(inputJSON)
-        nodes, name = graphFromJSON(json.dumps(inputObject["graph"]), guidMapper=gm)
+        nodes, name = graphFromJSON(json.dumps(inputObject["graph"]), low_level_data_types, guidMapper=gm)
         startNodes = []
         for node_id in inputObject["startNodes"]:
             for node in nodes:
