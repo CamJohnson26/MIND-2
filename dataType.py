@@ -14,7 +14,9 @@ class DataType:
         self.dataTypeName = dataTypeName
         self.dataClasses = {}
         for key in dataClasses.keys():
-            self.dataClasses[key] = dataClasses[key]
+            self.dataClasses[key] = {}
+            for data_class_key in dataClasses[key]:
+                self.dataClasses[key][data_class_key] = dataClasses[key][data_class_key]
         self.matchFunction = matchFunction
 
     def __str__(self):
@@ -34,7 +36,9 @@ class DataType:
         dataClassesJson = {}
         for key in self.dataClasses.keys():
             if self.dataClasses[key]:
-                dataClassesJson[key] = self.dataClasses[key]
+                dataClassesJson[key] = {}
+                for data_class_key in self.dataClasses[key]:
+                    dataClassesJson[key][data_class_key] = self.dataClasses[key][data_class_key].get_json()
             else:
                 dataClassesJson[key] = None
         rv["dataClasses"] = dataClassesJson

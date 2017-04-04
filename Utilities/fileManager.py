@@ -42,7 +42,9 @@ class FileManager:
             low_level_data_types[key] = data_types[key]
         for data_type_folder in data_type_folders:
             flow_graphs[data_type_folder] = self.load_flow_graph_new("flow_graph.json", join(root, level_folder, data_type_folder), low_level_data_types)
-        print(flow_graphs)
+        print("\n")
+        print([(a, data_types[a]) for a in data_types])
+        print([flow_graphs[a] for a in flow_graphs])
         return data_types
 
     def load_data_type_new(self, data_type_folder, root):
@@ -57,7 +59,7 @@ class FileManager:
         match_function_name = "alwaysFalse"
         data_type_name = data_type_folder
         match_function = getattr(matchFunctions, match_function_name)
-        return DataType(data_type_name, {}, match_function)
+        return DataType(data_type_name, classes, match_function)
 
     def load_flow_graph_new(self, flow_graph_file, root, low_level_data_types):
         try:
@@ -69,9 +71,9 @@ class FileManager:
     def load_data_class_type(self, data_class_type, root):
         data_class_folders_path = join(root, data_class_type)
         data_class_folders = [f for f in listdir(data_class_folders_path) if not isfile(f)]
-        data_classes = []
+        data_classes = {}
         for data_class_folder in data_class_folders:
-            data_classes.append(self.load_data_class_new(data_class_folder, data_class_folders_path))
+            data_classes[data_class_folder.split(" - ")[1]] = self.load_data_class_new(data_class_folder, data_class_folders_path)
         return data_classes
 
     def load_data_class_new(self, data_class_folder, root):

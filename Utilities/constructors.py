@@ -10,16 +10,18 @@ def graphNodeFromJSON(inputJSON, data_types, guidMapper=GuidMapper()):
     from MIND2.Utilities.fileManager import FileManager
     inputObject = json.loads(inputJSON)
     file_manager = FileManager()
-    dataType = data_types[inputObject["dataType"]]
+    data_type = data_types[inputObject["dataType"]]
     dataClasses = {}
     for key in inputObject["dataClasses"].keys():
         if not inputObject["dataClasses"][key]:
             dataClasses[key] = None
-        elif type(inputObject["dataClasses"][key]) in [str]:
+        elif type(inputObject["dataClasses"][key]) is str:
+            data_classes = data_type.dataClasses[key]
+            data_class_name = inputObject["dataClasses"][key]
+            data_class = data_classes[data_class_name]
+            dataClasses[key] = data_class
             dataClasses[key] = file_manager.load_data_class(inputObject["dataClasses"][key])
-        else:
-            dataClasses[key] = file_manager.load_data_class(json.dumps(inputObject["dataClasses"][key]))
-    graphNode = GraphNode(dataType)
+    graphNode = GraphNode(data_type)
     graphNode.guid = guidMapper.get(inputObject["guid"])
     graphNode.nexts = []
     graphNode.dataClasses = dataClasses
