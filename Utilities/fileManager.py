@@ -1,4 +1,4 @@
-from os import listdir, walk, path
+from os import listdir, walk, path, makedirs
 from os.path import isfile, join
 import csv
 import json
@@ -42,9 +42,9 @@ class FileManager:
             low_level_data_types[key] = data_types[key]
         for data_type_folder in data_type_folders:
             flow_graphs[data_type_folder] = self.load_flow_graph_new("flow_graph.json", join(root, level_folder, data_type_folder), low_level_data_types)
-        print("\n")
-        print([(a, data_types[a]) for a in data_types])
-        print([flow_graphs[a] for a in flow_graphs])
+        #print("\n")
+        #print([(a, data_types[a]) for a in data_types])
+        #print([flow_graphs[a] for a in flow_graphs])
         return data_types
 
     def load_data_type_new(self, data_type_folder, root):
@@ -151,6 +151,23 @@ class FileManager:
                 new_file.write(new_json)
                 new_file.close()
 
+    def generate_flow_graphs_from_min_file_folder(self, root):
+        try:
+            min_file = open(join(root, "min_file.csv"), 'r')
+            f = self.flow_graph_min_file_to_json(min_file)
+            for key in f:
+                try:
+                    makedirs(join(root, key))
+                except FileExistsError:
+                    pass
+                file = open(join(root, key, "flow_graph.json"), 'w')
+                file.write(f[key])
+                file.close()
+                print(join(root, key))
+                print(f[key])
+        except FileNotFoundError:
+            pass
+
     def refreshObjects(self, home_folder, min_file_name, json_to_min_file, min_file_to_json):
         self.save_home_folder_to_min_file(home_folder, min_file_name, json_to_min_file)
         self.generateFiles(home_folder, min_file_name, min_file_to_json)
@@ -161,7 +178,7 @@ class FileManager:
 
     @staticmethod
     def min_file_to_array(minFile):
-        return list(csv.reader([minFile], delimiter=",", quotechar="'"))[0]
+        return list(csv.reader(minFile, delimiter=",", quotechar="'"))
 
     @staticmethod
     def array_to_min(iarray):
@@ -261,24 +278,27 @@ class FileManager:
         return flowGraph
 
     def flow_graph_min_file_to_json(self, minFile):
-        value = self.min_file_to_array(minFile)
-        new_json = {"class": "FlowGraph"}
-        new_json["graph"] = {"nodes": [], "guid": -1, "class": "GraphStructure"}
-        nodes = json.loads(value[1])
-        for n in nodes:
-            new_node = {"class": "GraphNode", "dataClass": None}
-            new_node["guid"] = int(n[0])
-            new_node["dataType"] = n[1]
-            new_node["dataClasses"] = n[2]
-            new_node["nexts"] = n[3]
-            new_json["graph"]["nodes"].append(new_node)
-        new_json["startNodes"] = json.loads(value[2])
-        new_json["contextNodes"] = json.loads(value[3])
-        new_json["graph"]["name"] = value[4]
-        for key in new_json:
-            if new_json[key] == "":
-                new_json[key] = None
-        return json.dumps(new_json, indent=4)
+        ret_json = {}
+        values = self.min_file_to_array(minFile)
+        for value in values:
+            new_json = {"class": "FlowGraph"}
+            new_json["graph"] = {"nodes": [], "guid": -1, "class": "GraphStructure"}
+            nodes = json.loads(value[1])
+            for n in nodes:
+                new_node = {"class": "GraphNode", "dataClass": None}
+                new_node["guid"] = int(n[0])
+                new_node["dataType"] = n[1]
+                new_node["dataClasses"] = n[2]
+                new_node["nexts"] = n[3]
+                new_json["graph"]["nodes"].append(new_node)
+            new_json["startNodes"] = json.loads(value[2])
+            new_json["contextNodes"] = json.loads(value[3])
+            new_json["graph"]["name"] = value[4]
+            for key in new_json:
+                if new_json[key] == "":
+                    new_json[key] = None
+            ret_json[value[0]] = json.dumps(new_json, indent=4)
+        return ret_json
 
     def flow_graph_json_to_min_file(self, inputJSON, fileLocation):
         rv = []
