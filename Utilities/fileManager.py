@@ -163,8 +163,6 @@ class FileManager:
                 file = open(join(root, key, "flow_graph.json"), 'w')
                 file.write(f[key])
                 file.close()
-                print(join(root, key))
-                print(f[key])
         except FileNotFoundError:
             pass
 
@@ -283,7 +281,7 @@ class FileManager:
         for value in values:
             new_json = {"class": "FlowGraph"}
             new_json["graph"] = {"nodes": [], "guid": -1, "class": "GraphStructure"}
-            nodes = json.loads(value[1])
+            nodes = json.loads(value[2])
             for n in nodes:
                 new_node = {"class": "GraphNode", "dataClass": None}
                 new_node["guid"] = int(n[0])
@@ -291,13 +289,15 @@ class FileManager:
                 new_node["dataClasses"] = n[2]
                 new_node["nexts"] = n[3]
                 new_json["graph"]["nodes"].append(new_node)
-            new_json["startNodes"] = json.loads(value[2])
-            new_json["contextNodes"] = json.loads(value[3])
-            new_json["graph"]["name"] = value[4]
+            new_json["startNodes"] = json.loads(value[3])
+            new_json["contextNodes"] = json.loads(value[4])
+            new_json["graph"]["name"] = value[5]
             for key in new_json:
                 if new_json[key] == "":
                     new_json[key] = None
-            ret_json[value[0]] = json.dumps(new_json, indent=4)
+            file_path = value[1].split("/")
+            file_path[-1] = str(value[0]) + " - " + file_path[-1]
+            ret_json["/".join(file_path)] = json.dumps(new_json, indent=4)
         return ret_json
 
     def flow_graph_json_to_min_file(self, inputJSON, fileLocation):
