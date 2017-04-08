@@ -1,5 +1,5 @@
 from os import listdir, walk, path, makedirs
-from os.path import isfile, join
+from os.path import isfile, join, isdir
 import csv
 import json
 from MIND2.flowGraph import FlowGraph
@@ -140,6 +140,29 @@ class FileManager:
             json = f.read()
             rv.append(self.dataTypeobjectFromJSON(json))
         return rv
+
+    def create_min_files(self, root):
+        for subdir, dirs, files in walk(root):
+            for dir in dirs:
+                if dir == "classes":
+                    self.data_class_folder_to_min(join(subdir, dir))
+
+    def data_class_folder_to_min(self, folder):
+        min_file = open(join(folder, "min_file.csv"), 'w')
+        lines = []
+        for dir in listdir(folder):
+            if isdir(join(folder, dir)):
+                for subdir in listdir(join(folder, dir)):
+                    index = subdir.split(" - ")[0]
+                    name = path.split(folder)[-1] + "/" + subdir.split(" - ")[1]
+                    try:
+                        flow_graph_json = open(join(folder, dir, subdir, "flow_graph.json")).read()
+                    except FileNotFoundError:
+                        flow_graph_json = None
+                    flow_graph = self.flow_graph_json_to_min_file(flow_graph_json, name, index)
+                    lines.append(flow_graph)
+        min_file.write("\n".join(lines))
+        min_file.close()
 
     def generate_min_files(self, root):
         for subdir, dirs, files in walk(root):
@@ -313,11 +336,15 @@ class FileManager:
             ret_json[file_path] = new_json
         return ret_json
 
-    def flow_graph_json_to_min_file(self, inputJSON, fileLocation):
+    def flow_graph_json_to_min_file(self, inputJSON, name, index):
         rv = []
-        j = json.loads(inputJSON)
-        rv.append(fileLocation)
+        rv.append(index)
+        rv.append(name)
 
+        if not inputJSON:
+            return self.array_to_min(rv)
+
+        j = json.loads(inputJSON)
         newNodes = "["
         for i, n in enumerate(j["graph"]["nodes"]):
             newNodes += "["
@@ -369,6 +396,16 @@ class FileManager:
         newNodes += "]"
         rv.append(newNodes)
         rv.append(j["graph"]["name"])
+        newNodes = "{"
+        for key in j["dataClasses"].keys():
+            if j["dataClasses"][key]:
+                newNodes += "\"" + key + "\":\"" + j["dataClasses"][key] + "\","
+            else:
+                newNodes += "\"" + key + "\":null,"
+        if len(j["dataClasses"].keys()) > 0:
+            newNodes = newNodes[:-1]
+        newNodes += "}"
+        rv.append(newNodes)
         return self.array_to_min(rv)
 
 
