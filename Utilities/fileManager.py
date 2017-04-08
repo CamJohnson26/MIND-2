@@ -291,13 +291,15 @@ class FileManager:
                 new_json["graph"]["nodes"].append(new_node)
             new_json["startNodes"] = json.loads(value[3])
             new_json["contextNodes"] = json.loads(value[4])
+            new_json["dataClasses"] = json.loads(value[6])
             new_json["graph"]["name"] = value[5]
             for key in new_json:
                 if new_json[key] == "":
                     new_json[key] = None
             file_path = value[1].split("/")
             file_path[-1] = str(value[0]) + " - " + file_path[-1]
-            ret_json["/".join(file_path)] = json.dumps(new_json, indent=4)
+            file_path = "classes/" + "/".join(file_path)
+            ret_json[file_path] = json.dumps(new_json, indent=4)
         return ret_json
 
     def flow_graph_json_to_min_file(self, inputJSON, fileLocation):
