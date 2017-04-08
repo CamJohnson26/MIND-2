@@ -141,6 +141,12 @@ class FileManager:
             rv.append(self.dataTypeobjectFromJSON(json))
         return rv
 
+    def generate_min_files(self, root):
+        for subdir, dirs, files in walk(root):
+            for file in files:
+                if file == "min_file.csv":
+                    self.generate_flow_graphs_from_min_file_folder(file, subdir)
+
     def generateFiles(self, home_folder, min_file_name, min_file_to_json):
         with open(join(home_folder, min_file_name)) as minFile:
             lines = minFile.readlines()
@@ -151,18 +157,19 @@ class FileManager:
                 new_file.write(new_json)
                 new_file.close()
 
-    def generate_flow_graphs_from_min_file_folder(self, root):
+    def generate_flow_graphs_from_min_file_folder(self, min_file_name, root):
         try:
-            min_file = open(join(root, "min_file.csv"), 'r')
+            min_file = open(join(root, min_file_name), 'r')
             f = self.flow_graph_min_file_to_json(min_file)
             for key in f:
                 try:
                     makedirs(join(root, key))
                 except FileExistsError:
                     pass
-                file = open(join(root, key, "flow_graph.json"), 'w')
-                file.write(f[key])
-                file.close()
+                if f[key]:
+                    file = open(join(root, key, "flow_graph.json"), 'w')
+                    file.write(f[key])
+                    file.close()
         except FileNotFoundError:
             pass
 
@@ -279,27 +286,31 @@ class FileManager:
         ret_json = {}
         values = self.min_file_to_array(minFile)
         for value in values:
-            new_json = {"class": "FlowGraph"}
-            new_json["graph"] = {"nodes": [], "guid": -1, "class": "GraphStructure"}
-            nodes = json.loads(value[2])
-            for n in nodes:
-                new_node = {"class": "GraphNode", "dataClass": None}
-                new_node["guid"] = int(n[0])
-                new_node["dataType"] = n[1]
-                new_node["dataClasses"] = n[2]
-                new_node["nexts"] = n[3]
-                new_json["graph"]["nodes"].append(new_node)
-            new_json["startNodes"] = json.loads(value[3])
-            new_json["contextNodes"] = json.loads(value[4])
-            new_json["dataClasses"] = json.loads(value[6])
-            new_json["graph"]["name"] = value[5]
-            for key in new_json:
-                if new_json[key] == "":
-                    new_json[key] = None
+            if len(value) > 2:
+                new_json = {"class": "FlowGraph"}
+                new_json["graph"] = {"nodes": [], "guid": -1, "class": "GraphStructure"}
+                nodes = json.loads(value[2])
+                for n in nodes:
+                    new_node = {"class": "GraphNode", "dataClass": None}
+                    new_node["guid"] = int(n[0])
+                    new_node["dataType"] = n[1]
+                    new_node["dataClasses"] = n[2]
+                    new_node["nexts"] = n[3]
+                    new_json["graph"]["nodes"].append(new_node)
+                new_json["startNodes"] = json.loads(value[3])
+                new_json["contextNodes"] = json.loads(value[4])
+                new_json["dataClasses"] = json.loads(value[6])
+                new_json["graph"]["name"] = value[5]
+                for key in new_json:
+                    if new_json[key] == "":
+                        new_json[key] = None
+                new_json = json.dumps(new_json, indent=4)
+            else:
+                new_json = None
             file_path = value[1].split("/")
             file_path[-1] = str(value[0]) + " - " + file_path[-1]
-            file_path = "classes/" + "/".join(file_path)
-            ret_json[file_path] = json.dumps(new_json, indent=4)
+            file_path = "/".join(file_path)
+            ret_json[file_path] = new_json
         return ret_json
 
     def flow_graph_json_to_min_file(self, inputJSON, fileLocation):
