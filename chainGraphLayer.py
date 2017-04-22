@@ -94,7 +94,7 @@ class ChainGraphLayer:
         :return: graphNode
         """
         copy = graphNode.get_copy()
-        for n in self.chainGraph.graph.nodes:
+        for n in self.chainGraph.nodes:
             if graphNode in n.nexts:
                 n.nexts.append(copy)
         bncopies = []
@@ -103,8 +103,8 @@ class ChainGraphLayer:
                 bncopy = bn.get_copy()
                 bncopy.targetGraphNode = copy
                 bncopies.append(bncopy)
-        index = self.chainGraph.graph.nodes.index(graphNode) + 1
-        self.chainGraph.graph.nodes.insert(index, copy)
+        index = self.chainGraph.nodes.index(graphNode) + 1
+        self.chainGraph.nodes.insert(index, copy)
         self.bridgeNodes.extend(bncopies)
         return copy
 
