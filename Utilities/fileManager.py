@@ -5,9 +5,10 @@ import json
 from MIND2.flowGraph import FlowGraph
 from MIND2.Utilities.guidMapper import GuidMapper
 from MIND2.Utilities.constructors import graphFromJSON
+from MIND2.Utilities.constructors import graphFromJSON_old
 from MIND2.dataClass import DataClass
 from MIND2.dataType import DataType
-import MIND2.Data.matchFunctions as matchFunctions
+import MIND2.Data.matchFunctions_old as matchFunctions
 
 
 class FileManager:
@@ -89,6 +90,11 @@ class FileManager:
         json = f.read()
         return self.flow_graph_object_from_json(json)
 
+    def load_flow_graph_old(self, input_file_name):
+        f = open(join(self.flow_graph_home_folder, input_file_name))
+        json = f.read()
+        return self.flow_graph_object_from_json_old(json)
+
     def load_data_class(self, input_file_name):
         f = open(join(self.data_class_home_folder, input_file_name))
         json = f.read()
@@ -110,7 +116,7 @@ class FileManager:
         for file in files:
             f = open(join(self.flow_graph_home_folder, file))
             json = f.read()
-            rv.append(self.flow_graph_object_from_json(json))
+            rv.append(self.flow_graph_object_from_json_old(json))
         return rv
 
     def load_data_classes(self, inputFolder):
@@ -125,6 +131,20 @@ class FileManager:
             f = open(join(self.data_class_home_folder, file))
             json = f.read()
             rv.append(self.dataClassobjectFromJSON(json))
+        return rv
+
+    def load_data_classes_old(self, inputFolder):
+        rv = []
+        if type(inputFolder) is list:
+            files = [str(f) + ".json" for f in inputFolder]
+        else:
+            path = join(self.data_class_home_folder, inputFolder)
+            files = listdir(path)
+            files = [join(inputFolder, f) for f in files if isfile(join(path, f))]
+        for file in files:
+            f = open(join(self.data_class_home_folder, file))
+            json = f.read()
+            rv.append(self.dataClassobjectFromJSON_old(json))
         return rv
 
     def load_data_types(self, inputFolder):
@@ -159,7 +179,7 @@ class FileManager:
                         flow_graph_json = open(join(folder, dir, subdir, "flow_graph.json")).read()
                     except FileNotFoundError:
                         flow_graph_json = None
-                    flow_graph = self.flow_graph_json_to_min_file(flow_graph_json, name, index)
+                    flow_graph = self.flow_graph_json_to_min_file(flow_graph_json, name)#, index)
                     lines.append(flow_graph)
         min_file.write("\n".join(lines))
         min_file.close()
@@ -174,6 +194,7 @@ class FileManager:
         with open(join(home_folder, min_file_name)) as minFile:
             lines = minFile.readlines()
             for line in lines:
+                print(line)
                 new_json = min_file_to_json(line)
                 fileName = self.min_file_to_array(line)[0]
                 new_file = open(fileName, 'w')
@@ -206,7 +227,7 @@ class FileManager:
 
     @staticmethod
     def min_file_to_array(minFile):
-        return list(csv.reader(minFile, delimiter=",", quotechar="'"))
+        return list(csv.reader([minFile], delimiter=",", quotechar="'"))[0]
 
     @staticmethod
     def array_to_min(iarray):
@@ -287,7 +308,43 @@ class FileManager:
             oldMin.writelines("\n".join(result) + "\n")
             oldMin.truncate()
 
-    def flow_graph_object_from_json(self, inputJSON, low_level_data_types):
+    def flow_graph_object_from_json_old(self, inputJSON):
+        gm = GuidMapper()
+
+        inputObject = json.loads(inputJSON)
+        nodes, name = graphFromJSON_old(json.dumps(inputObject["graph"]), guidMapper=gm)
+        startNodes = []
+        for node_id in inputObject["startNodes"]:
+            for node in nodes:
+                if node.guid == gm.get(node_id):
+                    startNodes.append(node)
+        contextNodes = []
+        for node_id in inputObject["contextNodes"]:
+            for node in nodes:
+                if node.guid == gm.get(node_id):
+                    contextNodes.append(node)
+        flowGraph = FlowGraph(nodes, name, startNodes, contextNodes=contextNodes)
+        return flowGraph
+
+    def flow_graph_object_from_json(self, inputJSON):
+        gm = GuidMapper()
+
+        inputObject = json.loads(inputJSON)
+        nodes, name = graphFromJSON(json.dumps(inputObject["graph"]), guidMapper=gm)
+        startNodes = []
+        for node_id in inputObject["startNodes"]:
+            for node in nodes:
+                if node.guid == gm.get(node_id):
+                    startNodes.append(node)
+        contextNodes = []
+        for node_id in inputObject["contextNodes"]:
+            for node in nodes:
+                if node.guid == gm.get(node_id):
+                    contextNodes.append(node)
+        flowGraph = FlowGraph(nodes, name, startNodes, contextNodes=contextNodes)
+        return flowGraph
+
+    def flow_graph_object_from_json_new(self, inputJSON, low_level_data_types):
         gm = GuidMapper()
 
         inputObject = json.loads(inputJSON)
@@ -305,7 +362,7 @@ class FileManager:
         flowGraph = FlowGraph(nodes, name, startNodes, contextNodes=contextNodes)
         return flowGraph
 
-    def flow_graph_min_file_to_json(self, minFile):
+    def flow_graph_min_file_to_json_new(self, minFile):
         ret_json = {}
         values = self.min_file_to_array(minFile)
         for value in values:
@@ -336,9 +393,95 @@ class FileManager:
             ret_json[file_path] = new_json
         return ret_json
 
-    def flow_graph_json_to_min_file(self, inputJSON, name, index):
+    def flow_graph_min_file_to_json(self, minFile):
+        value = self.min_file_to_array(minFile)
+        new_json = {"class": "FlowGraph"}
+        new_json["graph"] = {"nodes": [], "guid": -1, "class": "GraphStructure"}
+        nodes = json.loads(value[1])
+        for n in nodes:
+            new_node = {"class": "GraphNode", "dataClass": None}
+            new_node["guid"] = int(n[0])
+            new_node["dataType"] = n[1]
+            new_node["dataClasses"] = n[2]
+            new_node["nexts"] = n[3]
+            new_json["graph"]["nodes"].append(new_node)
+        new_json["startNodes"] = json.loads(value[2])
+        new_json["contextNodes"] = json.loads(value[3])
+        new_json["graph"]["name"] = value[4]
+        for key in new_json:
+            if new_json[key] == "":
+                new_json[key] = None
+        new_json = json.dumps(new_json, indent=4)
+        file_path = value[1].split("/")
+        file_path[-1] = str(value[0]) + " - " + file_path[-1]
+        file_path = "/".join(file_path)
+        return new_json
+
+    def flow_graph_json_to_min_file(self, inputJSON, name):
         rv = []
-        rv.append(index)
+        rv.append(name)
+
+        if not inputJSON:
+            return self.array_to_min(rv)
+
+        j = json.loads(inputJSON)
+        newNodes = "["
+        for i, n in enumerate(j["graph"]["nodes"]):
+            newNodes += "["
+            newNodes += str(i)
+            newNodes += ","
+            newNodes += "\"" + n["dataType"] + "\"" if n["dataType"] else "null"
+            newNodes += ","
+            newNodes += "{"
+            for key in n["dataClasses"].keys():
+                if n["dataClasses"][key]:
+                    newNodes += "\"" + key + "\":\"" + n["dataClasses"][key] + "\","
+                else:
+                    newNodes += "\"" + key + "\":null,"
+            if len(n["dataClasses"].keys()) > 0:
+                newNodes = newNodes[:-1]
+            newNodes += "}"
+            newNodes += ","
+            t = "["
+            for k in n["nexts"]:
+                if k:
+                    t += str(k)
+                else:
+                    t += "null"
+                t += ","
+            if len(t) > 1:
+                t = t[:-1]
+            t += "]"
+            newNodes += t
+            newNodes += "]"
+            newNodes += ","
+        if len(newNodes) > 1:
+            newNodes = newNodes[:-1]
+        newNodes += "]"
+        rv.append(newNodes)
+        newNodes = "["
+        for i, n in enumerate(j["startNodes"]):
+            newNodes += str(i)
+            newNodes += ","
+        if len(newNodes) > 1:
+            newNodes = newNodes[:-1]
+        newNodes += "]"
+        rv.append(newNodes)
+        newNodes = "["
+        for i, n in enumerate(j["contextNodes"]):
+            newNodes += str(n)
+            newNodes += ","
+        if len(newNodes) > 1:
+            newNodes = newNodes[:-1]
+        newNodes += "]"
+        rv.append(newNodes)
+        rv.append(j["graph"]["name"])
+        rv.append(newNodes)
+        return self.array_to_min(rv)
+
+
+    def flow_graph_json_to_min_file_new(self, inputJSON, name):
+        rv = []
         rv.append(name)
 
         if not inputJSON:
@@ -408,15 +551,31 @@ class FileManager:
         rv.append(newNodes)
         return self.array_to_min(rv)
 
-
     def dataClassobjectFromJSON(self, inputJSON):
         inputObject = json.loads(inputJSON)
         if not inputObject["flowGraph"]:
             flowGraph = None
         elif type(inputObject["flowGraph"] is str):
-            flowGraph = self.load_flow_graph(inputObject["flowGraph"])
+            flowGraph = self.load_flow_graph_old(inputObject["flowGraph"])
         else:
             flowGraph = self.flow_graph_object_from_json(json.dumps(inputObject["flowGraph"]))
+        dataClassIndex = inputObject["dataClassIndex"]
+        dataClassString = inputObject["dataClassString"]
+        dataClasses = inputObject["dataClasses"]
+        dataClass = DataClass(flowGraph, dataClassIndex, dataClassString)
+        for key in dataClasses.keys():
+            dataClasses[key] = self.load_data_class(dataClasses[key])
+        dataClass.dataClasses = dataClasses
+        return dataClass
+
+    def dataClassobjectFromJSON_old(self, inputJSON):
+        inputObject = json.loads(inputJSON)
+        if not inputObject["flowGraph"]:
+            flowGraph = None
+        elif type(inputObject["flowGraph"] is str):
+            flowGraph = self.load_flow_graph_old(inputObject["flowGraph"])
+        else:
+            flowGraph = self.flow_graph_object_from_json_old(json.dumps(inputObject["flowGraph"]))
         dataClassIndex = inputObject["dataClassIndex"]
         dataClassString = inputObject["dataClassString"]
         dataClasses = inputObject["dataClasses"]

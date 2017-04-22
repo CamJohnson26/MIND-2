@@ -14,9 +14,9 @@ class DataType:
         self.dataTypeName = dataTypeName
         self.dataClasses = {}
         for key in dataClasses.keys():
-            self.dataClasses[key] = {}
-            for data_class_key in dataClasses[key]:
-                self.dataClasses[key][data_class_key] = dataClasses[key][data_class_key]
+            self.dataClasses[key] = dataClasses[key]
+            #for data_class_key in dataClasses[key]:
+            #    self.dataClasses[key][data_class_key] = dataClasses[key][data_class_key]
         self.matchFunction = matchFunction
 
     def __str__(self):

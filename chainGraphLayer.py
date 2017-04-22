@@ -47,7 +47,7 @@ class ChainGraphLayer:
             dataClassName = dataType.dataClasses["dataIndex"]
             dataTypeName = dataType.dataTypeName
             file_manager = FileManager()
-            dataClasses[dataTypeName] = file_manager.load_data_classes(dataClassName)
+            dataClasses[dataTypeName] = file_manager.load_data_classes_old(dataClassName)
         for node in self.chainGraph.nodes:
             if node.dataClasses["dataIndex"] is None:
                 matches = node.get_matching_classes(dataClasses)
