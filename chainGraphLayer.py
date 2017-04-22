@@ -35,6 +35,30 @@ class ChainGraphLayer:
         rv["bridgeNodes"] = [a.get_json() for a in self.bridgeNodes]
         return rv
 
+    def classify_new(self, dataTypes):
+        """
+        Given a list of dataTypes, apply a class to each node in the chainGraph
+
+        :param dataTypes:
+        :return: None
+        """
+        dataClasses = {}
+        for dataType in dataTypes:
+            dataClasses[dataType.dataTypeName] = dataType.dataClasses["dataIndex"]
+        for node in self.chainGraph.nodes:
+            if node.dataClasses["dataIndex"] is None:
+                matches = node.get_matching_classes(dataClasses)
+                try:
+                    c = matches.pop()
+                    node.rollup_dataClass(c)
+                    node.dataClasses["dataIndex"] = c
+                except IndexError:
+                    pass
+                for c in matches:
+                    copy = self.copy_node(node)
+                    copy.rollup_dataClass(c)
+                    copy.dataClasses["dataIndex"] = c
+
     def classify(self, dataTypes):
         """
         Given a list of dataTypes, apply a class to each node in the chainGraph

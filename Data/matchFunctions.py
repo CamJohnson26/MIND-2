@@ -180,182 +180,182 @@ def char_z(test):
     return returnVal
 
 
-def char_A(test):
+def char_A_cap(test):
     returnVal = False
     if type(test) is str and test in ['A']:
         returnVal = True
     return returnVal
 
 
-def char_B(test):
+def char_B_cap(test):
     returnVal = False
     if type(test) is str and test in ['B']:
         returnVal = True
     return returnVal
 
 
-def char_C(test):
+def char_C_cap(test):
     returnVal = False
     if type(test) is str and test in ['C']:
         returnVal = True
     return returnVal
 
 
-def char_D(test):
+def char_D_cap(test):
     returnVal = False
     if type(test) is str and test in ['D']:
         returnVal = True
     return returnVal
 
 
-def char_E(test):
+def char_E_cap(test):
     returnVal = False
     if type(test) is str and test in ['E']:
         returnVal = True
     return returnVal
 
 
-def char_F(test):
+def char_F_cap(test):
     returnVal = False
     if type(test) is str and test in ['F']:
         returnVal = True
     return returnVal
 
 
-def char_G(test):
+def char_G_cap(test):
     returnVal = False
     if type(test) is str and test in ['G']:
         returnVal = True
     return returnVal
 
 
-def char_H(test):
+def char_H_cap(test):
     returnVal = False
     if type(test) is str and test in ['H']:
         returnVal = True
     return returnVal
 
 
-def char_I(test):
+def char_I_cap(test):
     returnVal = False
     if type(test) is str and test in ['I']:
         returnVal = True
     return returnVal
 
 
-def char_J(test):
+def char_J_cap(test):
     returnVal = False
     if type(test) is str and test in ['J']:
         returnVal = True
     return returnVal
 
 
-def char_K(test):
+def char_K_cap(test):
     returnVal = False
     if type(test) is str and test in ['K']:
         returnVal = True
     return returnVal
 
 
-def char_L(test):
+def char_L_cap(test):
     returnVal = False
     if type(test) is str and test in ['L']:
         returnVal = True
     return returnVal
 
 
-def char_M(test):
+def char_M_cap(test):
     returnVal = False
     if type(test) is str and test in ['M']:
         returnVal = True
     return returnVal
 
 
-def char_N(test):
+def char_N_cap(test):
     returnVal = False
     if type(test) is str and test in ['N']:
         returnVal = True
     return returnVal
 
 
-def char_O(test):
+def char_O_cap(test):
     returnVal = False
     if type(test) is str and test in ['O']:
         returnVal = True
     return returnVal
 
 
-def char_P(test):
+def char_P_cap(test):
     returnVal = False
     if type(test) is str and test in ['P']:
         returnVal = True
     return returnVal
 
 
-def char_Q(test):
+def char_Q_cap(test):
     returnVal = False
     if type(test) is str and test in ['Q']:
         returnVal = True
     return returnVal
 
 
-def char_R(test):
+def char_R_cap(test):
     returnVal = False
     if type(test) is str and test in ['R']:
         returnVal = True
     return returnVal
 
 
-def char_S(test):
+def char_S_cap(test):
     returnVal = False
     if type(test) is str and test in ['S']:
         returnVal = True
     return returnVal
 
 
-def char_T(test):
+def char_T_cap(test):
     returnVal = False
     if type(test) is str and test in ['T']:
         returnVal = True
     return returnVal
 
 
-def char_U(test):
+def char_U_cap(test):
     returnVal = False
     if type(test) is str and test in ['U']:
         returnVal = True
     return returnVal
 
 
-def char_V(test):
+def char_V_cap(test):
     returnVal = False
     if type(test) is str and test in ['V']:
         returnVal = True
     return returnVal
 
 
-def char_W(test):
+def char_W_cap(test):
     returnVal = False
     if type(test) is str and test in ['W']:
         returnVal = True
     return returnVal
 
 
-def char_X(test):
+def char_X_cap(test):
     returnVal = False
     if type(test) is str and test in ['X']:
         returnVal = True
     return returnVal
 
 
-def char_Y(test):
+def char_Y_cap(test):
     returnVal = False
     if type(test) is str and test in ['Y']:
         returnVal = True
     return returnVal
 
 
-def char_Z(test):
+def char_Z_cap(test):
     returnVal = False
     if type(test) is str and test in ['Z']:
         returnVal = True
@@ -446,9 +446,9 @@ def number(test):
     return returnVal
 
 
-def whiteSpace(test):
+def white_space(test):
     returnVal = False
-    if type(test) is str and test in ['\t',' ','\n']:
+    if type(test) is str and test in ['\t',' ','\n','']:
         returnVal = True
     return returnVal
 

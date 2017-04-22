@@ -103,8 +103,8 @@ class GraphNode:
         matches = []
         try:
             for c in dataClasses[self.dataType.dataTypeName]:
-                if c.matches(self):
-                    matches.append(c)
+                if dataClasses[self.dataType.dataTypeName][c].matches(self):
+                    matches.append(dataClasses[self.dataType.dataTypeName][c])
         except KeyError:
             pass
         return matches
