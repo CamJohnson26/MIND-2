@@ -65,7 +65,7 @@ class FileManager:
         try:
             flow_graph_json = open(join(root, flow_graph_file)).read()
             return self.flow_graph_object_from_json(flow_graph_json, low_level_data_types)
-        except FileNotFoundError:
+        except (FileNotFoundError, NotADirectoryError):
             return None
 
     def load_data_class_type(self, data_class_type, root, low_level_data_types):
@@ -80,7 +80,7 @@ class FileManager:
         try:
             flow_graph = self.load_flow_graph("flow_graph.json", join(root, data_class_folder), low_level_data_types)
             data_classes = self.load_data_classes_from_flow_graph(join(root, data_class_folder, "flow_graph.json"), low_level_data_types)
-        except FileNotFoundError:
+        except (FileNotFoundError, NotADirectoryError):
             flow_graph = None
             data_classes = {}
         data_class_index = int(data_class_folder.split(" - ")[0])
