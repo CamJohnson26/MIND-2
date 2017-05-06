@@ -6,7 +6,7 @@ from MIND2.Utilities.guidMapper import GuidMapper
 import MIND2.Data.matchFunctions as matchFunctions
 
 
-def graphNodeFromJSON_new(inputJSON, data_types, guidMapper=GuidMapper()):
+def graphNodeFromJSON(inputJSON, data_types, guidMapper=GuidMapper()):
     from MIND2.Utilities.fileManager import FileManager
     inputObject = json.loads(inputJSON)
     file_manager = FileManager()
@@ -45,13 +45,14 @@ def graph_nodes_from_cursor(cursor):
         graphNodes.append(GraphNode(dataType, new_pd))
     return graphNodes
 
+
 def graphFromJSON(inputJSON, data_types, guidMapper=GuidMapper()):
     inputObject = json.loads(inputJSON)
     name = inputObject["name"]
     nodes = []
     nodeGuids = {}
     for node in inputObject["nodes"]:
-        new_node = graphNodeFromJSON_new(json.dumps(node), data_types, guidMapper=guidMapper)
+        new_node = graphNodeFromJSON(json.dumps(node), data_types, guidMapper=guidMapper)
         nodeGuids[new_node.guid] = new_node
         nodes.append(new_node)
     for node in inputObject["nodes"]:
@@ -64,12 +65,6 @@ def graphFromJSON(inputJSON, data_types, guidMapper=GuidMapper()):
                 new_nexts.append(nodeGuids[guidMapper.get(next_id)])
         current_node.nexts = new_nexts
     return nodes, name
-
-def chainGraphFromJSON(inputJSON):
-    inputObject = json.loads(inputJSON)
-    nodes, name = graphFromJSON(json.dumps(inputObject["graph"]))
-    chainGraph = ChainGraph(nodes, name)
-    return chainGraph
 
 
 def chainGraphFromString(inputString):
