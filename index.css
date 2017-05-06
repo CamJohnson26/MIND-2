@@ -1,0 +1,30 @@
+.link {
+  stroke: #aaa;
+}
+
+.node text {
+	stroke:#333;
+	cursos:pointer;
+}
+
+.node circle{
+	stroke:#fff;
+	stroke-width:3px;
+	fill:#555;
+}
+
+#sidebar {
+	position: absolute;
+	width: 500px;
+}
+
+a {
+	display: block;
+}
+
+#svg-canvas {
+	position: fixed;
+	left: 350px;
+	width: 1500px;
+    height: 900px;
+}
