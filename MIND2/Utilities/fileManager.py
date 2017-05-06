@@ -93,7 +93,7 @@ class FileManager:
         f = open(input_file_name)
         j = json.loads(f.read())
         data_classes = j.get("dataClasses", {});
-        root = path.join(input_file_name, "..\\..\\..")
+        root = path.join(input_file_name, join("..","..",".."))
         rv = {}
         for data_class_type in data_classes.keys():
             rv[data_class_type] = self.load_data_class(data_classes[data_class_type], root, low_level_data_types)
