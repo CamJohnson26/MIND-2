@@ -2,6 +2,7 @@ from MIND2.graphMachine import GraphMachine
 from MIND2.Utilities.constructors import *
 from MIND2.Utilities.pretty_representation import *
 from MIND2.Utilities.fileManager import FileManager
+from os.path import join
 
 file_manager = FileManager()
 
@@ -26,40 +27,40 @@ originalChainGraphLayer = chainGraphLayerFromString(testData)
 #print(originalChainGraphLayer)
 #print(pretty_chainGraphLayer(originalChainGraphLayer))
 
-level0_data_types = file_manager.load_level("level0", "Data\\Core", {})
-level1_data_types = file_manager.load_level("level1", "Data\\Core", level0_data_types)
+level0_data_types = file_manager.load_level("level0", join("MIND2","Data","Core"), {})
+level1_data_types = file_manager.load_level("level1", join("MIND2","Data","Core"), level0_data_types)
 for key in level0_data_types:
     level1_data_types[key] = level0_data_types[key]
-level2_data_types = file_manager.load_level("level2", "Data\\Core", level1_data_types)
+level2_data_types = file_manager.load_level("level2", join("MIND2","Data","Core"), level1_data_types)
 for key in level1_data_types:
     level2_data_types[key] = level1_data_types[key]
-level3_data_types = file_manager.load_level("level3", "Data\\Core", level2_data_types)
+level3_data_types = file_manager.load_level("level3", join("MIND2","Data","Core"), level2_data_types)
 for key in level2_data_types:
     level3_data_types[key] = level2_data_types[key]
 
-flow_graphs = file_manager.load_flow_graphs(["letter","number","punctuation","white_space"], "Data\\Core\\level1", low_level_data_types=level1_data_types)
+flow_graphs = file_manager.load_flow_graphs(["letter","number","punctuation","white_space"], join("MIND2","Data","Core","level1"), low_level_data_types=level1_data_types)
 graphMachine = GraphMachine(originalChainGraphLayer)
 graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(originalChainGraphLayer, flow_graphs)
 graphMachine.chainGraphLayer.classify([
-    file_manager.load_data_type("letter", "Data\\Core\\level1", low_level_data_types=level1_data_types),
-    file_manager.load_data_type("number", "Data\\Core\\level1", low_level_data_types=level1_data_types)
+    file_manager.load_data_type("letter", join("MIND2","Data","Core","level1"), low_level_data_types=level1_data_types),
+    file_manager.load_data_type("number", join("MIND2","Data","Core","level1"), low_level_data_types=level1_data_types)
 ])
 #print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
-flow_graphs = file_manager.load_flow_graphs(["word"], "Data\\Core\\level2", low_level_data_types=level2_data_types)
+flow_graphs = file_manager.load_flow_graphs(["word"], join("MIND2","Data","Core","level2"), low_level_data_types=level2_data_types)
 
-flow_graphs.extend(file_manager.load_flow_graphs(["number", "punctuation"], "Data\\Core\\level1", low_level_data_types=level1_data_types))
+flow_graphs.extend(file_manager.load_flow_graphs(["number", "punctuation"], join("MIND2","Data","Core","level1"), low_level_data_types=level1_data_types))
 
 graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(graphMachine.chainGraphLayer, flow_graphs)
 #print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
-temp_data_types = file_manager.load_data_type("word", "Data\\Core\\level2", low_level_data_types=level2_data_types)
+temp_data_types = file_manager.load_data_type("word", join("MIND2","Data","Core","level2"), low_level_data_types=level2_data_types)
 graphMachine.chainGraphLayer.classify([
     temp_data_types
 ])
 
 #print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
-flow_graphs = file_manager.load_flow_graphs(["job_posting_skill"], "Data\\Core\\level3", low_level_data_types=level3_data_types)
+flow_graphs = file_manager.load_flow_graphs(["job_posting_skill"], join("MIND2","Data","Core","level3"), low_level_data_types=level3_data_types)
 graphMachine.chainGraphLayer = graphMachine.feed_chain_graph_layer(graphMachine.chainGraphLayer, flow_graphs)
 print(pretty_chainGraphLayer(graphMachine.chainGraphLayer))
 
