@@ -1,0 +1,29 @@
+{
+    "class": "FlowGraph",
+    "contextNodes": [],
+    "graph": {
+        "guid": -1,
+        "class": "GraphStructure",
+        "name": "a",
+        "nodes": [
+            {
+                "class": "GraphNode",
+                "dataClasses": {
+                    "dataIndex": "letterA"
+                },
+                "nexts": [
+                    null
+                ],
+                "dataClass": null,
+                "guid": 0,
+                "dataType": "letter"
+            }
+        ]
+    },
+    "startNodes": [
+        0
+    ],
+    "dataClasses": {
+        "partOfSpeech": "02 - article"
+    }
+}
