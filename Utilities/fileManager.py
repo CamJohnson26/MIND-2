@@ -41,7 +41,7 @@ class FileManager:
         for key in data_types:
             low_level_data_types[key] = data_types[key]
         for data_type_folder in data_type_folders:
-            flow_graphs[data_type_folder] = self.load_flow_graph_new("flow_graph.json", join(root, level_folder, data_type_folder), low_level_data_types)
+            flow_graphs[data_type_folder] = self.load_flow_graph("flow_graph.json", join(root, level_folder, data_type_folder), low_level_data_types)
         return data_types
 
     def load_data_type(self, data_type_folder, root, low_level_data_types=None):
@@ -62,7 +62,7 @@ class FileManager:
             match_function = getattr(matchFunctions, "alwaysFalse")
         return DataType(data_type_name, classes, match_function)
 
-    def load_flow_graph_new(self, flow_graph_file, root, low_level_data_types):
+    def load_flow_graph(self, flow_graph_file, root, low_level_data_types):
         try:
             flow_graph_json = open(join(root, flow_graph_file)).read()
             return self.flow_graph_object_from_json(flow_graph_json, low_level_data_types)
@@ -78,9 +78,8 @@ class FileManager:
         return data_classes
 
     def load_data_class(self, data_class_folder, root, low_level_data_types):
-        #data_class_json = json.loads(open(join(root, data_class_folder, "data_class.json")).read())
         try:
-            flow_graph = self.load_flow_graph(join(root, data_class_folder, "flow_graph.json"), low_level_data_types)
+            flow_graph = self.load_flow_graph("flow_graph.json", join(root, data_class_folder), low_level_data_types)
             data_classes = self.load_data_classes_from_flow_graph(join(root, data_class_folder, "flow_graph.json"), low_level_data_types)
         except FileNotFoundError:
             flow_graph = None
@@ -90,11 +89,6 @@ class FileManager:
         data_class = DataClass(flow_graph, data_class_index, data_class_name)
         data_class.dataClasses = data_classes
         return data_class
-
-    def load_flow_graph(self, input_file_name, low_level_data_types):
-        f = open(input_file_name)
-        j = f.read()
-        return self.flow_graph_object_from_json(j, low_level_data_types)
 
     def load_data_classes_from_flow_graph(self, input_file_name, low_level_data_types):
         f = open(input_file_name)
