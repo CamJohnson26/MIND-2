@@ -1,0 +1,22 @@
+Data
+	dataNode
+		graphNode
+			graphStructure
+				dataGraph
+				flowGraph
+		parseNode -> Bridge Node
+	dataGraphLayer -> Store all information about datagraph and bridge nodes
+
+State
+	graphCursor -> Store the current node of a graph and provide next when necessary. Handle whether stepping is complete
+		dataGraphCursor
+		flowGraphCursor
+	graphStepper -> Apply a list of graph nodes to a datagraph and return bridge nodes and new datagraph 
+
+Controller
+	dataGraphFlattener -> Input datagraph, output flat data graph
+	dataGraphMachine -> input flow graphs and datalayer_1, output datalayer_2
+	
+
+
+-g-r-a-p-h-P-a-r-s-e-
