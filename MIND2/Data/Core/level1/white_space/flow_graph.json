@@ -1,0 +1,26 @@
+{
+    "startNodes": [
+        0
+    ],
+    "contextNodes": [],
+    "graph": {
+        "class": "GraphStructure",
+        "name": "white_space",
+        "nodes": [
+            {
+                "nexts": [
+                    null
+                ],
+                "dataType": "white_space",
+                "class": "GraphNode",
+                "dataClass": null,
+                "dataClasses": {
+                    "dataIndex": null
+                },
+                "guid": 0
+            }
+        ],
+        "guid": -1
+    },
+    "class": "FlowGraph"
+}
