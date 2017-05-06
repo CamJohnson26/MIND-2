@@ -5,27 +5,6 @@ from MIND2.graphNode import GraphNode
 from MIND2.Utilities.guidMapper import GuidMapper
 import MIND2.Data.matchFunctions as matchFunctions
 
-def graphNodeFromJSON_old(inputJSON, guidMapper=GuidMapper()):
-    from MIND2.Utilities.fileManager import FileManager
-    inputObject = json.loads(inputJSON)
-    file_manager = FileManager()
-    if type(inputObject["dataType"]) is str:
-        data_type = file_manager.load_data_type(inputObject["dataType"])
-    else:
-        node_json = json.dumps(inputObject["dataType"])
-        data_type = file_manager.load_data_type(node_json)
-    dataClasses = {}
-    for key in inputObject["dataClasses"].keys():
-        if not inputObject["dataClasses"][key]:
-            dataClasses[key] = None
-        elif type(inputObject["dataClasses"][key]) is str:
-            dataClasses[key] = file_manager.load_data_class(inputObject["dataClasses"][key])
-    graphNode = GraphNode(data_type)
-    graphNode.guid = guidMapper.get(inputObject["guid"])
-    graphNode.nexts = []
-    graphNode.dataClasses = dataClasses
-    return graphNode
-
 
 def graphNodeFromJSON_new(inputJSON, data_types, guidMapper=GuidMapper()):
     from MIND2.Utilities.fileManager import FileManager
@@ -66,47 +45,7 @@ def graph_nodes_from_cursor(cursor):
         graphNodes.append(GraphNode(dataType, new_pd))
     return graphNodes
 
-def graphFromJSON_old(inputJSON, guidMapper=GuidMapper()):
-    inputObject = json.loads(inputJSON)
-    name = inputObject["name"]
-    nodes = []
-    nodeGuids = {}
-    for node in inputObject["nodes"]:
-        new_node = graphNodeFromJSON_old(json.dumps(node), guidMapper=guidMapper)
-        nodeGuids[new_node.guid] = new_node
-        nodes.append(new_node)
-    for node in inputObject["nodes"]:
-        current_node = nodeGuids[guidMapper.get(node["guid"])]
-        new_nexts = []
-        for next_id in node["nexts"]:
-            if next_id is None:
-                new_nexts.append(None)
-            else:
-                new_nexts.append(nodeGuids[guidMapper.get(next_id)])
-        current_node.nexts = new_nexts
-    return nodes, name
-
-def graphFromJSON(inputJSON, guidMapper=GuidMapper()):
-    inputObject = json.loads(inputJSON)
-    name = inputObject["name"]
-    nodes = []
-    nodeGuids = {}
-    for node in inputObject["nodes"]:
-        new_node = graphNodeFromJSON(json.dumps(node), guidMapper=guidMapper)
-        nodeGuids[new_node.guid] = new_node
-        nodes.append(new_node)
-    for node in inputObject["nodes"]:
-        current_node = nodeGuids[guidMapper.get(node["guid"])]
-        new_nexts = []
-        for next_id in node["nexts"]:
-            if next_id is None:
-                new_nexts.append(None)
-            else:
-                new_nexts.append(nodeGuids[guidMapper.get(next_id)])
-        current_node.nexts = new_nexts
-    return nodes, name
-
-def graphFromJSON_new(inputJSON, data_types, guidMapper=GuidMapper()):
+def graphFromJSON(inputJSON, data_types, guidMapper=GuidMapper()):
     inputObject = json.loads(inputJSON)
     name = inputObject["name"]
     nodes = []
@@ -133,7 +72,7 @@ def chainGraphFromJSON(inputJSON):
     return chainGraph
 
 
-def chainGraphFromString_new(inputString):
+def chainGraphFromString(inputString):
     from MIND2.Utilities.fileManager import FileManager
     testDataGraphNodes = []
     previousNode = None
@@ -141,38 +80,17 @@ def chainGraphFromString_new(inputString):
     # TODO: Need to update this to load the level 0 folder and pass it into one of the lower methods
     low_level_data_types = file_manager.load_level("level0","Data\\Core", {})
     dataTypes = [
-        file_manager.load_data_type_new("letter", "Data\\Core\\level1", low_level_data_types=low_level_data_types),
-        file_manager.load_data_type_new("number", "Data\\Core\\level1", low_level_data_types=low_level_data_types),
-        file_manager.load_data_type_new("punctuation", "Data\\Core\\level1", low_level_data_types=low_level_data_types),
-        file_manager.load_data_type_new("white_space", "Data\\Core\\level1", low_level_data_types=low_level_data_types)
+        file_manager.load_data_type("letter", "Data\\Core\\level1", low_level_data_types=low_level_data_types),
+        file_manager.load_data_type("number", "Data\\Core\\level1", low_level_data_types=low_level_data_types),
+        file_manager.load_data_type("punctuation", "Data\\Core\\level1", low_level_data_types=low_level_data_types),
+        file_manager.load_data_type("white_space", "Data\\Core\\level1", low_level_data_types=low_level_data_types)
     ]
     for c in inputString:
         cDataTypeName = "char"
         for dataType in low_level_data_types.values():
             if dataType.matches(c):
                 cDataTypeName = dataType.dataTypeName
-        cDataType = file_manager.load_data_type_new(cDataTypeName, "Data\\Core\\level1", low_level_data_types=low_level_data_types)
-        cGraphNode = GraphNode(cDataType, c)
-        testDataGraphNodes.append(cGraphNode)
-        if previousNode:
-            previousNode.nexts.append(cGraphNode)
-        previousNode = cGraphNode
-    testDataGraphNodes[-1].nexts.append(None)
-    return ChainGraph(testDataGraphNodes, "character_stream")
-
-
-def chainGraphFromString(inputString):
-    from MIND2.Utilities.fileManager import FileManager
-    testDataGraphNodes = []
-    previousNode = None
-    file_manager = FileManager()
-    dataTypes = [file_manager.load_data_type("letter.json"), file_manager.load_data_type("number.json"), file_manager.load_data_type("punctuation.json"), file_manager.load_data_type("whiteSpace.json")]
-    for c in inputString:
-        cDataTypeName = "char"
-        for dataType in dataTypes:
-            if dataType.matches(c):
-                cDataTypeName = dataType.dataTypeName
-        cDataType = file_manager.load_data_type(cDataTypeName + ".json")
+        cDataType = file_manager.load_data_type(cDataTypeName, "Data\\Core\\level1", low_level_data_types=low_level_data_types)
         cGraphNode = GraphNode(cDataType, c)
         testDataGraphNodes.append(cGraphNode)
         if previousNode:
@@ -187,5 +105,5 @@ def chainGraphLayerFromString(inputString):
     from MIND2.Utilities.fileManager import FileManager
     file_manager = FileManager()
     chainGraphLayer = ChainGraphLayer(None)
-    chainGraphLayer.chainGraph = chainGraphFromString_new(inputString)
+    chainGraphLayer.chainGraph = chainGraphFromString(inputString)
     return chainGraphLayer

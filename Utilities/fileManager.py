@@ -4,8 +4,7 @@ import csv
 import json
 from MIND2.flowGraph import FlowGraph
 from MIND2.Utilities.guidMapper import GuidMapper
-from MIND2.Utilities.constructors import graphFromJSON_new
-from MIND2.Utilities.constructors import graphFromJSON_old
+from MIND2.Utilities.constructors import graphFromJSON
 from MIND2.dataClass import DataClass
 from MIND2.dataType import DataType
 import MIND2.Data.matchFunctions as matchFunctions
@@ -38,14 +37,14 @@ class FileManager:
         data_types = {}
         flow_graphs = {}
         for data_type_folder in data_type_folders:
-            data_types[data_type_folder] = self.load_data_type_new(data_type_folder, join(root, level_folder), low_level_data_types=low_level_data_types)
+            data_types[data_type_folder] = self.load_data_type(data_type_folder, join(root, level_folder), low_level_data_types=low_level_data_types)
         for key in data_types:
             low_level_data_types[key] = data_types[key]
         for data_type_folder in data_type_folders:
             flow_graphs[data_type_folder] = self.load_flow_graph_new("flow_graph.json", join(root, level_folder, data_type_folder), low_level_data_types)
         return data_types
 
-    def load_data_type_new(self, data_type_folder, root, low_level_data_types=None):
+    def load_data_type(self, data_type_folder, root, low_level_data_types=None):
         if not low_level_data_types:
             low_level_data_types = {}
         data_class_types_path = join(root, data_type_folder, "classes")
@@ -66,7 +65,7 @@ class FileManager:
     def load_flow_graph_new(self, flow_graph_file, root, low_level_data_types):
         try:
             flow_graph_json = open(join(root, flow_graph_file)).read()
-            return self.flow_graph_object_from_json_new(flow_graph_json, low_level_data_types)
+            return self.flow_graph_object_from_json(flow_graph_json, low_level_data_types)
         except FileNotFoundError:
             return None
 
@@ -75,10 +74,10 @@ class FileManager:
         data_class_folders = [f for f in listdir(data_class_folders_path) if not isfile(f)]
         data_classes = {}
         for data_class_folder in data_class_folders:
-            data_classes[data_class_folder.split(" - ")[1]] = self.load_data_class_new(data_class_folder, data_class_folders_path, low_level_data_types)
+            data_classes[data_class_folder.split(" - ")[1]] = self.load_data_class(data_class_folder, data_class_folders_path, low_level_data_types)
         return data_classes
 
-    def load_data_class_new(self, data_class_folder, root, low_level_data_types):
+    def load_data_class(self, data_class_folder, root, low_level_data_types):
         #data_class_json = json.loads(open(join(root, data_class_folder, "data_class.json")).read())
         try:
             flow_graph = self.load_flow_graph(join(root, data_class_folder, "flow_graph.json"), low_level_data_types)
@@ -95,7 +94,7 @@ class FileManager:
     def load_flow_graph(self, input_file_name, low_level_data_types):
         f = open(input_file_name)
         j = f.read()
-        return self.flow_graph_object_from_json_new(j, low_level_data_types)
+        return self.flow_graph_object_from_json(j, low_level_data_types)
 
     def load_data_classes_from_flow_graph(self, input_file_name, low_level_data_types):
         f = open(input_file_name)
@@ -104,23 +103,8 @@ class FileManager:
         root = path.join(input_file_name, "..\\..\\..")
         rv = {}
         for data_class_type in data_classes.keys():
-            rv[data_class_type] = self.load_data_class_new(data_classes[data_class_type], root, low_level_data_types)
+            rv[data_class_type] = self.load_data_class(data_classes[data_class_type], root, low_level_data_types)
         return rv
-
-    def load_flow_graph_old(self, input_file_name):
-        f = open(join(self.flow_graph_home_folder, input_file_name))
-        j = f.read()
-        return self.flow_graph_object_from_json_old(j)
-
-    def load_data_class(self, input_file_name):
-        f = open(join(self.data_class_home_folder, input_file_name))
-        j = f.read()
-        return self.dataClassobjectFromJSON(j)
-
-    def load_data_type(self, input_file_name):
-        f = open(join(self.data_type_home_folder, input_file_name))
-        j = f.read()
-        return self.dataTypeobjectFromJSON(j)
 
     def load_flow_graphs(self, inputFolder, root, low_level_data_types={}):
         rv = []
@@ -133,7 +117,7 @@ class FileManager:
         for file in files:
             f = open(join(root, file))
             json = f.read()
-            rv.append(self.flow_graph_object_from_json_new(json, low_level_data_types))
+            rv.append(self.flow_graph_object_from_json(json, low_level_data_types))
         return rv
 
     def load_data_classes(self, inputFolder):
@@ -148,20 +132,6 @@ class FileManager:
             f = open(join(self.data_class_home_folder, file))
             json = f.read()
             rv.append(self.dataClassobjectFromJSON(json))
-        return rv
-
-    def load_data_classes_old(self, inputFolder):
-        rv = []
-        if type(inputFolder) is list:
-            files = [str(f) + ".json" for f in inputFolder]
-        else:
-            path = join(self.data_class_home_folder, inputFolder)
-            files = listdir(path)
-            files = [join(inputFolder, f) for f in files if isfile(join(path, f))]
-        for file in files:
-            f = open(join(self.data_class_home_folder, file))
-            json = f.read()
-            rv.append(self.dataClassobjectFromJSON_old(json))
         return rv
 
     def load_data_types(self, inputFolder):
@@ -325,11 +295,11 @@ class FileManager:
             oldMin.writelines("\n".join(result) + "\n")
             oldMin.truncate()
 
-    def flow_graph_object_from_json_old(self, inputJSON):
+    def flow_graph_object_from_json(self, inputJSON, low_level_data_types):
         gm = GuidMapper()
 
         inputObject = json.loads(inputJSON)
-        nodes, name = graphFromJSON_old(json.dumps(inputObject["graph"]), guidMapper=gm)
+        nodes, name = graphFromJSON(json.dumps(inputObject["graph"]), low_level_data_types, guidMapper=gm)
         startNodes = []
         for node_id in inputObject["startNodes"]:
             for node in nodes:
@@ -342,55 +312,6 @@ class FileManager:
                     contextNodes.append(node)
         flowGraph = FlowGraph(nodes, name, startNodes, contextNodes=contextNodes)
         return flowGraph
-
-    def flow_graph_object_from_json_new(self, inputJSON, low_level_data_types):
-        gm = GuidMapper()
-
-        inputObject = json.loads(inputJSON)
-        nodes, name = graphFromJSON_new(json.dumps(inputObject["graph"]), low_level_data_types, guidMapper=gm)
-        startNodes = []
-        for node_id in inputObject["startNodes"]:
-            for node in nodes:
-                if node.guid == gm.get(node_id):
-                    startNodes.append(node)
-        contextNodes = []
-        for node_id in inputObject["contextNodes"]:
-            for node in nodes:
-                if node.guid == gm.get(node_id):
-                    contextNodes.append(node)
-        flowGraph = FlowGraph(nodes, name, startNodes, contextNodes=contextNodes)
-        return flowGraph
-
-    def flow_graph_min_file_to_json_new(self, minFile):
-        ret_json = {}
-        values = self.min_file_to_array(minFile)
-        for value in values:
-            if len(value) > 2:
-                new_json = {"class": "FlowGraph"}
-                new_json["graph"] = {"nodes": [], "guid": -1, "class": "GraphStructure"}
-                nodes = json.loads(value[2])
-                for n in nodes:
-                    new_node = {"class": "GraphNode", "dataClass": None}
-                    new_node["guid"] = int(n[0])
-                    new_node["dataType"] = n[1]
-                    new_node["dataClasses"] = n[2]
-                    new_node["nexts"] = n[3]
-                    new_json["graph"]["nodes"].append(new_node)
-                new_json["startNodes"] = json.loads(value[3])
-                new_json["contextNodes"] = json.loads(value[4])
-                new_json["dataClasses"] = json.loads(value[6])
-                new_json["graph"]["name"] = value[5]
-                for key in new_json:
-                    if new_json[key] == "":
-                        new_json[key] = None
-                new_json = json.dumps(new_json, indent=4)
-            else:
-                new_json = None
-            file_path = value[1].split("/")
-            file_path[-1] = str(value[0]) + " - " + file_path[-1]
-            file_path = "/".join(file_path)
-            ret_json[file_path] = new_json
-        return ret_json
 
     def flow_graph_min_file_to_json(self, minFile):
         value = self.min_file_to_array(minFile)
@@ -479,7 +400,7 @@ class FileManager:
         return self.array_to_min(rv)
 
 
-    def flow_graph_json_to_min_file_new(self, inputJSON, name):
+    def flow_graph_json_to_min_file(self, inputJSON, name):
         rv = []
         rv.append(name)
 
@@ -558,23 +479,6 @@ class FileManager:
             flowGraph = self.load_flow_graph_old(inputObject["flowGraph"])
         else:
             flowGraph = self.flow_graph_object_from_json(json.dumps(inputObject["flowGraph"]))
-        dataClassIndex = inputObject["dataClassIndex"]
-        dataClassString = inputObject["dataClassString"]
-        dataClasses = inputObject["dataClasses"]
-        dataClass = DataClass(flowGraph, dataClassIndex, dataClassString)
-        for key in dataClasses.keys():
-            dataClasses[key] = self.load_data_class(dataClasses[key])
-        dataClass.dataClasses = dataClasses
-        return dataClass
-
-    def dataClassobjectFromJSON_old(self, inputJSON):
-        inputObject = json.loads(inputJSON)
-        if not inputObject["flowGraph"]:
-            flowGraph = None
-        elif type(inputObject["flowGraph"] is str):
-            flowGraph = self.load_flow_graph_old(inputObject["flowGraph"])
-        else:
-            flowGraph = self.flow_graph_object_from_json_old(json.dumps(inputObject["flowGraph"]))
         dataClassIndex = inputObject["dataClassIndex"]
         dataClassString = inputObject["dataClassString"]
         dataClasses = inputObject["dataClasses"]
