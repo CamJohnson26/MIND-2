@@ -44,10 +44,7 @@ class ChainGraphLayer:
         """
         dataClasses = {}
         for dataType in dataTypes:
-            dataClassName = dataType.dataClasses["dataIndex"]
-            dataTypeName = dataType.dataTypeName
-            file_manager = FileManager()
-            dataClasses[dataTypeName] = file_manager.load_data_classes(dataClassName)
+            dataClasses[dataType.dataTypeName] = dataType.dataClasses["dataIndex"]
         for node in self.chainGraph.nodes:
             if node.dataClasses["dataIndex"] is None:
                 matches = node.get_matching_classes(dataClasses)
@@ -70,7 +67,7 @@ class ChainGraphLayer:
         :return: graphNode
         """
         copy = graphNode.get_copy()
-        for n in self.chainGraph.graph.nodes:
+        for n in self.chainGraph.nodes:
             if graphNode in n.nexts:
                 n.nexts.append(copy)
         bncopies = []
@@ -79,8 +76,8 @@ class ChainGraphLayer:
                 bncopy = bn.get_copy()
                 bncopy.targetGraphNode = copy
                 bncopies.append(bncopy)
-        index = self.chainGraph.graph.nodes.index(graphNode) + 1
-        self.chainGraph.graph.nodes.insert(index, copy)
+        index = self.chainGraph.nodes.index(graphNode) + 1
+        self.chainGraph.nodes.insert(index, copy)
         self.bridgeNodes.extend(bncopies)
         return copy
 

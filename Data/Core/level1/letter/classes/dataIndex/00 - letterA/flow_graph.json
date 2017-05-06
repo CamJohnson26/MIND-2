@@ -1,0 +1,39 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "dataClass": null,
+                "class": "GraphNode",
+                "dataClasses": {
+                    "dataIndex": null
+                },
+                "guid": 0,
+                "nexts": [
+                    null
+                ],
+                "dataType": "char_a"
+            },
+            {
+                "dataClass": null,
+                "class": "GraphNode",
+                "dataClasses": {
+                    "dataIndex": null
+                },
+                "guid": 1,
+                "nexts": [
+                    null
+                ],
+                "dataType": "char_A_cap"
+            }
+        ],
+        "name": "a",
+        "guid": -1,
+        "class": "GraphStructure"
+    },
+    "class": "FlowGraph",
+    "contextNodes": [],
+    "startNodes": [
+        0,
+        1
+    ]
+}

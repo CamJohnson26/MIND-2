@@ -1,0 +1,41 @@
+{
+    "class": "FlowGraph",
+    "contextNodes": [],
+    "graph": {
+        "guid": -1,
+        "class": "GraphStructure",
+        "name": "of",
+        "nodes": [
+            {
+                "class": "GraphNode",
+                "dataClasses": {
+                    "dataIndex": "letterO"
+                },
+                "nexts": [
+                    1
+                ],
+                "dataClass": null,
+                "guid": 0,
+                "dataType": "letter"
+            },
+            {
+                "class": "GraphNode",
+                "dataClasses": {
+                    "dataIndex": "letterF"
+                },
+                "nexts": [
+                    null
+                ],
+                "dataClass": null,
+                "guid": 1,
+                "dataType": "letter"
+            }
+        ]
+    },
+    "startNodes": [
+        0
+    ],
+    "dataClasses": {
+        "partOfSpeech": "05 - preposition"
+    }
+}
